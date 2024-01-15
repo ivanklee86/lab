@@ -29,6 +29,9 @@ RUN curl -L https://raw.githubusercontent.com/warrensbox/tgswitch/release/instal
 ARG TERRAGRUNT_VERSION="0.54.17"
 RUN tgswitch ${TERRAGRUNT_VERSION}
 
+# - Install task
+RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
+
 # - Install pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git .pyenv
 ENV PYENV_ROOT="/home/vscode/.pyenv"
