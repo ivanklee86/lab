@@ -13,9 +13,12 @@ WORKDIR /home/vscode
 
 # - Install standard packages
 RUN apt-get update && \
+        # General purpose tools
     apt-get install -y curl git \
         software-properties-common \
-        gnupg2 apt-transport-https;
+        gnupg2 apt-transport-https \
+        # Python
+        libsasl2-dev python-dev libldap2-dev libssl-dev libsnmp-dev libffi-dev tzdata;
 
 
 COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
@@ -38,9 +41,9 @@ ENV PYENV_ROOT="/home/vscode/.pyenv"
 ENV PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:${HOME}/.local/bin:${PATH}"
 RUN git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
 
-RUN pyenv install 3.11 3.12
 ARG PYTHON_VERSION="3.12"
-RUN pyenv global ${PYTHON_VERSION}
+RUN pyenv install ${PYTHON_VERSION} && \
+    pyenv global ${PYTHON_VERSION}
 
 # -- Modify dotfile
 RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
