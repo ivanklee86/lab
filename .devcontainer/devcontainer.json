@@ -50,7 +50,7 @@
 				"ms-azuretools.vscode-docker",
 				"ritwickdey.LiveServer",
 				"ms-vscode.makefile-tools",
-				"bungcip.better-toml"
+				"hashicorp.terraform"
 			]
 		}
 	},
