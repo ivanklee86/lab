@@ -13,11 +13,18 @@ WORKDIR /home/vscode
 
 # - Install standard packages
 RUN apt-get update && \
+        # General purpose tools
     apt-get install -y curl git \
         software-properties-common \
-        gnupg2 apt-transport-https;
+        gnupg2 apt-transport-https \
+        # Python
+        libsasl2-dev libldap2-dev libssl-dev libsnmp-dev libffi-dev tzdata;
 
+USER vscode
 
+RUN sudo chown -R vscode /usr/local/bin
+
+# - Install tfswitcher
 COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
 
 # - Instorm OpenTofu version
@@ -29,15 +36,18 @@ RUN curl -L https://raw.githubusercontent.com/warrensbox/tgswitch/release/instal
 ARG TERRAGRUNT_VERSION="0.54.17"
 RUN tgswitch ${TERRAGRUNT_VERSION}
 
+# - Install task
+RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
+
 # - Install pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git .pyenv
 ENV PYENV_ROOT="/home/vscode/.pyenv"
 ENV PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:${HOME}/.local/bin:${PATH}"
 RUN git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
 
-RUN pyenv install 3.11 3.12
 ARG PYTHON_VERSION="3.12"
-RUN pyenv global ${PYTHON_VERSION}
+RUN pyenv install ${PYTHON_VERSION} && \
+    pyenv global ${PYTHON_VERSION}
 
 # -- Modify dotfile
 RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
