@@ -18,9 +18,13 @@ RUN apt-get update && \
         software-properties-common \
         gnupg2 apt-transport-https \
         # Python
-        libsasl2-dev python-dev libldap2-dev libssl-dev libsnmp-dev libffi-dev tzdata;
+        libsasl2-dev libldap2-dev libssl-dev libsnmp-dev libffi-dev tzdata;
 
+USER vscode
 
+RUN sudo chown -R vscode /usr/local/bin
+
+# - Install tfswitcher
 COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
 
 # - Instorm OpenTofu version
