@@ -28,6 +28,10 @@ theme:
         icon: material/brightness-4
         name: Switch to light mode
 
+nav:
+  - Home: 'index.md'
+  - Development: 'development.md'    
+
 markdown_extensions:
   - admonition
   - pymdownx.highlight:
