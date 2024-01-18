@@ -14,4 +14,4 @@ tasks:
   docs-release:
     cmds:
         - task: docs-install
-        - poetry run mkdocs gh-deploy
+        - poetry run mkdocs gh-deploy --force
