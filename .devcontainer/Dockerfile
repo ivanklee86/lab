@@ -16,7 +16,7 @@ RUN apt-get update && \
         # General purpose tools
     apt-get install -y curl git \
         software-properties-common \
-        gnupg2 apt-transport-https openssh-client \
+        gnupg2 apt-transport-https openssh-client vim \
         # Python
         libsasl2-dev libldap2-dev libssl-dev libsnmp-dev libffi-dev tzdata;
 
@@ -33,6 +33,9 @@ RUN tfswitcher -o ${TERRAFORM_VERSION}
 
 # - Install 1pw CLI
 COPY --from=1password/op:2 /usr/local/bin/op /usr/local/bin/op
+
+# - Install task
+RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 
 # - Install task
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
