@@ -32,15 +32,6 @@
 			// Set *default* container specific settings.json values on container create.
 			"settings": {
 				"python.defaultInterpreterPath": "/home/vscode/.pyenv/shims/python",
-				"python.formatting.blackPath": "/home/vscode/.pyenv/shims/black",
-				"python.linting.enabled": true,
-				"python.linting.pylintEnabled": true,
-				"python.linting.flake8Path": "/home/vscode/.pyenv/shims/flake8",
-				"python.linting.mypyPath": "/home/vscode/.pyenv/shims/mypy",
-				"python.linting.pylintPath": "/home/vscode/.pyenv/shims/pylint",
-				"python.testing.pytestArgs": [
-					"tests"
-				],
 				"python.testing.unittestEnabled": false,
 				"python.testing.pytestEnabled": true
 			},
@@ -50,7 +41,8 @@
 				"ms-azuretools.vscode-docker",
 				"ritwickdey.LiveServer",
 				"ms-vscode.makefile-tools",
-				"hashicorp.terraform"
+				"hashicorp.terraform",
+				"1Password.op-vscode"
 			]
 		}
 	},

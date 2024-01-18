@@ -16,7 +16,7 @@ RUN apt-get update && \
         # General purpose tools
     apt-get install -y curl git \
         software-properties-common \
-        gnupg2 apt-transport-https \
+        gnupg2 apt-transport-https openssh-client vim \
         # Python
         libsasl2-dev libldap2-dev libssl-dev libsnmp-dev libffi-dev tzdata;
 
@@ -31,10 +31,11 @@ COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
 ARG TERRAFORM_VERSION="1.6.0"
 RUN tfswitcher -o ${TERRAFORM_VERSION}
 
-# - Install tfgrunt
-RUN curl -L https://raw.githubusercontent.com/warrensbox/tgswitch/release/install.sh | bash
-ARG TERRAGRUNT_VERSION="0.54.17"
-RUN tgswitch ${TERRAGRUNT_VERSION}
+# - Install 1pw CLI
+COPY --from=1password/op:2 /usr/local/bin/op /usr/local/bin/op
+
+# - Install task
+RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 
 # - Install task
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
@@ -56,3 +57,11 @@ RUN echo 'export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
 RUN echo 'export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
 RUN echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 RUN echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
+
+# - Set up Git
+RUN git config --global user.name "Ivan Lee"
+RUN git config --global user.email "ivanklee86@gmail.com"
+RUN git config --global gpg.program gpg2
+RUN git config --global user.signingkey ivanklee86@gmail.com
+RUN git config --global commit.gpgsign true
+RUN git config --global push.autoSetupRemote true
