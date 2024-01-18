@@ -37,6 +37,9 @@ COPY --from=1password/op:2 /usr/local/bin/op /usr/local/bin/op
 # - Install task
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 
+# - Install task
+RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
+
 # - Install pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git .pyenv
 ENV PYENV_ROOT="/home/vscode/.pyenv"
