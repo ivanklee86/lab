@@ -57,3 +57,10 @@ RUN echo 'export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
 RUN echo 'export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
 RUN echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
 RUN echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
+
+# - Set up Git
+RUN git config --global user.name "Ivan Lee"
+RUN git config --global user.email "ivanklee86@gmail.com"
+RUN git config --global gpg.program gpg2
+RUN git config --global user.signingkey ivanklee86@gmail.com
+RUN git config --global commit.pgpsign true
