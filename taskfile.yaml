@@ -1,0 +1,17 @@
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  docs-install:
+    cmds:
+      - poetry install --no-root
+
+  docs-serve:
+    cmds:
+      - task: docs-install
+      - poetry run mkdocs serve
+
+  docs-release:
+    cmds:
+        - task: docs-install
+        - poetry run mkdocs gh-deploy

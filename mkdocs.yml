@@ -1,4 +1,39 @@
-site_name: My Docs
-
+site_name: Lab
+repo_url: https://github.com/ivanklee86/lab
+repo_name: ivanklee86/lab
 theme:
   name: material
+  features:
+    - header.autohide
+    - navigation.tabs
+    - navigation.path
+    - navigation.sections
+    - toc.follow
+    - search.suggest
+    - search.share
+  plugins:
+    - search
+    - social
+    - tags
+  palette:
+    # Toggles dark/light mode based on system preferences.
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
