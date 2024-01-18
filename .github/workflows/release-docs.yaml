@@ -15,7 +15,13 @@ jobs:
           python-version: "3.12"
       - name: Install Task
         uses: arduino/setup-task@v1
+      - name: Configure git
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
       - name: Deploy docs
         run: |
           pip install -U pip poetry
           task docs-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
