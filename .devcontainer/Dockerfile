@@ -16,7 +16,7 @@ RUN apt-get update && \
         # General purpose tools
     apt-get install -y curl git \
         software-properties-common \
-        gnupg2 apt-transport-https \
+        gnupg2 apt-transport-https openssh-client \
         # Python
         libsasl2-dev libldap2-dev libssl-dev libsnmp-dev libffi-dev tzdata;
 
