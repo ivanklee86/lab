@@ -17,4 +17,4 @@ jobs:
         uses: arduino/setup-task@v1
       - name: Deploy docs
         run: |
-          task docs-deploy
+          task docs-release
