@@ -31,10 +31,8 @@ COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
 ARG TERRAFORM_VERSION="1.6.0"
 RUN tfswitcher -o ${TERRAFORM_VERSION}
 
-# - Install tfgrunt
-RUN curl -L https://raw.githubusercontent.com/warrensbox/tgswitch/release/install.sh | bash
-ARG TERRAGRUNT_VERSION="0.54.17"
-RUN tgswitch ${TERRAGRUNT_VERSION}
+# - Install 1pw CLI
+COPY --from=1password/op:2 /usr/local/bin/op /usr/local/bin/op
 
 # - Install task
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d

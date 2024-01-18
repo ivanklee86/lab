@@ -50,7 +50,8 @@
 				"ms-azuretools.vscode-docker",
 				"ritwickdey.LiveServer",
 				"ms-vscode.makefile-tools",
-				"hashicorp.terraform"
+				"hashicorp.terraform",
+				"1Password.op-vscode"
 			]
 		}
 	},
