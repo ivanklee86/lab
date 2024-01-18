@@ -23,5 +23,3 @@ jobs:
         run: |
           pip install -U pip poetry
           task docs-release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
