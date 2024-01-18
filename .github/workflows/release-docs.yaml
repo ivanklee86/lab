@@ -17,4 +17,5 @@ jobs:
         uses: arduino/setup-task@v1
       - name: Deploy docs
         run: |
+          pip install -U pip poetry
           task docs-release
