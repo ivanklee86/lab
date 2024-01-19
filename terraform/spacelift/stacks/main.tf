@@ -6,7 +6,7 @@ resource "spacelift_stack" "stacks" {
 
   administrative               = true
   autodeploy                   = true
-  branch                       = "master"
+  branch                       = "main"
   description                  = each.value.description
   enable_local_preview         = true
   labels                       = toset(each.value.labels)
