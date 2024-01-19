@@ -1,6 +1,6 @@
 resource "spacelift_stack" "stacks" {
   for_each = {
-    for index, stack in local.local.stacks:
+    for index, stack in local.stacks:
       stack.name => stack
   }
 
