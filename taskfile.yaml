@@ -13,5 +13,9 @@ tasks:
 
   docs-release:
     cmds:
-        - task: docs-install
-        - poetry run mkdocs gh-deploy --force
+      - task: docs-install
+      - poetry run mkdocs gh-deploy --force
+
+  tf-fmt:
+    cmds:
+      - tofu fmt -recursive
