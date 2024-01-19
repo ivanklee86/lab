@@ -1,5 +1,8 @@
 resource "spacelift_stack" "stacks" {
-  for_each = toset(local.stacks)
+  for_each = {
+    for index, stack in local.stacks:
+      stack.name => stack
+  }
 
   administrative               = true
   autodeploy                   = true
