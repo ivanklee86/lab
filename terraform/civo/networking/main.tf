@@ -22,6 +22,14 @@ resource "civo_firewall" "lab_firewall" {
   }
 
   ingress_rule {
+    label      = "ssh"
+    protocol   = "tcp"
+    port_range = "22"
+    cidr       = ["0.0.0.0/0"]
+    action     = "allow"
+  }
+
+  ingress_rule {
     label      = "http"
     protocol   = "tcp"
     port_range = "80"
