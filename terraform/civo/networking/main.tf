@@ -1,17 +1,35 @@
+data "cloudflare_ip_ranges" "cloudflare" {}
+
 resource "civo_network" "lab" {
   label = "lab"
 }
 
 resource "civo_firewall" "lab_firewall" {
-  name = "lab_firewall"
-  network_id = civo_network.lab.id
+  name                 = "lab_firewall"
+  network_id           = civo_network.lab.id
   create_default_rules = false
-  
+
   ingress_rule {
     label      = "k8s"
     protocol   = "tcp"
     port_range = "6443"
     cidr       = ["100.8.82.42/32"]
+    action     = "allow"
+  }
+
+  ingress_rule {
+    label      = "http"
+    protocol   = "tcp"
+    port_range = "80"
+    cidr       = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
+    action     = "allow"
+  }
+
+  ingress_rule {
+    label      = "https"
+    protocol   = "tcp"
+    port_range = "443"
+    cidr       = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
     action     = "allow"
   }
 
@@ -26,5 +44,5 @@ resource "civo_firewall" "lab_firewall" {
 }
 
 resource "civo_reserved_ip" "ingress" {
-    name = "ingress" 
+  name = "ingress"
 }
