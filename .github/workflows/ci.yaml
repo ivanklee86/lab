@@ -20,7 +20,7 @@ jobs:
           tofu_version: 1.6.0
       - name: Install Task
         uses: arduino/setup-task@v1
-      - name: "Lint terraform"
+      - name: "Lint"
         run: |
           pip install -U pip poetry
           task lint-ci
