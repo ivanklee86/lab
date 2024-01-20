@@ -5,6 +5,7 @@ resource "civo_network" "lab" {
 resource "civo_firewall" "lab_firewall" {
   name = "lab_firewall"
   network_id = civo_network.lab.id
+  create_default_rules = false
   
   ingress_rule {
     label      = "k8s"
