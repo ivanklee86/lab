@@ -1,7 +1,7 @@
 resource "spacelift_stack" "stacks" {
   for_each = {
-    for index, stack in local.stacks:
-      stack.name => stack
+    for index, stack in local.stacks :
+    stack.name => stack
   }
 
   administrative               = true
