@@ -2,6 +2,9 @@
 FROM rust:1-bookworm as rust-builder
 RUN cargo install tfswitcher
 
+# Pull Spacelift docker image
+FROM ghcr.io/spacelift-io/spacectl as spacectl
+
 # Runtime
 # - Arguments
 
@@ -27,6 +30,9 @@ RUN sudo chown -R vscode /usr/local/bin
 # - Install tfswitcher
 COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
 
+# - Install spacectl
+COPY --from=spacectl /usr/local/bin/spacectl /usr/local/bin
+
 # - Instorm OpenTofu version
 ARG TERRAFORM_VERSION="1.6.0"
 RUN tfswitcher -o ${TERRAFORM_VERSION}
@@ -37,8 +43,8 @@ COPY --from=1password/op:2 /usr/local/bin/op /usr/local/bin/op
 # - Install task
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 
-# - Install task
-RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
+# - Install civo
+RUN curl -sL https://civo.com/get | sh
 
 # - Install pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git .pyenv
