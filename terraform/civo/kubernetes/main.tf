@@ -1,7 +1,7 @@
 resource "civo_kubernetes_cluster" "lab" {
   name               = "lab"
   applications       = ""
-  kubernetes_version = "1.28.2"
+  kubernetes_version = "1.28.2-k3s1"
   network_id         = data.terraform_remote_state.networking.outputs.network_id
   firewall_id        = data.terraform_remote_state.networking.outputs.firewall_id
   pools {
