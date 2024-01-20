@@ -20,7 +20,7 @@ data "terraform_remote_state" "networking" {
     organization = "ivanklee86"
 
     workspaces = {
-      name = "civo/networking"
+      name = "civo-networking"
     }
   }
 }
