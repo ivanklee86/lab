@@ -22,4 +22,5 @@ jobs:
         uses: arduino/setup-task@v1
       - name: "Lint terraform"
         run: |
+          pip install -U pip poetry
           task lint-ci
