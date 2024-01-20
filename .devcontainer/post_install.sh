@@ -11,3 +11,6 @@ poetry config virtualenvs.in-project true
 
 # Intall dependencies
 poetry install --no-root
+
+# pre-commit
+poetry run pre-commit install
