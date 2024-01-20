@@ -31,6 +31,7 @@
 		"vscode": {
 			// Set *default* container specific settings.json values on container create.
 			"settings": {
+				"editor.accessibilitySupport": "off",
 				"python.defaultInterpreterPath": "/home/vscode/.pyenv/shims/python",
 				"python.testing.unittestEnabled": false,
 				"python.testing.pytestEnabled": true
