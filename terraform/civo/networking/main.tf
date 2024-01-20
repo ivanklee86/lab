@@ -24,3 +24,7 @@ resource "civo_firewall" "lab_firewall" {
   }
 
 }
+
+resource "civo_reserved_ip" "ingress" {
+    name = "ingress" 
+}
