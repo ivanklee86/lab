@@ -1,6 +1,6 @@
 resource "civo_kubernetes_cluster" "lab" {
   name         = "lab"
-  applications = "-traefik2-loadbalancer"
+  applications = "-traefik2-loadbalancer, -traefik2-nodeport"
   network_id   = data.terraform_remote_state.networking.outputs.network_id
   firewall_id  = data.terraform_remote_state.networking.outputs.firewall_id
   pools {
