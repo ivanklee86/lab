@@ -11,6 +11,6 @@ locals {
       description : "CIVO networking"
       project_root : "terraform/civo/networking"
       labels : ["civo"]
-    }
+    },
   ]
 }
