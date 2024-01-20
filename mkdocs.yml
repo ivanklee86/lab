@@ -30,7 +30,7 @@ theme:
 
 nav:
   - Home: 'index.md'
-  - Development: 'development.md'    
+  - Development: 'development.md'
 
 markdown_extensions:
   - admonition

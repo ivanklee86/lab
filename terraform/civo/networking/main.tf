@@ -1,3 +1,7 @@
+locals {
+  home_ip = "100.8.82.42/32"
+}
+
 data "cloudflare_ip_ranges" "cloudflare" {}
 
 resource "civo_network" "lab" {
@@ -13,7 +17,7 @@ resource "civo_firewall" "lab_firewall" {
     label      = "k8s"
     protocol   = "tcp"
     port_range = "6443"
-    cidr       = ["100.8.82.42/32"]
+    cidr       = [local.home_ip]
     action     = "allow"
   }
 
@@ -21,7 +25,7 @@ resource "civo_firewall" "lab_firewall" {
     label      = "http"
     protocol   = "tcp"
     port_range = "80"
-    cidr       = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
+    cidr       = concat(data.cloudflare_ip_ranges.cloudflare.cidr_blocks, formatlist(local.home_ip))
     action     = "allow"
   }
 
@@ -29,7 +33,7 @@ resource "civo_firewall" "lab_firewall" {
     label      = "https"
     protocol   = "tcp"
     port_range = "443"
-    cidr       = data.cloudflare_ip_ranges.cloudflare.cidr_blocks
+    cidr       = concat(data.cloudflare_ip_ranges.cloudflare.cidr_blocks, formatlist(local.home_ip))
     action     = "allow"
   }
 

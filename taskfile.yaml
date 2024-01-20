@@ -2,20 +2,44 @@
 version: '3'
 
 tasks:
-  docs-install:
+  lint:
+    cmds:
+      - task: tf-fmt
+      - task: pc-lint
+
+  lint-ci:
+    cmds:
+      - task: tf-fmt-ci
+      - task: pc-lint
+
+  pc-update:
+    cmds:
+      - task: python-install
+      - poetry run pre-commit autoupdate
+
+  pc-lint:
+    cmds:
+      - task: python-install
+      - poetry run pre-commit run --all-files
+
+  python-install:
     cmds:
       - poetry install --no-root
 
   docs-serve:
     cmds:
-      - task: docs-install
+      - task: python-install
       - poetry run mkdocs serve
 
   docs-release:
     cmds:
-      - task: docs-install
+      - task: python-install
       - poetry run mkdocs gh-deploy --force
 
   tf-fmt:
     cmds:
       - tofu fmt -recursive
+
+  tf-fmt-ci:
+    cmds:
+      - tofu fmt -recursive -check

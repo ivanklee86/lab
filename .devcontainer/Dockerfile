@@ -21,7 +21,7 @@ RUN apt-get update && \
         software-properties-common \
         gnupg2 apt-transport-https openssh-client vim \
         # Python
-        libsasl2-dev libldap2-dev libssl-dev libsnmp-dev libffi-dev tzdata;
+        libsasl2-dev libldap2-dev libssl-dev libsnmp-dev libffi-dev libsqlite3-dev tzdata;
 
 USER vscode
 
