@@ -62,6 +62,14 @@ resource "civo_firewall" "lab_firewall" {
   }
 
   egress_rule {
+    label      = "All"
+    protocol   = "udp"
+    port_range = "1-65535"
+    cidr       = ["0.0.0.0/0"]
+    action     = "allow"
+  }
+
+  egress_rule {
     label      = "Ping/Traceroute"
     protocol   = "icmp"
     port_range = "N/A"
