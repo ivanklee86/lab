@@ -34,8 +34,10 @@ COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
 COPY --from=spacectl /usr/local/bin/spacectl /usr/local/bin
 
 # - Instorm OpenTofu version
-ARG TERRAFORM_VERSION="1.6.0"
-RUN tfswitcher -o ${TERRAFORM_VERSION}
+ARG TERRAFORM_VERSION="1.5.7"
+RUN tfswitcher ${TERRAFORM_VERSION}
+ARG OPENTOFU_VERSION="1.6.0"
+RUN tfswitcher -o ${OPENTOFU_VERSION}
 
 # - Install 1pw CLI
 COPY --from=1password/op:2 /usr/local/bin/op /usr/local/bin/op

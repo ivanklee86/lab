@@ -1,4 +1,4 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+0// For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
 {
 	"name": "Ubuntu",
@@ -7,7 +7,8 @@
 		"dockerfile": "Dockerfile",
 		"context": "..",
 		"args": {
-			"TERRAFORM_VERSION": "1.6.0",
+			"OPENTOFU_VERSION": "1.6.0",
+			"TERRAFORM_VERSION": "1.5.7",
 			"TERRAGRUNT_VERSION": "0.54.17",
 			"PYTHON_VERSION": "3.12"
 		}
