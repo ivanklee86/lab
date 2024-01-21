@@ -16,7 +16,7 @@ resource "spacelift_stack" "stacks" {
   repository                      = "lab"
   space_id                        = "root"
   terraform_version               = "1.6.0"
-  terraform_workflow_tool         = "OPENTOFU"
+  terraform_workflow_tool         = "OPEN_TOFU"
   terraform_smart_sanitization    = true
   terraform_external_state_access = each.value.terraform_external_state_access
 }
