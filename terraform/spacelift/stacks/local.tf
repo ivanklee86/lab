@@ -8,18 +8,11 @@ locals {
       terraform_external_state_access : false
     },
     {
-      name : "civo/networking"
-      description : "CIVO networking"
-      project_root : "terraform/civo/networking"
-      labels : ["civo", "cloudflare"]
+      name : "digitalocean/project"
+      description : "DigitalOcean project"
+      project_root : "terraform/digitalocean/project"
+      labels : ["digitalocean"]
       terraform_external_state_access : true
-    },
-    {
-      name : "civo/kubernetes"
-      description : "CIVO k8s"
-      project_root : "terraform/civo/kubernetes"
-      labels : ["civo"]
-      terraform_external_state_access : false
     },
   ]
 }
