@@ -11,52 +11,60 @@ resource "civo_network" "lab" {
 resource "civo_firewall" "lab_firewall" {
   name                 = "lab_firewall"
   network_id           = civo_network.lab.id
-  create_default_rules = true
+  create_default_rules = false
 
-    # ingress_rule {
-  #   label      = "k8s"
-  #   protocol   = "tcp"
-  #   port_range = "6443"
-  #   cidr       = ["0.0.0.0/0"]
-  #   action     = "allow"
-  # }
+  ingress_rule {
+    label      = "k8s"
+    protocol   = "tcp"
+    port_range = "6443"
+    cidr       = ["0.0.0.0/0"]
+    action     = "allow"
+  }
 
-  # ingress_rule {
-  #   label      = "k8s"
-  #   protocol   = "tcp"
-  #   port_range = "6443"
-  #   cidr       = ["0.0.0.0/0"]
-  #   action     = "allow"
-  # }
+  ingress_rule {
+    label      = "ssh"
+    protocol   = "icmp"
+    port_range = "N/A"
+    cidr       = ["0.0.0.0/0"]
+    action     = "allow"
+  }
 
-  # ingress_rule {
-  #   label      = "ssh"
-  #   protocol   = "tcp"
-  #   port_range = "22"
-  #   cidr       = ["0.0.0.0/0"]
-  #   action     = "allow"
-  # }
+  ingress_rule {
+    label      = "Ping/Traceroute"
+    protocol   = "tcp"
+    port_range = "22"
+    cidr       = ["0.0.0.0/0"]
+    action     = "allow"
+  }
 
-  # ingress_rule {
-  #   label      = "http"
-  #   protocol   = "tcp"
-  #   port_range = "80"
-  #   cidr       = concat(data.cloudflare_ip_ranges.cloudflare.cidr_blocks, formatlist(local.home_ip))
-  #   action     = "allow"
-  # }
+  ingress_rule {
+    label      = "http"
+    protocol   = "tcp"
+    port_range = "80"
+    cidr       = concat(data.cloudflare_ip_ranges.cloudflare.cidr_blocks, formatlist(local.home_ip))
+    action     = "allow"
+  }
 
-  # ingress_rule {
-  #   label      = "https"
-  #   protocol   = "tcp"
-  #   port_range = "443"
-  #   cidr       = concat(data.cloudflare_ip_ranges.cloudflare.cidr_blocks, formatlist(local.home_ip))
-  #   action     = "allow"
-  # }
+  ingress_rule {
+    label      = "https"
+    protocol   = "tcp"
+    port_range = "443"
+    cidr       = concat(data.cloudflare_ip_ranges.cloudflare.cidr_blocks, formatlist(local.home_ip))
+    action     = "allow"
+  }
 
   egress_rule {
-    label      = "all"
+    label      = "All"
     protocol   = "tcp"
     port_range = "1-65535"
+    cidr       = ["0.0.0.0/0"]
+    action     = "allow"
+  }
+
+  egress_rule {
+    label      = "Ping/Traceroute"
+    protocol   = "icmp"
+    port_range = "N/A"
     cidr       = ["0.0.0.0/0"]
     action     = "allow"
   }
