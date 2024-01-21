@@ -1,5 +1,5 @@
 output "firewall_id" {
-  value       = civo_firewall.lab_firewall.id
+  value       = civo_firewall.lab_k8s_firewall.id
   description = "Firewall ID"
 }
 
