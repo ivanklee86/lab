@@ -22,7 +22,6 @@ if [ "$CODESPACES" != "true" ]; then
     git config --global gpg.program gpg2
     git config --global user.signingkey ivanklee86@gmail.com
     git config --global commit.gpgsign true
-    git config --global push.autoSetupRemote true
 else
     echo "Running in codespaces."
 fi
