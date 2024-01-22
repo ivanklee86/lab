@@ -2,12 +2,7 @@
 FROM rust:1-bookworm as rust-builder
 RUN cargo install tfswitcher
 
-# Pull Spacelift docker image
-FROM ghcr.io/spacelift-io/spacectl as spacectl
-
 # Runtime
-# - Arguments
-
 FROM mcr.microsoft.com/devcontainers/base:ubuntu
 
 # - Setup
@@ -21,7 +16,8 @@ RUN apt-get update && \
         software-properties-common \
         gnupg2 apt-transport-https openssh-client vim \
         # Python
-        libsasl2-dev libldap2-dev libssl-dev libsnmp-dev libffi-dev libsqlite3-dev tzdata;
+        libsasl2-dev libldap2-dev libssl-dev libsnmp-dev libffi-dev \
+        libncurses-dev libsqlite3-dev libbz2-dev libreadline-dev liblzma-dev tzdata tk-dev;
 
 USER vscode
 
@@ -31,7 +27,7 @@ RUN sudo chown -R vscode /usr/local/bin
 COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
 
 # - Install spacectl
-COPY --from=spacectl /usr/local/bin/spacectl /usr/local/bin
+COPY --from=ghcr.io/spacelift-io/spacectl /usr/local/bin/spacectl /usr/local/bin
 
 # - Instorm OpenTofu version
 ARG OPENTOFU_VERSION="1.6.0"
@@ -45,6 +41,10 @@ RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
 
 # - Install civo
 RUN curl -sL https://civo.com/get | sh
+
+# - Install k8s stuff
+COPY --from=bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /usr/local/bin
+COPY --from=alpine/helm /usr/bin/helm /usr/local/bin
 
 # - Install pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git .pyenv
