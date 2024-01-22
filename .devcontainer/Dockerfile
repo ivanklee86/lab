@@ -45,6 +45,7 @@ RUN curl -sL https://civo.com/get | sh
 # - Install k8s stuff
 COPY --from=bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /usr/local/bin
 COPY --from=alpine/helm /usr/bin/helm /usr/local/bin
+COPY --from=derailed/k9s /bin/k9s /usr/local/bin
 
 # - Install pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git .pyenv

@@ -6,12 +6,16 @@ tasks:
     cmds:
       - mkdir ~/.kube | true
       - op read op://lab/kubernetes_config/config > ~/.kube/config
-      - kubectl context use-context lab
+      - kubectl config use-context lab
 
   lint:
     cmds:
-      - task: tf-fmt
+      - task: tf-fmt-ci
       - task: pc-lint
+
+  fmt:
+    cmds:
+      - task: tf-fmt
 
   lint-ci:
     cmds:

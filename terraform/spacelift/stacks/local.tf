@@ -1,5 +1,5 @@
 locals {
-  opentofu_version = "1.6.0"
+  opentofu_version  = "1.6.0"
   terraform_version = "1.5.7"
   stacks = [
     {
