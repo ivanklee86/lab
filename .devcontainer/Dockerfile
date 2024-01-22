@@ -67,7 +67,3 @@ RUN echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
 # - Set up Git
 RUN git config --global user.name "Ivan Lee"
 RUN git config --global user.email "ivanklee86@gmail.com"
-RUN git config --global gpg.program gpg2
-RUN git config --global user.signingkey ivanklee86@gmail.com
-RUN git config --global commit.gpgsign true
-RUN git config --global push.autoSetupRemote true
