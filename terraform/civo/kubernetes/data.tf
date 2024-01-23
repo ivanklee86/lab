@@ -1,5 +1,5 @@
 # CIVO node sizes
-data "civo_size" "xsmall" {
+data "civo_size" "kubernetes_sizes" {
   filter {
     key    = "type"
     values = ["kubernetes"]
