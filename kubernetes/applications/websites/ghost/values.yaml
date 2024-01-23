@@ -1,0 +1,14 @@
+ghost:
+  ghostSkipInstall: true
+
+  ingress:
+    enabled: true
+    hostname: "ivanlee.me"
+    pathType: Prefix
+    ingressClassName: "nginx"
+    tls: true
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+      nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
