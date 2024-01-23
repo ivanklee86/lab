@@ -5,7 +5,14 @@ resource "civo_kubernetes_cluster" "lab" {
   firewall_id        = data.terraform_remote_state.networking.outputs.firewall_id
   pools {
     label      = "nodes"
-    size       = element(data.civo_size.kubernetes_sizes.sizes, 1).name
-    node_count = 3
+    size       = element(data.civo_size.kubernetes_sizes.sizes, 0).name
+    node_count = 1
   }
+}
+
+resource "civo_kubernetes_node_pool" "small" {
+  cluster_id = civo_kubernetes_cluster.lab.id
+  node_count = 2
+  size       = element(data.civo_size.kubernetes_sizes.sizes, 1).name // Small
+  region     = "NYC1"
 }
