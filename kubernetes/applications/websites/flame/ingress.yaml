@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flame
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.infrastructure.svc.cluster.local/oauth2/auth
+    # nginx.ingress.kubernetes.io/auth-signin: https://aoach.tech/oauth2/start?rd=$request_uri
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - "aoach.tech"
+  rules:
+    - host: aoach.tech
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: flame
+              port:
+                number: 5005
