@@ -4,7 +4,7 @@ metadata:
   name: flame
   annotations:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy-dashy.infrastructure.svc.cluster.local/oauth2/auth
+    nginx.ingress.kubernetes.io/auth-url: http://oauth2-proxy.infrastructure.svc.cluster.local/oauth2/auth
     nginx.ingress.kubernetes.io/auth-signin: https://aoach.tech/oauth2/start?rd=$request_uri
 spec:
   ingressClassName: nginx
