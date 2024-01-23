@@ -34,16 +34,16 @@ argo-cd:
       policy.csv: |
         g, HamsterHomelab:admin, role:admin
 
-    # ingress:
-    #   enabled: true
-    #   ingressClassName: nginx
-    #   annotations:
-    #     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    #   hosts:
-    #     - argocd.aoach.tech
-    #   tls:
-    #     - hosts:
-    #       - argocd.aoach.tech
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      hosts:
+        - argocd.aoach.tech
+      tls:
+        - hosts:
+          - argocd.aoach.tech
 
   # dex:
   #   env:

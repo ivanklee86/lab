@@ -1,7 +1,11 @@
 ingress-nginx:
   controller:
+    extraArgs:
+      default-ssl-certificate: "infrastructure/tls-secret"
+
     service:
       annotations:
         kubernetes.civo.com/ipv4-address: "212.2.240.67"
+
     admissionWebhooks:
       enabled: false
