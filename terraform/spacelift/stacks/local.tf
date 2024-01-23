@@ -10,6 +10,13 @@ locals {
       terraform_external_state_access : false
     },
     {
+      name : "dns/aoach.tech"
+      description : "DNS for aoach.tech."
+      project_root : "terraform/cloudflare/dns/aoach.tech"
+      labels : ["cloudflare"]
+      terraform_external_state_access : false
+    },
+    {
       name : "civo/networking"
       description : "CIVO networking"
       project_root : "terraform/civo/networking"
