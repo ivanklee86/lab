@@ -13,5 +13,5 @@ op inject -i op-credentials.yaml.tmpl -o op-credentials.yaml
 kubectl apply -f op-credentials.yaml
 
 # Template helm
-helm template --namespace infrastructure ../applications/infrastructure/connect > manifests.yaml
+helm template --namespace infrastructure --include-crds ../applications/infrastructure/connect > manifests.yaml
 kubectl apply -f manifests.yaml
