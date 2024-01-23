@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: whoami-test
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - "whoami.aoach.tech"
+  rules:
+    - host: "whoami.aoach.tech"
+      http:
+        paths:
+        - path: /
+          pathType: Exact
+          backend:
+            service:
+              name: whoami
+              port:
+                number: 80
