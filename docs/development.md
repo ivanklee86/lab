@@ -2,4 +2,7 @@
 
 ## Setup
 1. Use `.devcontainer` locally to generate development environment.
-2. `eval $(op signin)` to log in to 1Password.
+2. `eval $(op signin)` to log in to 1Password (or use an access token).
+
+## Working with helm
+1. `helm dependency update`

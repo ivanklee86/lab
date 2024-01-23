@@ -6,6 +6,7 @@ tasks:
     cmds:
       - mkdir ~/.kube | true
       - op read op://lab/kubernetes_config/config > ~/.kube/config
+      - chmod 600 ~/.kube/config
       - kubectl config use-context lab
 
   lint:
