@@ -1,11 +1,18 @@
 argo-cd:
+  crds:
+    install: false
+
+  configs:
+    secret:
+      createSecret: false
+
   server:
     extraArgs:
       - --insecure
 
     config:
       url: https://argocd.aoach.tech
-      admin.enabled: "false"
+      admin.enabled: "true"
       dex.config: |
         connectors:
           - type: github
@@ -38,10 +45,10 @@ argo-cd:
     #     - hosts:
     #       - argocd.aoach.tech
 
-  dex:
-    env:
-      - name: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: argo-workflows-sso
-            key: client-secret
+  # dex:
+  #   env:
+  #     - name: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
+  #       valueFrom:
+  #         secretKeyRef:
+  #           name: argo-workflows-sso
+  #           key: client-secret

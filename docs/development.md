@@ -5,4 +5,13 @@
 2. `eval $(op signin)` to log in to 1Password (or use an access token).
 
 ## Working with helm
-1. `helm dependency update`
+Update subcharts
+
+```shell
+helm dependency update
+```
+Template manifests
+
+```shell
+helm template .
+```
