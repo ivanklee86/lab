@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: lab-deployments-websites
-  namespace: websites
+  namespace: infrastructure
 spec:
   generators:
   - git:
