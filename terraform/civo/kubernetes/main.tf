@@ -5,7 +5,7 @@ resource "civo_kubernetes_cluster" "lab" {
   firewall_id        = data.terraform_remote_state.networking.outputs.firewall_id
   pools {
     label      = "nodes"
-    size       = element(data.civo_size.kubernetes_sizes.sizes, 1).name
+    size       = element(data.civo_size.kubernetes_sizes.sizes, 0).name
     node_count = 3
   }
 }
