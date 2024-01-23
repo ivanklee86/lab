@@ -13,6 +13,6 @@ resource "civo_kubernetes_cluster" "lab" {
 resource "civo_kubernetes_node_pool" "small" {
    cluster_id = civo_kubernetes_cluster.lab.id
    node_count = 3
-   size = element(data.civo_size.xsmall.sizes, 1).name // Small
+   size = element(data.civo_size.kubernetes_sizes.sizes, 1).name // Small
    region = "NYC1"
 }
