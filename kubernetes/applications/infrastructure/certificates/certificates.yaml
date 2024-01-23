@@ -1,0 +1,16 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: le-crt
+spec:
+  secretName: tls-secret
+  issuerRef:
+    kind: Issuer
+    name: letsencrypt
+  commonName: aoach.tech
+  dnsNames:
+  - "aoach.tech"
+  - "*.aoach.tech"
+  - "ivanlee.me"
+  - "*.ivanlee.me"
