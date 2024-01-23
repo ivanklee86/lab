@@ -1,0 +1,7 @@
+mariadb:
+  primary:
+    persistence:
+      size: 3Gi
+
+  auth:
+    existingSecret: mariadb-credentials
