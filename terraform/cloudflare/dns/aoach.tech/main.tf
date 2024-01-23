@@ -3,13 +3,7 @@ module "dns-website" {
 
   domain_name = "aoach.tech"
   ip          = "212.2.240.67"
-  additional_records = [
-    {
-      type  = "CNAME"
-      name  = "lab"
-      value = "ivanklee86.github.io"
-    },
-  ]
+  additional_records = []
   proxied = true
   ttl     = 1
 }
