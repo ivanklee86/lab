@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: ghost
+    labels:
+        app: ghost
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: ghost
+    template:
+        metadata:
+            labels:
+                app: ghost
+        spec:
+            containers:
+            - name: ghost
+              image: ghost:5.76.0
+              imagePullPolicy: Always
+              ports:
+                - containerPort: 2368
+              env:
+                - name: url
+                  value: https://ivanlee.me
+                - name: database__client
+                  value: mysql
+                - name: database__connection__host
+                  value: mysql
+                - name: database__connection__user
+                  value: ghost
+                - name: database__connection__database
+                  value: ghost
+                - name: mail__transport
+                  value: smtp
+                - name: mail__options__service
+                  value: mailgun
+                - name: mail__options__auth__user
+                  value: postmaster@mail.ivanlee.me
+              envFrom:
+                - secretRef:
+                    name: ghost-secrets
+                - secretRef:
+                    name: ghost-mailgun-credentials
+              volumeMounts:
+              - mountPath: /var/lib/ghost/content
+                name: content
+            volumes:
+            - name: content
+              persistentVolumeClaim:
+                claimName: ghost-pvc
