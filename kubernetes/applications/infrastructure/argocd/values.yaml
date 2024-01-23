@@ -12,7 +12,7 @@ argo-cd:
 
     config:
       url: https://argocd.aoach.tech
-      admin.enabled: "true"
+      admin.enabled: "false"
       dex.config: |
         connectors:
           - type: github
