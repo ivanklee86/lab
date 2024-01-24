@@ -26,7 +26,7 @@ spec:
                 - name: database__client
                   value: mysql
                 - name: database__connection__host
-                  value: mysql
+                  value: ghost-mysql
                 - name: database__connection__user
                   value: ghost
                 - name: database__connection__database
