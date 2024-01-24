@@ -2,7 +2,7 @@ module "dns-website" {
   source = "../../../../terraform_modules/cloudflare/dns"
 
   domain_name = "ivanlee.me"
-  ip          = "3.145.179.230"
+  ip          = "212.2.240.67"
   additional_records = [
     {
       type  = "CNAME"
