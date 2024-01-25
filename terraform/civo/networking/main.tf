@@ -24,7 +24,6 @@ resource "civo_firewall" "lab_k8s_firewall" {
   ingress_rule {
     label      = "ping/traceroute"
     protocol   = "icmp"
-    port_range = "N/A"
     cidr       = ["0.0.0.0/0"]
     action     = "allow"
   }
@@ -64,7 +63,6 @@ resource "civo_firewall" "lab_k8s_firewall" {
   egress_rule {
     label      = "Ping/Traceroute"
     protocol   = "icmp"
-    port_range = "N/A"
     cidr       = ["0.0.0.0/0"]
     action     = "allow"
   }
