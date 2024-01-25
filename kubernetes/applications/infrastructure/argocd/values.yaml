@@ -1,7 +1,4 @@
 argo-cd:
-  crds:
-    install: false
-
   configs:
     secret:
       createSecret: false
