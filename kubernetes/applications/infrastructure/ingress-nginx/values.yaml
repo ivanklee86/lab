@@ -5,6 +5,7 @@ ingress-nginx:
 
     service:
       annotations:
+        kubernetes.civo.com/firewall-id: "71710a9f-da84-48f4-ac95-2145fec595d7"
         kubernetes.civo.com/ipv4-address: "212.2.240.67"
 
     admissionWebhooks:
