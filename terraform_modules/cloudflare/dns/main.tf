@@ -31,14 +31,6 @@ resource "cloudflare_record" "main" {
   proxied = var.proxied
 }
 
-resource "cloudflare_record" "wildcard_subdomain" {
-  zone_id = data.cloudflare_zones.zone.zones[0].id
-  name    = "*"
-  value   = var.domain_name
-  type    = "CNAME"
-  ttl     = var.ttl
-}
-
 resource "cloudflare_record" "additional_records" {
   for_each = {
     for record in var.additional_records : "${record.type}_${record.name}" => record
@@ -46,7 +38,7 @@ resource "cloudflare_record" "additional_records" {
 
   zone_id = data.cloudflare_zones.zone.zones[0].id
   name    = each.value.name
-  value   = each.value.value
+  value   = each.value.name == "A" ? var.ip : each.value.value
   type    = each.value.type
   ttl     = 600
 }
