@@ -17,6 +17,11 @@ spec:
       containers:
       - name: whoami-container
         image: containous/whoami
+        resources:
+          requests:
+            memory: "64Mi"
+          limits:
+            memory: "128Mi"
         ports:
           - name: web
             containerPort: 80
