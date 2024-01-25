@@ -1,10 +1,11 @@
 connect:
-  api:
-    resources:
-      requests:
-        memory: "25Mi"
-      limits:
-        memory: "25Mi"
+  connect:
+    api:
+      resources:
+        requests:
+          memory: "25Mi"
+        limits:
+          memory: "25Mi"
 
   operator:
     create: true
