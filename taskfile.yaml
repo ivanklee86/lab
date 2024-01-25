@@ -54,3 +54,7 @@ tasks:
   tf-fmt-ci:
     cmds:
       - tofu fmt -recursive -check
+
+  tf-plan-aoach:
+    cmds:
+      - op run --env-file=".env" -- spacectl stack preview --sha `git rev-parse HEAD` --id dns-aoach-tech -tail
