@@ -38,7 +38,7 @@ resource "cloudflare_record" "additional_records" {
 
   zone_id = data.cloudflare_zones.zone.zones[0].id
   name    = each.value.name
-  value   = each.value.name == "A" ? var.ip : each.value.value
+  value   = each.value.type == "A" ? var.ip : each.value.value
   type    = each.value.type
   ttl     = 600
 }
