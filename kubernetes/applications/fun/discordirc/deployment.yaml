@@ -21,7 +21,7 @@ spec:
       volumes:
       - name: config-volume
         secret:
-          name: discordirc
+          secretName: discordirc
           items:
             - key: config
               path: config.json
