@@ -102,7 +102,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
@@ -136,3 +135,5 @@ GENERATED.md
 # Helm
 charts
 manifest*.yaml
+.terraform
+.terraform.lock.hcl

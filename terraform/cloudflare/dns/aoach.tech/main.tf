@@ -5,16 +5,17 @@ module "dns-website" {
   ip          = "212.2.240.67"
   additional_records = [
     {
-      type  = "A"
-      name  = "whoami"
-      value = ""
+      type    = "A"
+      name    = "whoami"
+      value   = ""
+      proxied = true
     },
     {
-      type  = "A"
-      name  = "argocd"
-      value = ""
+      type    = "A"
+      name    = "argocd"
+      value   = ""
+      proxied = true
     },
   ]
-  proxied = true
-  ttl     = 1
+  ttl = 1
 }
