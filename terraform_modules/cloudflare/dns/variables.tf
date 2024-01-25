@@ -30,6 +30,7 @@ variable "additional_records" {
       name    = string
       value   = string
       proxied = bool
+      ttl     = number
     })
   )
 }

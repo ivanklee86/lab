@@ -41,5 +41,5 @@ resource "cloudflare_record" "additional_records" {
   value   = each.value.type == "A" ? var.ip : each.value.value
   type    = each.value.type
   proxied = each.value.proxied
-  ttl     = 600
+  ttl     = each.value.ttl
 }

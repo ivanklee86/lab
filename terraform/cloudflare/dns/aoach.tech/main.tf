@@ -9,12 +9,14 @@ module "dns-website" {
       name    = "whoami"
       value   = ""
       proxied = true
+      ttl     = 1
     },
     {
       type    = "A"
       name    = "argocd"
       value   = ""
       proxied = true
+      ttl     = 1
     },
   ]
   ttl = 1
