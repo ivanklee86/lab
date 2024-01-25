@@ -26,9 +26,9 @@ variable "additional_records" {
   description = "Additional Domain records to configure."
   type = list(
     object({
-      type  = string
-      name  = string
-      value = string
+      type    = string
+      name    = string
+      value   = string
       proxied = bool
     })
   )
