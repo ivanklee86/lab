@@ -11,6 +11,12 @@ resource "civo_network" "lab" {
 resource "civo_firewall" "lab_k8s_firewall" {
   name                 = "lab_k8s_firewall"
   network_id           = civo_network.lab.id
+  create_default_rules = true
+}
+
+resource "civo_firewall" "lab_firewall" {
+  name                 = "lab_lb_firewall"
+  network_id           = civo_network.lab.id
   create_default_rules = false
 
   ingress_rule {
@@ -22,7 +28,7 @@ resource "civo_firewall" "lab_k8s_firewall" {
   }
 
   ingress_rule {
-    label      = "Ping/Traceroute"
+    label      = "ping/traceroute"
     protocol   = "icmp"
     port_range = "N/A"
     cidr       = ["0.0.0.0/0"]
@@ -68,6 +74,7 @@ resource "civo_firewall" "lab_k8s_firewall" {
     cidr       = ["0.0.0.0/0"]
     action     = "allow"
   }
+
 }
 
 resource "civo_reserved_ip" "ingress" {
