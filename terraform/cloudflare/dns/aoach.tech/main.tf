@@ -8,13 +8,13 @@ module "dns-website" {
       type  = "A"
       name  = "whoami"
       value = ""
+      proxied = true
     },
     {
       type  = "A"
       name  = "argocd"
-      value = ""
+      value = true
     },
   ]
-  proxied = true
   ttl     = 1
 }

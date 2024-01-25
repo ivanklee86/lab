@@ -136,3 +136,5 @@ GENERATED.md
 # Helm
 charts
 manifest*.yaml
+.terraform
+.terraform.lock.hcl

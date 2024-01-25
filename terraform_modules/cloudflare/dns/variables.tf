@@ -22,12 +22,6 @@ variable "ttl" {
   default     = 600
 }
 
-variable "proxied" {
-  description = "Proxy main site?"
-  type        = bool
-  default     = false
-}
-
 variable "additional_records" {
   description = "Additional Domain records to configure."
   type = list(
@@ -35,6 +29,7 @@ variable "additional_records" {
       type  = string
       name  = string
       value = string
+      proxied = bool
     })
   )
 }

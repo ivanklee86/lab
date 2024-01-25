@@ -28,7 +28,7 @@ resource "cloudflare_record" "main" {
   value   = var.ip
   type    = "A"
   ttl     = var.ttl
-  proxied = var.proxied
+  proxied = true
 }
 
 resource "cloudflare_record" "additional_records" {
@@ -40,6 +40,6 @@ resource "cloudflare_record" "additional_records" {
   name    = each.value.name
   value   = each.value.type == "A" ? var.ip : each.value.value
   type    = each.value.type
-  proxied = true
+  proxied = each.value.proxied
   ttl     = 600
 }
