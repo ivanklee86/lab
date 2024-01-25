@@ -8,9 +8,6 @@ metadata:
     # nginx.ingress.kubernetes.io/auth-signin: https://aoach.tech/oauth2/start?rd=$request_uri
 spec:
   ingressClassName: nginx
-  # tls:
-  # - hosts:
-  #   - "aoach.tech"
   rules:
     - host: aoach.tech
       http:

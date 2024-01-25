@@ -41,9 +41,6 @@ argo-cd:
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       hosts:
         - argocd.aoach.tech
-      # tls:
-      #   - hosts:
-      #     - argocd.aoach.tech
 
   # dex:
   #   env:

@@ -9,9 +9,6 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
 spec:
   ingressClassName: nginx
-  tls:
-  - hosts:
-    - "ivanlee.me"
   rules:
     - host: ivanlee.me
       http:
