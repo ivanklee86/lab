@@ -19,9 +19,9 @@ spec:
         image: containous/whoami
         resources:
           requests:
-            memory: "5Mi"
+            memory: "1Mi"
           limits:
-            memory: "5Mi"
+            memory: "1Mi"
         ports:
           - name: web
             containerPort: 80
