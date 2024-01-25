@@ -1,7 +1,7 @@
 ingress-nginx:
   controller:
-    extraArgs:
-      default-ssl-certificate: "infrastructure/tls-secret"
+    # extraArgs:
+    #   default-ssl-certificate: "infrastructure/tls-secret"
 
     service:
       annotations:
