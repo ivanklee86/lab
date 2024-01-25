@@ -6,7 +6,7 @@ resource "civo_kubernetes_cluster" "lab" {
   pools {
     label      = "nodes"
     size       = element(data.civo_size.kubernetes_sizes.sizes, 0).name
-    node_count = 1
+    node_count = 2
   }
 }
 
