@@ -33,7 +33,7 @@ resource "civo_firewall" "lab_k8s_firewall" {
     protocol   = "tcp"
     port_range = "80"
     # cidr       = concat(data.cloudflare_ip_ranges.cloudflare.cidr_blocks, formatlist(local.home_ip))
-    cidr       = "0.0.0.0/0"
+    cidr       = ["0.0.0.0/0"]
     action     = "allow"
   }
 
@@ -42,7 +42,7 @@ resource "civo_firewall" "lab_k8s_firewall" {
     protocol   = "tcp"
     port_range = "443"
     # cidr       = concat(data.cloudflare_ip_ranges.cloudflare.cidr_blocks, formatlist(local.home_ip))
-    cidr       = "0.0.0.0/0"
+    cidr       = ["0.0.0.0/0"]
     action     = "allow"
   }
 
