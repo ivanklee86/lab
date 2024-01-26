@@ -1,3 +1,30 @@
+[tool.mypy]
+strict_optional = false
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts= """
+    --html=test_results/results.html \
+    --self-contained-html \
+    --junitxml=test_results/results.xml \
+    --disable-warnings
+"""
+log_file_level="INFO"
+
+[tool.ruff]
+# Enable Pyflakes `E` and `F` codes by default.
+select = ["E", "F", "PL", "YTT", "I"]
+ignore = ["E501", "PLR2004"]
+
+fixable = ["I"]
+
+[tool.ruff.pylint]
+max-args = 10
+
+[tool.isort]
+profile = "black"
+
+
 [tool.poetry]
 name = "lab"
 version = "0.1.0"
@@ -10,6 +37,11 @@ python = "^3.12"
 mkdocs = "^1.5.3"
 mkdocs-material = "^9.5.4"
 pre-commit = "^3.6.0"
+diagrams = "^0.23.4"
+black = "^24.1.0"
+ruff = "^0.1.14"
+isort = "^5.13.2"
+mypy = "^1.8.0"
 
 
 [build-system]
