@@ -1,9 +1,9 @@
+from utilities import move_diagram
+
 from diagrams import Cluster, Diagram, Edge
 from diagrams.digitalocean.compute import K8SCluster, K8SNodePool
 from diagrams.oci.network import Firewall, LoadBalancer
 from diagrams.saas.cdn import Cloudflare
-
-from utilities import move_diagram
 
 diagram_filename = "infrastructure"
 
