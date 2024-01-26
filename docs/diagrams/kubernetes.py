@@ -1,43 +1,41 @@
 from utilities import move_diagram
 
-from diagrams import Cluster, Diagram, Edge
+from diagrams import Cluster, Diagram
 from diagrams.custom import Custom
-from diagrams.k8s.network import Ingress
 from diagrams.k8s.compute import Deployment
+from diagrams.k8s.network import Ingress
+from diagrams.onprem.database import MySQL
 from diagrams.onprem.gitops import ArgoCD
 from diagrams.onprem.monitoring import Grafana
-from diagrams.onprem.database import MySQL
 from diagrams.onprem.vcs import Github
 from diagrams.saas.cdn import Cloudflare
 
 diagram_filename = "kubernetes"
 
-with Diagram(
-    "Kubernetes", filename=diagram_filename, outformat=["png"], show=False
-):
-    op_vault = Custom('1Password Vault', '../imgs/1password.png')
-    grafana_cloud = Grafana('Grafana Cloud')
-    lab_repo = Github('lab [Repo]')
+with Diagram("Kubernetes", filename=diagram_filename, outformat=["png"], show=False):
+    op_vault = Custom("1Password Vault", "../imgs/1password.png")
+    grafana_cloud = Grafana("Grafana Cloud")
+    lab_repo = Github("lab [Repo]")
     cloudflare = Cloudflare("Cloudflare")
 
-    with Cluster('Kubernetes'):
-        with Cluster('infrastructure [namespace]'):
+    with Cluster("Kubernetes"):
+        with Cluster("infrastructure [namespace]"):
             nginx_ingress = Ingress("Ingress")
-            nginx_deployment = Custom("ingress-nginx", '../imgs/nginx.png')
+            nginx_deployment = Custom("ingress-nginx", "../imgs/nginx.png")
 
             argocd = ArgoCD("ArgoCD")
 
-            op_operator = Custom('1Password Operator', '../imgs/1password.png')
+            op_operator = Custom("1Password Operator", "../imgs/1password.png")
 
-            k8s_monitoring = Grafana('k8s-monitoring')
+            k8s_monitoring = Grafana("k8s-monitoring")
 
-            metrics_server = Deployment('metrics-server')
+            metrics_server = Deployment("metrics-server")
 
-        with Cluster('websites[namespace]'):
-            ghost = Custom('ghost', '../imgs/ghost.png')
+        with Cluster("websites[namespace]"):
+            ghost = Custom("ghost", "../imgs/ghost.png")
             ghost_mysql = MySQL("MySQL [Ghost]")
-            whoami = Deployment('whoami')
-            flame = Deployment('flame')
+            whoami = Deployment("whoami")
+            flame = Deployment("flame")
 
     cloudflare >> nginx_ingress >> nginx_deployment >> [ghost, whoami, flame]
     ghost >> ghost_mysql

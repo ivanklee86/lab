@@ -2,10 +2,10 @@ from utilities import move_diagram
 
 from diagrams import Cluster, Diagram, Edge
 from diagrams.digitalocean.compute import K8SCluster, K8SNodePool
-from diagrams.oci.network import Firewall, LoadBalancer
 from diagrams.oci.monitoring import HealthCheck
-from diagrams.saas.cdn import Cloudflare
+from diagrams.oci.network import Firewall, LoadBalancer
 from diagrams.onprem.monitoring import Grafana
+from diagrams.saas.cdn import Cloudflare
 
 diagram_filename = "infrastructure"
 
@@ -14,8 +14,8 @@ with Diagram(
 ):
     # Create objects
     cloudflare = Cloudflare("Cloudflare")
-    grafana = Grafana('Grafana')
-    uptimerobot = HealthCheck('UptimeRobot')
+    grafana = Grafana("Grafana")
+    uptimerobot = HealthCheck("UptimeRobot")
 
     # Groups
     with Cluster("Civo"):

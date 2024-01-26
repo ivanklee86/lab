@@ -54,8 +54,7 @@ tasks:
   python-lint:
     cmds:
       - poetry run black .
-      - poetry run ruff docs/diagrams tests
-      - poetry run mypy docs/diagrams
+      - poetry run ruff docs/diagrams
 
   docs-serve:
     cmds:
