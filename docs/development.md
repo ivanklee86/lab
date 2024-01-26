@@ -16,4 +16,10 @@ Template manifests
 helm template .
 ```
 
-##
+## Documentation
+
+1. Run `task images` to generate diagrams.
+2. Run `mkdocs serve` to preview documentation.
+
+Resources:
+- [IconDuck](https://iconduck.com)

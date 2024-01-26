@@ -32,17 +32,22 @@
 			"settings": {
 				"editor.accessibilitySupport": "off",
 				"python.defaultInterpreterPath": "/home/vscode/.pyenv/shims/python",
+				"python.formatting.blackPath": "${workspaceFolder}/.venv/bin/black",
+				"python.linting.mypyPath": "${workspaceFolder}/.venv/bin/mypy",
 				"python.testing.unittestEnabled": false,
-				"python.testing.pytestEnabled": true
+				"python.testing.pytestEnabled": true,
+				"python.venvPath": "${workspaceFolder}/.venv"
 			},
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				"ms-python.python",
+				"1Password.op-vscode",
 				"ms-azuretools.vscode-docker",
-				"ritwickdey.LiveServer",
-				"ms-vscode.makefile-tools",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
 				"hashicorp.terraform",
-				"1Password.op-vscode"
+				"ritwickdey.LiveServer",
+				"tamasfe.even-better-toml",
+				"task.vscode-task"
 			]
 		}
 	},

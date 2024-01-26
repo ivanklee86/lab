@@ -13,10 +13,19 @@ tasks:
     cmds:
       - task: tf-fmt-ci
       - task: pc-lint
+      - task: python-lint
 
   fmt:
     cmds:
       - task: tf-fmt
+      - task: python-fmt
+
+  images:
+    dir: ./docs/diagrams
+    cmds:
+      - poetry run python infrastructure.py
+      - poetry run python tooling.py
+      - poetry run python kubernetes.py
 
   lint-ci:
     cmds:
@@ -36,6 +45,16 @@ tasks:
   python-install:
     cmds:
       - poetry install --no-root
+
+  python-fmt:
+    cmds:
+      - poetry run black .
+      - poetry run ruff docs/diagrams --fix
+
+  python-lint:
+    cmds:
+      - poetry run black .
+      - poetry run ruff docs/diagrams
 
   docs-serve:
     cmds:
