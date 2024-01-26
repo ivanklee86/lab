@@ -10,6 +10,7 @@ argo-cd:
     config:
       url: https://argocd.aoach.tech
       admin.enabled: "false"
+      accounts.GithubActions: apiKey
       dex.config: |
         connectors:
           - type: github
@@ -29,6 +30,7 @@ argo-cd:
 
     rbacConfig:
       policy.csv: |
+        g, GithubActions, role:readonly
         g, HamsterHomelab:admin, role:admin
 
     ingress:
