@@ -22,28 +22,28 @@ resource "civo_firewall" "lab_k8s_firewall" {
   }
 
   ingress_rule {
-    label      = "ping/traceroute"
-    protocol   = "icmp"
-    cidr       = ["0.0.0.0/0"]
-    action     = "allow"
+    label    = "ping/traceroute"
+    protocol = "icmp"
+    cidr     = ["0.0.0.0/0"]
+    action   = "allow"
   }
 
   ingress_rule {
     label      = "http"
     protocol   = "tcp"
     port_range = "80"
-    # cidr       = concat(data.cloudflare_ip_ranges.cloudflare.cidr_blocks, formatlist(local.home_ip))
-    cidr       = ["0.0.0.0/0"]
-    action     = "allow"
+    cidr       = concat(data.cloudflare_ip_ranges.cloudflare.ipv4_cidr_blocks, formatlist(local.home_ip))
+    # cidr       = ["0.0.0.0/0"]
+    action = "allow"
   }
 
   ingress_rule {
     label      = "https"
     protocol   = "tcp"
     port_range = "443"
-    # cidr       = concat(data.cloudflare_ip_ranges.cloudflare.cidr_blocks, formatlist(local.home_ip))
-    cidr       = ["0.0.0.0/0"]
-    action     = "allow"
+    cidr       = concat(data.cloudflare_ip_ranges.cloudflare.ipv4_cidr_blocks, formatlist(local.home_ip))
+    # cidr       = ["0.0.0.0/0"]
+    action = "allow"
   }
 
   egress_rule {
@@ -63,10 +63,10 @@ resource "civo_firewall" "lab_k8s_firewall" {
   }
 
   egress_rule {
-    label      = "Ping/Traceroute"
-    protocol   = "icmp"
-    cidr       = ["0.0.0.0/0"]
-    action     = "allow"
+    label    = "Ping/Traceroute"
+    protocol = "icmp"
+    cidr     = ["0.0.0.0/0"]
+    action   = "allow"
   }
 }
 
