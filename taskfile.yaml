@@ -25,6 +25,7 @@ tasks:
     cmds:
       - poetry run python infrastructure.py
       - poetry run python tooling.py
+      - poetry run python kubernetes.py
 
   lint-ci:
     cmds:

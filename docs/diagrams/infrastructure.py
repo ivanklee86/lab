@@ -5,7 +5,7 @@ from diagrams.digitalocean.compute import K8SCluster, K8SNodePool
 from diagrams.oci.network import Firewall, LoadBalancer
 from diagrams.oci.monitoring import HealthCheck
 from diagrams.saas.cdn import Cloudflare
-from diagrams.custom import Custom
+from diagrams.onprem.monitoring import Grafana
 
 diagram_filename = "infrastructure"
 
@@ -14,7 +14,7 @@ with Diagram(
 ):
     # Create objects
     cloudflare = Cloudflare("Cloudflare")
-    grafana = Custom('Grafana', '../imgs/grafana.png')
+    grafana = Grafana('Grafana')
     uptimerobot = HealthCheck('UptimeRobot')
 
     # Groups
