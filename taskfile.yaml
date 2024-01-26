@@ -20,6 +20,12 @@ tasks:
       - task: tf-fmt
       - task: python-fmt
 
+  images:
+    dir: ./docs/diagrams
+    cmds:
+      - poetry run python infrastructure.py
+      - poetry run python tooling.py
+
   lint-ci:
     cmds:
       - task: tf-fmt-ci

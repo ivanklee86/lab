@@ -16,4 +16,6 @@ Template manifests
 helm template .
 ```
 
-##
+## Images
+
+- [IconDuck](https://iconduck.com)

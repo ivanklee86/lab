@@ -33,6 +33,7 @@ nav:
   - Development: 'development.md'
   - Architecture:
     - Infrastructure: 'infrastructure.md'
+    - Tooling: 'tooling.md'
 
 markdown_extensions:
   - admonition
