@@ -1,6 +1,4 @@
 locals {
-  opentofu_version  = "1.6.0"
-  terraform_version = "1.5.7"
   stacks = [
     {
       name : "dns/ivanlee.me"
