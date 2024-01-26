@@ -21,3 +21,9 @@ HTTP/HTTPS traffic is restricted to Cloudflare public IPs and my home IP.
 ### Kubernetes
 
 I'm using a `k3d` cluster for Kubernetes.
+
+### Observability
+
+Metrics and logs are shipped to Grafana (using their free tier).
+
+Webistes are monitored with [UptimeRobot](https://uptimerobot.com/) which supports Discord alerting in it's free tier.
