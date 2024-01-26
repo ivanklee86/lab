@@ -17,7 +17,7 @@ resource "civo_firewall" "lab_k8s_firewall" {
     label      = "k8s"
     protocol   = "tcp"
     port_range = "6443"
-    cidr       = ["0.0.0.0/0"]
+    cidr       = [local.home_ip]
     action     = "allow"
   }
 
