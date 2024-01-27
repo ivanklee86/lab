@@ -28,7 +28,6 @@ jobs:
     needs: changes
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        target: $(( fromJson(needs.changes.outputs.changedFolders) ))
+      matrix: $(( fromJson(needs.changes.outputs.changedFolders) ))
     steps:
       - run: echo ${{matrix.folder}}
