@@ -22,4 +22,4 @@ tasks:
   lint:ci:
     cmds:
       - task: tofu:fmt:ci
-      - task: pc:lint
+      - task: python:pc:lint
