@@ -9,7 +9,7 @@ jobs:
   changes:
     runs-on: ubuntu-latest
     outputs:
-      changedFolders: ${{steps.outputStep.outputs.folders}}
+      changed-folders: ${{steps.output-step.outputs.folders}}
     steps:
       - uses: actions/checkout@v4
       - name: Setup main branch locally without switching current branch
@@ -17,17 +17,16 @@ jobs:
       - name: 'Setup jq'
         uses: dcarbone/install-jq-action@v2
       # Credit to https://www.kenmuse.com/blog/dynamic-build-matrices-in-github-actions/
-      - id: ouputStep
+      - id: output-step
         name: Generate list of changed folders
         run: |
           TARGETS=$(git diff --name-only main -- kubernetes/applications | xargs -L1 dirname | uniq | jq -cRn '[inputs]')
-          echo "folders=$(jq -cn --argjson environments "$TARGETS" '{folders: $environments}')" >> $GITHUB_OUTPUT
-          echo $GITHUB_OUTPUT
+          echo "folders=$(jq -cn --argjson environments "$TARGETS" '{folders: $environments}')" >> "$GITHUB_OUTPUT"
 
   run-matrix:
     needs: changes
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJson(needs.changes.outputs.changedFolders) }}
+      matrix: ${{ fromJson(needs.changes.outputs.changed-folders) }}
     steps:
       - run: echo ${{matrix.folder}}
