@@ -1,79 +1,30 @@
 # https://taskfile.dev
 version: '3'
 
-tasks:
-  k8s-bootstrap:
-    cmds:
-      - mkdir ~/.kube | true
-      - op read op://lab/kubernetes_config/config > ~/.kube/config
-      - chmod 600 ~/.kube/config
-      - kubectl config use-context lab
+includes:
+  argocd: ./tasks/argocd.yaml
+  docs: ./tasks/docs.yaml
+  k8s: ./tasks/k8s.yaml
+  python: ./tasks/python.yaml
+  tofu: ./tasks/tofu.yaml
 
+tasks:
   lint:
     cmds:
-      - task: tf-fmt-ci
-      - task: pc-lint
-      - task: python-lint
+      - task: tofu:fmt:ci
+      - task: python:pc:lint
+      - task: python:lint
 
   fmt:
     cmds:
-      - task: tf-fmt
-      - task: python-fmt
+      - task: tofu:fmt
+      - task: python:fmt
 
-  images:
-    dir: ./docs/diagrams
+  lint:ci:
     cmds:
-      - poetry run python infrastructure.py
-      - poetry run python tooling.py
-      - poetry run python kubernetes.py
+      - task: tofu:fmt:ci
+      - task: python:pc:lint
 
-  lint-ci:
+  civo:bootstrap:
     cmds:
-      - task: tf-fmt-ci
-      - task: pc-lint
-
-  pc-update:
-    cmds:
-      - task: python-install
-      - poetry run pre-commit autoupdate
-
-  pc-lint:
-    cmds:
-      - task: python-install
-      - poetry run pre-commit run --all-files
-
-  python-install:
-    cmds:
-      - poetry install --no-root
-
-  python-fmt:
-    cmds:
-      - poetry run black .
-      - poetry run ruff docs/diagrams --fix
-
-  python-lint:
-    cmds:
-      - poetry run black .
-      - poetry run ruff docs/diagrams
-
-  docs-serve:
-    cmds:
-      - task: python-install
-      - poetry run mkdocs serve
-
-  docs-release:
-    cmds:
-      - task: python-install
-      - poetry run mkdocs gh-deploy --force
-
-  tf-fmt:
-    cmds:
-      - tofu fmt -recursive
-
-  tf-fmt-ci:
-    cmds:
-      - tofu fmt -recursive -check
-
-  tf-plan-aoach:
-    cmds:
-      - op run --env-file=".env" -- spacectl stack preview --sha `git rev-parse HEAD` --id dns-aoach-tech -tail
+      - op run --env-file=".env" -- civo apikey save --load-from-env

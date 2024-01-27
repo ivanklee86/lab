@@ -1,0 +1,26 @@
+version: '3'
+
+tasks:
+  install:
+    cmds:
+      - poetry install --no-root
+
+  fmt:
+    cmds:
+      - poetry run black .
+      - poetry run ruff docs/diagrams --fix
+
+  lint:
+    cmds:
+      - poetry run black .
+      - poetry run ruff docs/diagrams
+
+  pc:update:
+    cmds:
+      - task: install
+      - poetry run pre-commit autoupdate
+
+  pc:lint:
+    cmds:
+      - task: install
+      - poetry run pre-commit run --all-files

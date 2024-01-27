@@ -1,0 +1,12 @@
+version: '3'
+
+vars:
+  ARGOCD_EXTRA_ARGS: --grpc-web --server argocd.aoach.tech
+
+tasks:
+  diff:
+    cmds:
+      - op run --env-file=".env" -- ./scripts/argocd_diff.sh {{.APP_NAME}} {{.USER_WORKING_DIR}}
+    vars:
+      APP_NAME:
+        sh: basename {{.USER_WORKING_DIR}}

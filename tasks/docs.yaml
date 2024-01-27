@@ -1,0 +1,18 @@
+version: '3'
+
+tasks:
+  images:
+    dir: ./docs/diagrams
+    cmds:
+      - poetry run python infrastructure.py
+      - poetry run python tooling.py
+      - poetry run python kubernetes.py
+
+  serve:
+    cmds:
+      - poetry run mkdocs serve
+
+  release:
+    cmds:
+      - poetry install --no-root
+      - poetry run mkdocs gh-deploy --force

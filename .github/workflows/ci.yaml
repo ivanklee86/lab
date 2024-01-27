@@ -23,4 +23,4 @@ jobs:
       - name: "Lint"
         run: |
           pip install -U pip poetry
-          task lint-ci
+          task lint:ci
