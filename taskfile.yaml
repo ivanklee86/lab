@@ -2,6 +2,7 @@
 version: '3'
 
 includes:
+  argocd: ./tasks/argocd.yaml
   docs: ./tasks/docs.yaml
   k8s: ./tasks/k8s.yaml
   python: ./tasks/python.yaml
@@ -23,3 +24,7 @@ tasks:
     cmds:
       - task: tofu:fmt:ci
       - task: python:pc:lint
+
+  civo:bootstrap:
+    cmds:
+      - op run --env-file=".env" -- civo apikey save --load-from-env
