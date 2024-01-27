@@ -2,6 +2,7 @@ version: '3'
 
 tasks:
   images:
+    desc: Generates diagrams.
     dir: ./docs/diagrams
     cmds:
       - poetry run python infrastructure.py
@@ -9,10 +10,12 @@ tasks:
       - poetry run python kubernetes.py
 
   serve:
+    desc: Run mkdocs server locally.
     cmds:
       - poetry run mkdocs serve
 
   release:
+    desc: Publish docs to Github Pages.
     cmds:
       - poetry install --no-root
       - poetry run mkdocs gh-deploy --force

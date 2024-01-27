@@ -10,21 +10,19 @@ includes:
 
 tasks:
   lint:
+    desc: Run all linting commands.
     cmds:
       - task: tofu:fmt:ci
       - task: python:pc:lint
       - task: python:lint
 
   fmt:
+    desc: Run code formatting.
     cmds:
       - task: tofu:fmt
       - task: python:fmt
 
-  lint:ci:
-    cmds:
-      - task: tofu:fmt:ci
-      - task: python:pc:lint
-
   civo:bootstrap:
+    desc: Auth to Civo.
     cmds:
       - op run --env-file=".env" -- civo apikey save --load-from-env

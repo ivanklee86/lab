@@ -30,3 +30,6 @@ jobs:
       matrix: ${{ fromJson(needs.changes.outputs.changed-folders) }}
     steps:
       - run: echo ${{matrix.folder}}
+      - uses: actions/checkout@v4
+      - name: Install Task
+        uses: arduino/setup-task@v1
