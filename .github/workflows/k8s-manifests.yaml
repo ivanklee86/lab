@@ -12,6 +12,8 @@ jobs:
       changedFolders: ${{steps.outputStep.outputs.folders}}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: 'Setup jq'
         uses: dcarbone/install-jq-action@v2
       # Credit to https://www.kenmuse.com/blog/dynamic-build-matrices-in-github-actions/
