@@ -1,0 +1,20 @@
+name: k8s-manifests
+
+on:
+  pull_request:
+    paths:
+    - kubernetes/applications/**
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate list of changed folders
+        run: |
+      - name: Install Task
+        uses: arduino/setup-task@v1
+      - name: "Lint"
+        run: |
+          pip install -U pip poetry
+          task lint:ci
