@@ -23,3 +23,12 @@ jobs:
           TARGETS=$(git diff --name-only main -- kubernetes/applications | xargs -L1 dirname | uniq | jq -cRn '[inputs]')
           echo "folders=$(jq -cn --argjson environments "$TARGETS" '{folders: $environments}')" >> $GITHUB_OUTPUT
           echo $GITHUB_OUTPUT
+
+  run-matrix:
+    needs: changes
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: $(( fromJson(needs.changes.outputs.changedFolders) ))
+    steps:
+      - run: echo ${{matrix.folder}}
