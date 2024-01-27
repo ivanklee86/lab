@@ -23,12 +23,12 @@ jobs:
       - name: "Lint"
         run: |
           pip install -U pip poetry
-          task lint-ci
+          task lint:ci
       - name: ArgoCD Diff
         uses: quizlet/argocd-diff-action@master
         with:
           argocd-server-url: argocd.aoach.tech
           argocd-token: ${{ secrets.ARGOCD_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          argocd-version: v1.6.1
+          argocd-version: v2.9.5
           argocd-extra-cli-args: --grpc-web
