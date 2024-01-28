@@ -23,29 +23,24 @@ USER vscode
 
 RUN sudo chown -R vscode /usr/local/bin
 
-# - Install tfswitcher
+# - Install tfswitcher and OpenTofu
 COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
-
-# - Install spacectl
-COPY --from=ghcr.io/spacelift-io/spacectl /usr/local/bin/spacectl /usr/local/bin
-
-# - Instorm OpenTofu version
 ARG OPENTOFU_VERSION="1.6.1"
 RUN tfswitcher -o ${OPENTOFU_VERSION}
 
-# - Install 1pw CLI
-COPY --from=1password/op:2 /usr/local/bin/op /usr/local/bin/op
-
-# - Install task
+# - Install tools with scripts
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
-
-# - Install civo
 RUN curl -sL https://civo.com/get | sh
 
-# - Install k8s stuff
+# - Install tools from Docker
+COPY --from=ghcr.io/spacelift-io/spacectl /usr/local/bin/spacectl /usr/local/bin
+COPY --from=1password/op:2 /usr/local/bin/op /usr/local/bin/op
 COPY --from=bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /usr/local/bin
 COPY --from=alpine/helm /usr/bin/helm /usr/local/bin
 COPY --from=derailed/k9s /bin/k9s /usr/local/bin
+COPY --from=hadolint/hadolint:latest-debian /bin/hadolint /usr/local/bin
+COPY --from=quay.io/argoproj/argocd /usr/local/bin/argocd /usr/local/bin
+COPY --from=hairyhenderson/gomplate:stable /gomplate /bin/gomplate
 
 # - Install pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git .pyenv

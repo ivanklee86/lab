@@ -2,13 +2,16 @@ version: '3'
 
 tasks:
   fmt:
+    desc: Run tofu formatter.
     cmds:
       - tofu fmt -recursive
 
   fmt:ci:
+    desc: Run tofu formatter in check mode.
     cmds:
       - tofu fmt -recursive -check
 
   plan:aoach:
+    desc: Run stack plan in Spacelift.
     cmds:
       - op run --env-file=".env" -- spacectl stack preview --sha `git rev-parse HEAD` --id dns-aoach-tech -tail

@@ -3,6 +3,7 @@ version: '3'
 
 includes:
   argocd: ./tasks/argocd.yaml
+  docker: ./tasks/docker.yaml
   docs: ./tasks/docs.yaml
   k8s: ./tasks/k8s.yaml
   python: ./tasks/python.yaml
@@ -10,21 +11,29 @@ includes:
 
 tasks:
   lint:
+    desc: Run all linting commands.
     cmds:
       - task: tofu:fmt:ci
       - task: python:pc:lint
       - task: python:lint
+      - task: docker:lint
+      - task --list
+
+  lint:ci:
+    desc: Run lint commands in CI
+    cmds:
+      - task: tofu:fmt:ci
+      - task: python:pc:lint
+      - task: python:lint
+      - task --list
 
   fmt:
+    desc: Run code formatting.
     cmds:
       - task: tofu:fmt
       - task: python:fmt
 
-  lint:ci:
-    cmds:
-      - task: tofu:fmt:ci
-      - task: python:pc:lint
-
   civo:bootstrap:
+    desc: Auth to Civo.
     cmds:
       - op run --env-file=".env" -- civo apikey save --load-from-env

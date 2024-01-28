@@ -5,6 +5,7 @@ vars:
 
 tasks:
   diff:
+    desc: Runs ArgoCD diff on current manifests (kubernetes/applications/*) path.
     cmds:
       - cd {{.USER_WORKING_DIR}}; helm dep update
       - op run --env-file=".env" -- ./scripts/argocd_diff.sh {{.APP_NAME}} {{.USER_WORKING_DIR}}

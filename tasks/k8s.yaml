@@ -2,6 +2,7 @@ version: '3'
 
 tasks:
   bootstrap:
+    desc: Load kubeconfig into development env.
     cmds:
       - mkdir ~/.kube | true
       - op read op://lab/kubernetes_config/config > ~/.kube/config

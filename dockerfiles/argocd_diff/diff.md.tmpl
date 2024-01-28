@@ -1,0 +1,7 @@
+**ArgoCD Diff Report - {{ .Env.APPLICAITON_PATH }}**
+
+*Application*: {{ filepath.Base .Env.APPLICAITON_PATH }}
+
+```diff
+{{ds "diff"}}
+```

@@ -1,4 +1,4 @@
-name: Release docs
+name: release-docs
 
 on:
   push:
@@ -22,4 +22,4 @@ jobs:
       - name: Deploy docs
         run: |
           pip install -U pip poetry
-          task docs-release
+          task docs:release

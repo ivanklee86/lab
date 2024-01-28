@@ -2,25 +2,31 @@ version: '3'
 
 tasks:
   install:
+    desc: Install Python dependencies.
     cmds:
+      - pip install -U poetry pip
       - poetry install --no-root
 
   fmt:
+    desc: Format Python code.
     cmds:
       - poetry run black .
       - poetry run ruff docs/diagrams --fix
 
   lint:
+    desc: Run Python linters.
     cmds:
       - poetry run black .
       - poetry run ruff docs/diagrams
 
   pc:update:
+    desc: Update precommit.
     cmds:
       - task: install
       - poetry run pre-commit autoupdate
 
   pc:lint:
+    desc: Run precommit linting.
     cmds:
       - task: install
       - poetry run pre-commit run --all-files

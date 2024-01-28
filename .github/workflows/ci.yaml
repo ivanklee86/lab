@@ -1,4 +1,4 @@
-name: CI
+name: ci
 
 on:
   push:
@@ -24,3 +24,6 @@ jobs:
         run: |
           pip install -U pip poetry
           task lint:ci
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: dockerfiles/argocd_diff/Dockerfile
