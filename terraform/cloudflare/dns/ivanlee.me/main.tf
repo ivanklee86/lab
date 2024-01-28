@@ -9,6 +9,7 @@ module "dns-website" {
       name    = "lab"
       value   = "ivanklee86.github.io"
       proxied = false
+      ttl     = 600
     },
   ]
   ttl = 1
