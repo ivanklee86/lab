@@ -1,5 +1,7 @@
 ---
 apiVersion: v1
 kind: Namespace
+annotations:
+  team: some-new-team
 metadata:
   name: sandbox-snt
