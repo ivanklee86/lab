@@ -48,11 +48,11 @@ jobs:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
       - name: Post diff if exists
-        if: steps.diff.output.exitcode == 1
+        if: steps.diff.outputs.exitcode == 1
         run: echo "Diff found"
       - name: Notify if diff does not exist
-        if: steps.diff.output.exitcode == 0
+        if: steps.diff.outputs.exitcode == 0
         run: echo "No diffs found"
       - name: Fail on CLI failure
-        if: steps.diff.output.exitcode == 2
+        if: steps.diff.outputs.exitcode == 2
         run: exit 1
