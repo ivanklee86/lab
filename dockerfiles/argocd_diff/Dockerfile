@@ -1,3 +1,7 @@
+FROM golang:1.21 go_builder
+
+RUN go install github.com/yannh/kubeconform/cmd/kubeconform@v0.4.13
+
 FROM ubuntu:24.04
 
 # Update ca-certs
@@ -13,5 +17,6 @@ WORKDIR /argocd_diff
 COPY --from=quay.io/argoproj/argocd:v2.9.5  /usr/local/bin/argocd /usr/local/bin
 COPY --from=cloudposse/github-commenter:0.19.0 /usr/bin/github-commenter /usr/local/bin
 COPY --from=hairyhenderson/gomplate:stable /gomplate /bin/gomplate
+COPY --from=go_builder /go/bin/kubeconform /usr/local/bin
 
 COPY *.md.tmpl .
