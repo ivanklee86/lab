@@ -43,7 +43,7 @@ jobs:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
       - name: Run Kubeconform.
-        run: kubeconform -ignroe-missing-schemas manifests.yaml
+        run: kubeconform -ignore-missing-schemas manifests.yaml
       - name: Get ArgoCD diff
         id: diff
         continue-on-error: true
