@@ -55,8 +55,8 @@ jobs:
         run: cat diff.md | github-commenter
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          GITHUB_OWNER: ${{GITHUB_REPOSITORY_OWNER}}
-          GITHUB_REPO: ${{GITHUB_REPOSITORY}}
+          GITHUB_OWNER: ${{env.GITHUB_REPOSITORY_OWNER}}
+          GITHUB_REPO: ${env.{GITHUB_REPOSITORY}}
           GITHUB_COMMENT_TYPE: pr
           GITHUB_PR_ISSUE_NUMBER: ${{github.event.pull_request.number}}
           GITHUB_EDIT_COMMENT_REGEX: "**ArgoCD Diff Report - ${{.matrix.folder}}**"
