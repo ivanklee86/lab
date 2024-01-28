@@ -14,7 +14,7 @@ jobs:
       matrix:
         include:
           - context: ./dockerfiles/argocd_diffs
-            image: cluelesshamster/argocd_diff
+            image: cluelesshamster86/argocd_diff
     steps:
       - uses: actions/checkout@v4
       - name: Login to Docker Hub
