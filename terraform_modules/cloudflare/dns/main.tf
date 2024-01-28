@@ -43,3 +43,16 @@ resource "cloudflare_record" "additional_records" {
   proxied = each.value.proxied
   ttl     = each.value.ttl
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CLOUDFLARE - Configuration
+# ---------------------------------------------------------------------------------------------------------------------
+resource "cloudflare_zone_settings_override" "test" {
+  zone_id = data.cloudflare_zones.zone.zones[0].id
+  settings {
+    min_tls_version          = "1.3"
+    tls_1_3                  = "on"
+    automatic_https_rewrites = "on"
+    ssl                      = "strict"
+  }
+}
