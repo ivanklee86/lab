@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - docker/*
       - argocd_diffs_in_prs
     paths:
       - dockerfiles/**
