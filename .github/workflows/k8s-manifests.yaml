@@ -4,8 +4,8 @@ on:
   pull_request:
     paths:
     - kubernetes/applications/**
-  push:
-    branches: argocd_diffs_in_prs
+  # push:
+  #   branches: argocd_diffs_in_prs
 
 jobs:
   changes:

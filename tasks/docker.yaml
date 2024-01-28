@@ -14,25 +14,25 @@ tasks:
       - docker buildx build --file {{.PATH}}/Dockerfile -t $(basename {{.PATH}}) {{.PATH}}
     internal: true
     vars:
-      PATH: dockerfiles/diffs
+      PATH: override_this
 
   run: &run
     desc: "Generic Docker run task."
     cmds:
       - docker run -it --entrypoint sh --rm --name $(basename {{.PATH}}) $(basename {{.PATH}})
     vars:
-      PATH: dockerfiles/diffs
+      PATH: override_this
 
   build:diff:
     <<: *build
     desc: "Build diffs Dockerfile."
     internal: false
     vars:
-      PATH: dockerfiles/diffs
+      PATH: dockerfiles/argocd_diffs
 
   run:diff:
     <<: *run
     desc: "Run diff Dockerfile."
     internal: false
     vars:
-      PATH: dockerfiles/diffs
+      PATH: dockerfiles/argocd_diffs
