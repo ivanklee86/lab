@@ -3,6 +3,7 @@ version: '3'
 
 includes:
   argocd: ./tasks/argocd.yaml
+  docker: ./tasks/docker.yaml
   docs: ./tasks/docs.yaml
   k8s: ./tasks/k8s.yaml
   python: ./tasks/python.yaml
@@ -15,6 +16,7 @@ tasks:
       - task: tofu:fmt:ci
       - task: python:pc:lint
       - task: python:lint
+      - task: docker:lint
 
   fmt:
     desc: Run code formatting.
