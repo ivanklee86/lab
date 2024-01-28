@@ -31,5 +31,6 @@ jobs:
     steps:
       - run: echo ${{matrix.folder}}
       - uses: actions/checkout@v4
-      - name: Install Task
-        uses: arduino/setup-task@v1
+      - uses: quay.io/argoproj/argocd:v2.9.5
+        run: |
+          argocd version

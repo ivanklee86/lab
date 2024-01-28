@@ -39,6 +39,7 @@ COPY --from=bitnami/kubectl /opt/bitnami/kubectl/bin/kubectl /usr/local/bin
 COPY --from=alpine/helm /usr/bin/helm /usr/local/bin
 COPY --from=derailed/k9s /bin/k9s /usr/local/bin
 COPY --from=hadolint/hadolint:latest-debian /bin/hadolint /usr/local/bin
+COPY --from=quay.io/argoproj/argocd /usr/local/bin/argocd /usr/local/bin
 
 # - Install pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git .pyenv
