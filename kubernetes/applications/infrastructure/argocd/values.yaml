@@ -6,7 +6,6 @@ argo-cd:
   server:
     extraArgs:
       - --insecure
-      - --this-does-nothing
 
     config:
       url: https://argocd.aoach.tech
