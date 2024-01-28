@@ -4,8 +4,6 @@ on:
   pull_request:
     paths:
     - kubernetes/applications/**
-  # push:
-  #   branches: argocd_diffs_in_prs
 
 jobs:
   changes:
@@ -31,7 +29,7 @@ jobs:
     permissions:
       pull-requests: write
     container:
-      image: cluelesshamster86/argocd_diff:main
+      image: cluelesshamster86/argocd_tools:main
     strategy:
       matrix: ${{ fromJson(needs.changes.outputs.changed-folders) }}
     steps:
