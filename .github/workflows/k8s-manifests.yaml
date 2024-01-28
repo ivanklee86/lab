@@ -43,4 +43,12 @@ jobs:
         env:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
-      - run: cat k8s.diff
+      - name: Post diff if exists
+        if: steps.diff.output.exit_code == 1
+        run: echo "Diff found"
+      - name: Notify if diff does not exist
+        if: steps.diff.output.exit_code == 0
+        run: echo "No diffs found"
+      - name: Fail on CLI failure
+        if: steps.diff.output.exit_code == 2
+        run: exit 1
