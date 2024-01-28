@@ -53,6 +53,6 @@ resource "cloudflare_zone_settings_override" "test" {
     min_tls_version          = "1.3"
     tls_1_3                  = "on"
     automatic_https_rewrites = "on"
-    ssl                      = "strict"
+    ssl                      = "full"
   }
 }
