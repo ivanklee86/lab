@@ -36,4 +36,4 @@ jobs:
       - run: echo ${{matrix.folder}}
       - uses: actions/checkout@v4
       - run: |
-          argocd app diff --grpc-web --server $ARGOCD_URL --auth-token $ARGOCD_JWT --refresh --revision $GITHUB_SHA $(basename ${{matrix.folder}})
+          argocd app diff --grpc-web --server $ARGOCD_URL --auth-token $ARGOCD_JWT $(basename ${{matrix.folder}}) --refresh --revision $GITHUB_SHA
