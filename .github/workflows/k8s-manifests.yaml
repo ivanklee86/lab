@@ -38,7 +38,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Get manifests
         run: |
-          argocd app manifests --grpc-web --server $ARGOCD_URL --auth-token $ARGOCD_TOKEN $(basename ${{matrix.folder}} --revision $GITHUB_SHA >> manifests.yaml
+          argocd app manifests --grpc-web --server $ARGOCD_URL --auth-token $ARGOCD_TOKEN $(basename ${{matrix.folder}}) --revision $GITHUB_SHA >> manifests.yaml
         env:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
