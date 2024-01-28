@@ -28,11 +28,11 @@ tasks:
     desc: "Build diffs Dockerfile."
     internal: false
     vars:
-      PATH: dockerfiles/argocd_diffs
+      PATH: dockerfiles/argocd_diff
 
   run:diff:
     <<: *run
     desc: "Run diff Dockerfile."
     internal: false
     vars:
-      PATH: dockerfiles/argocd_diffs
+      PATH: dockerfiles/argocd_diff

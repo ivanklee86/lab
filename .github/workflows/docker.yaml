@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - context: ./dockerfiles/argocd_diffs
+          - context: ./dockerfiles/argocd_diff
             image: cluelesshamster86/argocd_diff
     steps:
       - uses: actions/checkout@v4

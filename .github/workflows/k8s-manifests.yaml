@@ -29,7 +29,7 @@ jobs:
     needs: changes
     runs-on: ubuntu-latest
     container:
-      image: cluelesshamster86/argocd_diffs:argocd_diffs_in_prs
+      image: cluelesshamster86/argocd_diff:argocd_diffs_in_prs
     strategy:
       matrix: ${{ fromJson(needs.changes.outputs.changed-folders) }}
     steps:
