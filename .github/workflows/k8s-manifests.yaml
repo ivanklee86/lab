@@ -28,12 +28,13 @@ jobs:
   run-matrix:
     needs: changes
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     container:
       image: cluelesshamster86/argocd_diff:argocd_diffs_in_prs
     strategy:
       matrix: ${{ fromJson(needs.changes.outputs.changed-folders) }}
     steps:
-      - run: echo ${{matrix.folder}}
       - uses: actions/checkout@v4
       - name: Get ArgoCD diff
         id: diff
@@ -47,12 +48,19 @@ jobs:
         env:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
+      - name: Generate report
+        run: gomplate -f diff.md.tmpl -o diff.md -d diff=k8s.diff?type=text/plain
       - name: Post diff if exists
         if: steps.diff.outputs.exitcode == 1
-        run: echo "Diff found"
-      - name: Notify if diff does not exist
-        if: steps.diff.outputs.exitcode == 0
-        run: echo "No diffs found"
+        run: cat diff.md | github-commenter
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_OWNER: ${{GITHUB_REPOSITORY_OWNER}}
+          GITHUB_REPO: ${{GITHUB_REPOSITORY}}
+          GITHUB_COMMENT_TYPE: pr
+          GITHUB_PR_ISSUE_NUMBER: ${{github.event.pull_request.number}}
+          GITHUB_EDIT_COMMENT_REGEX: "**ArgoCD Diff Report - ${{.matrix.folder}}**"
+          APPLICAITON_PATH: ${{matrix.folder}}
       - name: Fail on CLI failure
         if: steps.diff.outputs.exitcode == 2
         run: exit 1
