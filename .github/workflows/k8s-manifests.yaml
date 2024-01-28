@@ -50,6 +50,8 @@ jobs:
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
       - name: Generate report
         run: gomplate -f /argocd_diff/diff.md.tmpl -o diff.md -d diff=k8s.diff?type=text/plain
+        env:
+          APPLICAITON_PATH: ${{matrix.folder}}
       - name: Post diff if exists
         if: steps.diff.outputs.exitcode == 1
         run: cat diff.md | github-commenter --edit-comment-regex "**ArgoCD Diff Report - ${{matrix.folder}}**"
