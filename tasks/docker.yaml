@@ -23,14 +23,14 @@ tasks:
     vars:
       PATH: override_this
 
-  build:diff:
+  build:argocd_diff:
     <<: *build
     desc: "Build diffs Dockerfile."
     internal: false
     vars:
       PATH: dockerfiles/argocd_diff
 
-  run:diff:
+  run:argocd_diff:
     <<: *run
     desc: "Run diff Dockerfile."
     internal: false
