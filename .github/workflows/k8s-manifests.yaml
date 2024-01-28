@@ -39,16 +39,20 @@ jobs:
         id: diff
         continue-on-error: true
         run: |
+          set +e
           argocd app diff --grpc-web --server $ARGOCD_URL --auth-token $ARGOCD_TOKEN $(basename ${{matrix.folder}}) --refresh --revision $GITHUB_SHA >> k8s.diff
+          exitcode="$?"
+          echo "exitcode=$exitcode" >> $GITHUB_OUTPUT
+          exit "$exitcode"
         env:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
       - name: Post diff if exists
-        if: steps.diff.output.exit_code == 1
+        if: steps.diff.output.exitcode == 1
         run: echo "Diff found"
       - name: Notify if diff does not exist
-        if: steps.diff.output.exit_code == 0
+        if: steps.diff.output.exitcode == 0
         run: echo "No diffs found"
       - name: Fail on CLI failure
-        if: steps.diff.output.exit_code == 2
+        if: steps.diff.output.exitcode == 2
         run: exit 1
