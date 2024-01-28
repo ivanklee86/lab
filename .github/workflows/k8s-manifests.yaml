@@ -28,11 +28,11 @@ jobs:
   run-matrix:
     needs: changes
     runs-on: ubuntu-latest
+    container:
+      image: cluelesshamster86/argocd_diffs
     strategy:
       matrix: ${{ fromJson(needs.changes.outputs.changed-folders) }}
     steps:
       - run: echo ${{matrix.folder}}
       - uses: actions/checkout@v4
-      - uses: quay.io/argoproj/argocd:v2.9.5
-        run: |
-          argocd version
+      - run: argocd version
