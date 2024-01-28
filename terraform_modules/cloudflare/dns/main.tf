@@ -47,7 +47,7 @@ resource "cloudflare_record" "additional_records" {
 # ---------------------------------------------------------------------------------------------------------------------
 # CLOUDFLARE - Configuration
 # ---------------------------------------------------------------------------------------------------------------------
-resource "cloudflare_zone_settings_override" "test" {
+resource "cloudflare_zone_settings_override" "zone_settings" {
   zone_id = data.cloudflare_zones.zone.zones[0].id
   settings {
     min_tls_version          = "1.3"

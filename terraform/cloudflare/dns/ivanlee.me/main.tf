@@ -5,11 +5,12 @@ module "dns-website" {
   ip          = "212.2.240.67"
   additional_records = [
     {
-      type  = "CNAME"
-      name  = "lab"
-      value = "ivanklee86.github.io"
+      type    = "CNAME"
+      name    = "lab"
+      value   = "ivanklee86.github.io"
+      proxied = false
+      ttl     = 600
     },
   ]
-  proxied = true
-  ttl     = 1
+  ttl = 1
 }
