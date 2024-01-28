@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - argocd_diffs_in_prs
+    paths:
+      - dockerfiles/**
 
 jobs:
   build:
