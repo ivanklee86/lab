@@ -54,14 +54,16 @@ jobs:
           APPLICAITON_PATH: ${{matrix.folder}}
       - name: Post diff if exists
         if: steps.diff.outputs.exitcode == 1
-        run: cat diff.md | github-commenter
+        run: |
+          cat diff.md | github-commenter \
+            -token $GITHUB_TOKEN \
+            -owner $GITHUB_REPOSITORY_OWNER \
+            -repo $GITHUB_REPOSITORY \
+            -type pr \
+            -number ${{github.event.pull_request.number}} \
+            -edit-comment-regex "**ArgoCD Diff Report - ${{matrix.folder}}**"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          GITHUB_OWNER: ${{env.GITHUB_REPOSITORY_OWNER}}
-          GITHUB_REPO: ${{env.GITHUB_REPOSITORY}}
-          GITHUB_COMMENT_TYPE: pr
-          GITHUB_PR_ISSUE_NUMBER: ${{github.event.pull_request.number}}
-          GITHUB_EDIT_COMMENT_REGEX: "**ArgoCD Diff Report - ${{matrix.folder}}**"
       - name: Fail on CLI failure
         if: steps.diff.outputs.exitcode == 2
         run: exit 1
