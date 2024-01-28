@@ -26,4 +26,4 @@ jobs:
           task lint:ci
       - uses: hadolint/hadolint-action@v3.1.0
         with:
-          dockerfile: dockerfiles/argocd_diff/Dockerfile
+          dockerfile: dockerfiles/argocd_tools/Dockerfile

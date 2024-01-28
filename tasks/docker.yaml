@@ -19,20 +19,21 @@ tasks:
   run: &run
     desc: "Generic Docker run task."
     cmds:
+      - task: build:{{base .PATH}}
       - docker run -it --entrypoint sh --rm --name $(basename {{.PATH}}) $(basename {{.PATH}})
     vars:
       PATH: override_this
 
-  build:argocd_diff:
+  build:argocd_tools:
     <<: *build
-    desc: "Build diffs Dockerfile."
+    desc: "Build argocd_tools Dockerfile."
     internal: false
     vars:
-      PATH: dockerfiles/argocd_diff
+      PATH: dockerfiles/argocd_tools
 
-  run:argocd_diff:
+  run:argocd_tools:
     <<: *run
-    desc: "Run diff Dockerfile."
+    desc: "Run argocd_tools Dockerfile."
     internal: false
     vars:
-      PATH: dockerfiles/argocd_diff
+      PATH: dockerfiles/argocd_tools
