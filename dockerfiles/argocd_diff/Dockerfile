@@ -1,7 +1,9 @@
 FROM ubuntu:24.04
 
 # Update ca-certs
-RUN apt-get update && apt-get install ca-certificates -y
+RUN apt-get update && apt-get install --no-install-recommends ca-certificates -y \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # Create working folder
 RUN mkdir /argocd_diff
