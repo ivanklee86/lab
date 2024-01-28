@@ -61,7 +61,7 @@ jobs:
             -repo $GITHUB_REPOSITORY \
             -type pr \
             -number ${{github.event.pull_request.number}} \
-            -edit-comment-regex "**ArgoCD Diff Report - ${{matrix.folder}}**"
+            -edit-comment-regex "ArgoCD Diff Report - ${{matrix.folder}}"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Fail on CLI failure
