@@ -1,6 +1,7 @@
 from utilities import move_diagram
 
 from diagrams import Cluster, Diagram, Edge
+from diagrams.custom import Custom
 from diagrams.digitalocean.compute import K8SCluster, K8SNodePool
 from diagrams.oci.monitoring import HealthCheck
 from diagrams.oci.network import Firewall, LoadBalancer
@@ -16,6 +17,7 @@ with Diagram(
     cloudflare = Cloudflare("Cloudflare")
     grafana = Grafana("Grafana")
     uptimerobot = HealthCheck("UptimeRobot")
+    tailscale = Custom("Tailscale", "../imgs/tailscale.jpg")
 
     # Groups
     with Cluster("Civo"):
@@ -26,6 +28,10 @@ with Diagram(
             cluster = K8SCluster("lab [k8s cluster]")
             xsmall_nodes = K8SNodePool("Node Pool [xsmall]")
             small_nodes = K8SNodePool("Node Pool [small]")
+
+    with Cluster("Home Network"):
+        unifi_gateway = Custom("Unifi Gateway", "../imgs/ubiquiti.png")
+        tailscale_exit_node = Custom("Tailscale [Exit Node]", "../imgs/tailscale.jpg")
 
     (
         cloudflare
@@ -38,5 +44,13 @@ with Diagram(
 
     cluster >> Edge(label="metrics and logs") >> grafana
     uptimerobot >> Edge(label="synthetic monitoring") >> cloudflare
+
+    (
+        tailscale
+        >> tailscale_exit_node
+        >> Edge(label="IP allowlist for k8s API")
+        >> cluster
+    )
+    unifi_gateway >> cluster
 
 move_diagram(diagram_filename)
