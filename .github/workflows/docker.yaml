@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - argocd_diffs_in_prs
 
 jobs:
   build:
