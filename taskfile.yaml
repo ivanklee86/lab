@@ -17,6 +17,7 @@ tasks:
       - task: python:pc:lint
       - task: python:lint
       - task: docker:lint
+      - task --list
 
   fmt:
     desc: Run code formatting.
