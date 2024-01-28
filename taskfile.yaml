@@ -19,6 +19,14 @@ tasks:
       - task: docker:lint
       - task --list
 
+  lint:ci:
+    desc: Run lint commands in CI
+    cmds:
+      - task: tofu:fmt:ci
+      - task: python:pc:lint
+      - task: python:lint
+      - task --list
+
   fmt:
     desc: Run code formatting.
     cmds:

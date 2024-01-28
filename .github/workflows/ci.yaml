@@ -23,4 +23,7 @@ jobs:
       - name: "Lint"
         run: |
           pip install -U pip poetry
-          task lint
+          task lint:ci
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: dockerfiles/argocd_diffs/Dockerfile
