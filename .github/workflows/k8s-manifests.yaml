@@ -22,7 +22,7 @@ jobs:
       - id: output-step
         name: Generate list of changed folders
         run: |
-          TARGETS=$(git diff --name-only main -- kubernetes/applications | xargs -L1 grep -Eo 'kubernetes\/applications\/[a-zA-z]*\/([a-zA-z]*)\/.*' | uniq | jq -cRn '[inputs]')
+          TARGETS=$(git diff --name-only main -- kubernetes/applications | rg 'kubernetes/applications/[a-zA-z]*/([a-zA-z]*)/.*' -or '$1' | uniq | jq -cRn '[inputs]')
           echo "folders=$(jq -cn --argjson environments "$TARGETS" '{folder: $environments}')" >> "$GITHUB_OUTPUT"
 
   run-matrix:
