@@ -18,6 +18,41 @@ module "dns-website" {
       proxied = true
       ttl     = 1
     },
+    {
+      type    = "SPF"
+      name    = "mail"
+      value   = "v=spf1 include:mailgun.org ~all"
+      proxied = false
+      ttl     = 600
+    },
+    {
+      type    = "SPF"
+      name    = "mailo._domainkey.mail"
+      value   = "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCbigVBlbGqBSP/H6u0eUIWxljxzn9RXO6+TFcj0KPjbDQ3Dhh9xYeC3g+181jQCqVeDnYXIIrpUGTZ76Ajz8ZHiDMJtFIAtHC2LwiJ9SLphteqYOi1jXz7VnjoXN2Lns4IORZeBDFuDZiMmfciCpYjJhvnrOZqXCgFonBmCHb5FQIDAQAB"
+      proxied = false
+      ttl     = 600
+    },
+    {
+      type    = "MX"
+      name    = "mail"
+      value   = "mxa.mailgun.org"
+      proxied = false
+      ttl     = 600
+    },
+    {
+      type    = "MX"
+      name    = "mail"
+      value   = "mxb.mailgun.org"
+      proxied = false
+      ttl     = 600
+    },
+    {
+      type    = "CNAME"
+      name    = "email.mail"
+      value   = "mailgun.org"
+      proxied = false
+      ttl     = 600
+    },
   ]
   ttl = 1
 }
