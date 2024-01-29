@@ -50,7 +50,7 @@ resource "cloudflare_record" "additional_records" {
 resource "cloudflare_zone_settings_override" "zone_settings" {
   zone_id = data.cloudflare_zones.zone.zones[0].id
   settings {
-    min_tls_version          = "1.3"
+    min_tls_version          = "1.2"
     tls_1_3                  = "on"
     automatic_https_rewrites = "on"
     ssl                      = "full"
