@@ -1,5 +1,7 @@
 ---
 apiVersion: v1
 kind: Namespace
+annotations:
+  test: test
 metadata:
   name: websites

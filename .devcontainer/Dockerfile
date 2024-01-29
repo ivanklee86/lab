@@ -17,7 +17,9 @@ RUN apt-get update && \
         gnupg2 apt-transport-https openssh-client vim \
         # Python
         libsasl2-dev libldap2-dev libssl-dev libsnmp-dev libffi-dev \
-        libncurses-dev libsqlite3-dev libbz2-dev libreadline-dev liblzma-dev tzdata tk-dev graphviz;
+        libncurses-dev libsqlite3-dev libbz2-dev libreadline-dev liblzma-dev tzdata tk-dev graphviz \
+        # Tools
+        ripgrep;
 
 USER vscode
 
