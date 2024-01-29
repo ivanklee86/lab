@@ -21,8 +21,9 @@ jobs:
         run: sudo apt-get install -y ripgrep
       - id: output-step
         name: Generate list of changed folders
+        # Use ripgrep to extract application name from path aka kubernetes/applications/[group]/[application]/...
         run: |
-          TARGETS=$(git diff --name-only main -- kubernetes/applications | rg 'kubernetes/applications/[a-zA-z]*/([a-zA-z]*)/.*' -or '$1' | uniq | jq -cRn '[inputs]')
+          TARGETS=$(git diff --name-only main -- kubernetes/applications | rg 'kubernetes/applications/[\w]*/([\w]*)/.*' -or '$1' | uniq | jq -cRn '[inputs]')
           echo "folders=$(jq -cn --argjson environments "$TARGETS" '{folder: $environments}')" >> "$GITHUB_OUTPUT"
 
   run-matrix:
