@@ -11,6 +11,13 @@ module "dns-website" {
       proxied = false
       ttl     = 600
     },
+    {
+      type    = "A"
+      name    = "www"
+      value   = ""
+      proxied = true
+      ttl     = 1
+    },
   ]
   ttl = 1
 }

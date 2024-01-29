@@ -17,10 +17,12 @@ jobs:
       - name: 'Setup jq'
         uses: dcarbone/install-jq-action@v2
       # Credit to https://www.kenmuse.com/blog/dynamic-build-matrices-in-github-actions/
+      - name: 'Setup ripgrep'
+        run: sudo apt-get install -y ripgrep
       - id: output-step
         name: Generate list of changed folders
         run: |
-          TARGETS=$(git diff --name-only main -- kubernetes/applications | xargs -L1 dirname | uniq | jq -cRn '[inputs]')
+          TARGETS=$(git diff --name-only main -- kubernetes/applications | rg 'kubernetes/applications/[a-zA-z]*/([a-zA-z]*)/.*' -or '$1' | uniq | jq -cRn '[inputs]')
           echo "folders=$(jq -cn --argjson environments "$TARGETS" '{folder: $environments}')" >> "$GITHUB_OUTPUT"
 
   run-matrix:
