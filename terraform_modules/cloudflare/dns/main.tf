@@ -32,16 +32,13 @@ resource "cloudflare_record" "main" {
 }
 
 resource "cloudflare_record" "additional_records" {
-  for_each = {
-    for record in var.additional_records : "${record.type}_${record.name}" => record
-  }
-
-  zone_id = data.cloudflare_zones.zone.zones[0].id
-  name    = each.value.name
-  value   = each.value.type == "A" ? var.ip : each.value.value
-  type    = each.value.type
-  proxied = each.value.proxied
-  ttl     = each.value.ttl
+  for_each = toset(var.additional_records)
+  zone_id  = data.cloudflare_zones.zone.zones[0].id
+  name     = each.value.name
+  value    = each.value.type == "A" ? var.ip : each.value.value
+  type     = each.value.type
+  proxied  = each.value.proxied
+  ttl      = each.value.ttl
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
