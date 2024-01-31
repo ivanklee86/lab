@@ -48,6 +48,9 @@ argo-cd:
       service.slack: |
         token: $slack-token
 
+    secret:
+      create: false
+
     subscriptions:
       - recipients:
         - slack
