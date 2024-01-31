@@ -4,6 +4,7 @@ module "dns-website" {
   domain_name = "ivanlee.me"
   ip          = "212.2.240.67"
   additional_records = [
+    // Ghost website
     {
       type    = "CNAME"
       name    = "lab"
@@ -18,6 +19,7 @@ module "dns-website" {
       proxied = true
       ttl     = 1
     },
+    // Mailgun
     {
       type    = "SPF"
       name    = "mail"
@@ -52,6 +54,14 @@ module "dns-website" {
       value   = "mailgun.org"
       proxied = false
       ttl     = 600
+    },
+    // Google domains
+    {
+      type    = "TXT"
+      name    = "ivanlee.me"
+      value   = "google-site-verification=RCee0G-XyXo-PCB5fb2H96ynWX1z2NDSz3Alu0YzDTg"
+      proxied = false
+      ttl     = 3600
     },
   ]
   ttl = 1
