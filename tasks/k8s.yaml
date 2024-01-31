@@ -8,3 +8,15 @@ tasks:
       - op read op://lab/kubernetes_config/config > ~/.kube/config
       - chmod 600 ~/.kube/config
       - kubectl config use-context lab
+
+  helm:update:
+    desc: Update helm dependencies.
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - helm dep update
+
+  helm:template:
+    desc: Update helm dependencies.
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - helm template . >> manifests.yaml
