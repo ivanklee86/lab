@@ -51,8 +51,8 @@ resource "cloudflare_record" "additional_mx_records" {
 
   zone_id = data.cloudflare_zones.zone.zones[0].id
   name    = each.value.name
-  value   = "MX"
-  type    = each.value.type
+  value   = eac.value.value
+  type    = "MX"
   proxied = each.value.proxied
   ttl     = each.value.ttl
   data {
