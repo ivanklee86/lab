@@ -21,14 +21,14 @@ module "dns-website" {
     },
     // Mailgun
     {
-      type    = "SPF"
+      type    = "TXT"
       name    = "mail"
       value   = "v=spf1 include:mailgun.org ~all"
       proxied = false
       ttl     = 600
     },
     {
-      type    = "SPF"
+      type    = "TXT"
       name    = "mailo._domainkey.mail"
       value   = "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCbigVBlbGqBSP/H6u0eUIWxljxzn9RXO6+TFcj0KPjbDQ3Dhh9xYeC3g+181jQCqVeDnYXIIrpUGTZ76Ajz8ZHiDMJtFIAtHC2LwiJ9SLphteqYOi1jXz7VnjoXN2Lns4IORZeBDFuDZiMmfciCpYjJhvnrOZqXCgFonBmCHb5FQIDAQAB"
       proxied = false

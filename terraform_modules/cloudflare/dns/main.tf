@@ -42,6 +42,7 @@ resource "cloudflare_record" "additional_records" {
   type    = each.value.type
   proxied = each.value.proxied
   ttl     = each.value.ttl
+  priority = 10
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
