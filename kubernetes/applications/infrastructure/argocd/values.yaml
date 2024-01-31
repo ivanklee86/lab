@@ -53,7 +53,7 @@ argo-cd:
 
     subscriptions:
       - recipients:
-        - slack
+        - slack:notifications
         triggers:
         - on-deployed
         - on-health-degraded
