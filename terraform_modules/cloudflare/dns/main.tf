@@ -42,7 +42,22 @@ resource "cloudflare_record" "additional_records" {
   type    = each.value.type
   proxied = each.value.proxied
   ttl     = each.value.ttl
-  priority = 10
+}
+
+resource "cloudflare_record" "additional_mx_records" {
+  for_each = {
+    for idx, record in var.additional_mx_records : "${record.type}_${record.name}_${idx}" => record
+  }
+
+  zone_id = data.cloudflare_zones.zone.zones[0].id
+  name    = each.value.name
+  value   = "MX"
+  type    = each.value.type
+  proxied = each.value.proxied
+  ttl     = each.value.ttl
+  data {
+    priority = each.value.priority
+  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

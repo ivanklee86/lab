@@ -35,20 +35,6 @@ module "dns-website" {
       ttl     = 600
     },
     {
-      type    = "MX"
-      name    = "mail"
-      value   = "mxa.mailgun.org"
-      proxied = false
-      ttl     = 600
-    },
-    {
-      type    = "MX"
-      name    = "mail"
-      value   = "mxb.mailgun.org"
-      proxied = false
-      ttl     = 600
-    },
-    {
       type    = "CNAME"
       name    = "email.mail"
       value   = "mailgun.org"
@@ -62,6 +48,22 @@ module "dns-website" {
       value   = "google-site-verification=RCee0G-XyXo-PCB5fb2H96ynWX1z2NDSz3Alu0YzDTg"
       proxied = false
       ttl     = 3600
+    },
+  ]
+  additional_mx_recoreds = [
+    {
+      name     = "mail"
+      value    = "mxa.mailgun.org"
+      proxied  = false
+      ttl      = 600
+      priority = 10
+    },
+    {
+      name     = "mail"
+      value    = "mxb.mailgun.org"
+      proxied  = false
+      ttl      = 600
+      priority = 10
     },
   ]
   ttl = 1

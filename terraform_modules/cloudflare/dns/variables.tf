@@ -39,11 +39,10 @@ variable "additional_mx_records" {
   description = "Additional MX DNS records to configure."
   type = list(
     object({
-      type    = string
-      name    = string
-      value   = string
-      proxied = bool
-      ttl     = number
+      name     = string
+      value    = string
+      proxied  = bool
+      ttl      = number
       priority = number
     })
   )
