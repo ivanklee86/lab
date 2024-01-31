@@ -1,5 +1,5 @@
 module "dns-website" {
-  source = "github.com/ivanklee86/lab//terraform_modules/cloudflare/dns?ref=terraform_modules/v0.0.1"
+  source = "github.com/ivanklee86/lab//terraform_modules/cloudflare/dns?ref=tm_v0.0.1"
 
   domain_name = "ivanlee.me"
   ip          = "212.2.240.67"

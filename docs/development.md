@@ -11,7 +11,9 @@ Since this is a monolith, I'm using the following scheme:
 
 | Component | Tag format |
 |-----------|------------|
-| Terraform Modules | terraform_modules/vX.Y.Z |
+| Terraform Modules | `tm_vX.Y.Z` |
+
+*Note*: Terraform has a weird issue where `/` in the git ref is interepreted as part of the path (e.g. `//`).  Sadness. 😭
 
 ## Resources
 
