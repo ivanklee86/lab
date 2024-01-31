@@ -4,6 +4,9 @@ metadata:
   name: lab-deployments-websites
   namespace: infrastructure
 spec:
+  ignoreApplicationDifferences:
+    - jsonPointers:
+        - /spec/syncPolicy
   generators:
   - git:
       repoURL: https://github.com/ivanklee86/lab.git
