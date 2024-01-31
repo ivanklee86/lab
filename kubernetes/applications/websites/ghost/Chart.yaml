@@ -3,5 +3,5 @@ name: ghost
 version: 1.0.0
 dependencies:
   - name: mysql
-    version: 9.18.0
+    version: 9.18.2
     repository: oci://registry-1.docker.io/bitnamicharts
