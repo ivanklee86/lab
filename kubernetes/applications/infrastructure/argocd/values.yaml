@@ -59,7 +59,6 @@ argo-cd:
         - on-health-degraded
         - on-sync-failed
         - on-sync-status-unknown
-        - on-sync-succeeded
 
     templates:
       template.app-deployed: |
