@@ -42,6 +42,8 @@ argo-cd:
         - argocd.aoach.tech
 
   notifications:
+    argocdUrl: https://argocd.aoach.tech
+
     notifiers:
       service.slack: |
         token: $slack-token
