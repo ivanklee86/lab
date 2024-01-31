@@ -52,14 +52,14 @@ module "dns-website" {
   ]
   additional_mx_records = [
     {
-      name     = "mail-mxa"
-      value    = "mxa.mailgun.org"
+      name     = "@"
+      value    = "mail.ivanlee.me"
       proxied  = false
       ttl      = 600
       priority = 10
     },
     {
-      name     = "mail-mxb"
+      name     = "mail.ivanlee.me"
       value    = "mxb.mailgun.org"
       proxied  = false
       ttl      = 600
