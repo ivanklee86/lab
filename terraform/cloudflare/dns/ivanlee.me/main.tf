@@ -50,7 +50,7 @@ module "dns-website" {
       ttl     = 3600
     },
   ]
-  additional_mx_recoreds = [
+  additional_mx_records = [
     {
       name     = "mail"
       value    = "mxa.mailgun.org"

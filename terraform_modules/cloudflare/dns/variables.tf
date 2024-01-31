@@ -33,6 +33,7 @@ variable "additional_records" {
       ttl     = number
     })
   )
+  default = []
 }
 
 variable "additional_mx_records" {
@@ -46,4 +47,5 @@ variable "additional_mx_records" {
       priority = number
     })
   )
+  default = []
 }
