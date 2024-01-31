@@ -52,8 +52,8 @@ module "dns-website" {
   ]
   additional_mx_records = [
     {
-      name     = "@"
-      value    = "mail.ivanlee.me"
+      name     = "mail.ivanlee.me"
+      value    = "mxa.mailgun.org"
       proxied  = false
       ttl      = 600
       priority = 10
