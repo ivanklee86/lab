@@ -40,8 +40,9 @@
 			},
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				"1Password.op-vscode",
+				"mikestead.dotenv",
 				"ms-azuretools.vscode-docker",
+				"ms-kubernetes-tools.vscode-kubernetes-tools",
 				"ms-python.python",
 				"ms-python.vscode-pylance",
 				"hashicorp.terraform",
