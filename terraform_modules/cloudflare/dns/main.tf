@@ -46,7 +46,7 @@ resource "cloudflare_record" "additional_records" {
 
 resource "cloudflare_record" "additional_mx_records" {
   for_each = {
-    for idx, record in var.additional_mx_records : "${record.type}_${record.name}_${idx}" => record
+    for idx, record in var.additional_mx_records : "${record.name}" => record
   }
 
   zone_id = data.cloudflare_zones.zone.zones[0].id
