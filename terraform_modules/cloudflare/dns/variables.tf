@@ -23,7 +23,7 @@ variable "ttl" {
 }
 
 variable "additional_records" {
-  description = "Additional Domain records to configure."
+  description = "Additional generic DNS records to configure."
   type = list(
     object({
       type    = string
@@ -33,4 +33,19 @@ variable "additional_records" {
       ttl     = number
     })
   )
+  default = []
+}
+
+variable "additional_mx_records" {
+  description = "Additional MX DNS records to configure."
+  type = list(
+    object({
+      name     = string
+      value    = string
+      proxied  = bool
+      ttl      = number
+      priority = number
+    })
+  )
+  default = []
 }

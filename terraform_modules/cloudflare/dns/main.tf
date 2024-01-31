@@ -33,7 +33,7 @@ resource "cloudflare_record" "main" {
 
 resource "cloudflare_record" "additional_records" {
   for_each = {
-    for record in var.additional_records : "${record.type}_${record.name}" => record
+    for idx, record in var.additional_records : "${record.type}_${record.name}_${idx}" => record
   }
 
   zone_id = data.cloudflare_zones.zone.zones[0].id
@@ -42,6 +42,20 @@ resource "cloudflare_record" "additional_records" {
   type    = each.value.type
   proxied = each.value.proxied
   ttl     = each.value.ttl
+}
+
+resource "cloudflare_record" "additional_mx_records" {
+  for_each = {
+    for idx, record in var.additional_mx_records : "${record.name}_${idx}" => record
+  }
+
+  zone_id  = data.cloudflare_zones.zone.zones[0].id
+  name     = each.value.name
+  value    = each.value.value
+  type     = "MX"
+  proxied  = each.value.proxied
+  ttl      = each.value.ttl
+  priority = each.value.priority
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
