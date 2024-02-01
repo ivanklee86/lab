@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ConfigManagementPlugin
+metadata:
+  name: tanka
+spec:
+  version: v1.0
+  init:
+    command: ['jb', 'install']
+  generate:
+    command: [tk, 'show', '--dangerous-allow-redirect']
+  discover:
+    find:
+      glob: "**/jsonnetfile.json"
