@@ -6,24 +6,41 @@ on:
       - 'main'
   pull_request:
 
+env:
+  PYTHON_VERSION: "3.12"
+  POETRY_URL: https://install.python-poetry.org
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python 3.12
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version:  ${{ env.PYTHON_VERSION }}
+        id: setup_python
+      - name: Cache Poetry cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry
+          key: poetry-cache-${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-${{ env.POETRY_VERSION }}
+      - name: Cache Packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.local
+          key: poetry-local-${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}-${{ hashFiles('.github/workflows/*.yml') }}
+      - name: Install Poetry
+        run: |
+          curl -sSL ${{ env.POETRY_URL }} | python
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
       - uses: opentofu/setup-opentofu@v1
         with:
           tofu_version: 1.6.1
       - name: Install Task
         uses: arduino/setup-task@v1
       - name: "Lint"
-        run: |
-          pip install -U pip poetry
-          task lint:ci
+        run: task lint:ci
 
   dockerfiles:
     runs-on: ubuntu-latest
