@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  main:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,9 +24,14 @@ jobs:
         run: |
           pip install -U pip poetry
           task lint:ci
+
+  dockerfiles:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        file: ["dockerfiles/argocd_tools/Dockerfile", "dockerfiles/argocd_tanka_sidecar/Dockerfile"]
+    steps:
+      - uses: actions/checkout@v4
       - uses: hadolint/hadolint-action@v3.1.0
         with:
-          dockerfile: dockerfiles/argocd_tools/Dockerfile
-      - uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: dockerfiles/argocd_tanka_sidecar/Dockerfile
+          dockerfile: ${{matrix.file}}
