@@ -36,7 +36,13 @@
 				"python.linting.mypyPath": "${workspaceFolder}/.venv/bin/mypy",
 				"python.testing.unittestEnabled": false,
 				"python.testing.pytestEnabled": true,
-				"python.venvPath": "${workspaceFolder}/.venv"
+				"python.venvPath": "${workspaceFolder}/.venv",
+				"yaml.schemas": {
+					"https://taskfile.dev/schema.json": [
+						"**/Taskfile.yml",
+						"tasks/**"
+					]
+				}
 			},
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
@@ -46,6 +52,7 @@
 				"ms-python.python",
 				"ms-python.vscode-pylance",
 				"hashicorp.terraform",
+				"redhat.vscode-yaml",
 				"ritwickdey.LiveServer",
 				"tamasfe.even-better-toml",
 				"task.vscode-task"
