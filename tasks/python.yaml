@@ -7,6 +7,11 @@ tasks:
       - pip install -U poetry pip
       - poetry install --no-root
 
+  poetry:install:
+    desc: Install packages from poetry
+    cmds:
+      - poetry install --no-root
+
   fmt:
     desc: Format Python code.
     cmds:
@@ -16,7 +21,7 @@ tasks:
   lint:
     desc: Run Python linters.
     cmds:
-      - task: install
+      - task: postry:install
       - poetry run black .
       - poetry run ruff docs/diagrams
 
@@ -29,5 +34,5 @@ tasks:
   pc:lint:
     desc: Run precommit linting.
     cmds:
-      - task: install
+      - task: poetry:install
       - poetry run pre-commit run --all-files
