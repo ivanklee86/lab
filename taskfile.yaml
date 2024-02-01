@@ -23,7 +23,6 @@ tasks:
     desc: Run lint commands in CI
     cmds:
       - task: tofu:fmt:ci
-      - task: python:pc:lint
       - task: python:lint
       - task --list
 
