@@ -1,7 +1,5 @@
 version: '3'
 
-
-
 tasks:
   lint:
     desc: Lint Dockerfiles with Hadolint.
@@ -37,3 +35,17 @@ tasks:
     internal: false
     vars:
       PATH: dockerfiles/argocd_tools
+
+  build:argocd_tanka_sidecar:
+    <<: *build
+    desc: "Build argocd_tools Dockerfile."
+    internal: false
+    vars:
+      PATH: dockerfiles/argocd_tanka_sidecar
+
+  run:argocd_tanka_sidecar:
+    <<: *run
+    desc: "Run argocd_tools Dockerfile."
+    internal: false
+    vars:
+      PATH: dockerfiles/argocd_tanka_sidecar
