@@ -46,6 +46,14 @@ resource "civo_firewall" "lab_k8s_firewall" {
     action = "allow"
   }
 
+  ingress_rule {
+    label      = "mysql"
+    protocol   = "tcp"
+    port_range = "3306"
+    cidr       = ["0.0.0.0/0"]
+    action     = "allow"
+  }
+
   egress_rule {
     label      = "All"
     protocol   = "tcp"
