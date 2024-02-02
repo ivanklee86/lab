@@ -42,7 +42,9 @@ COPY --from=alpine/helm /usr/bin/helm /usr/local/bin
 COPY --from=derailed/k9s /bin/k9s /usr/local/bin
 COPY --from=hadolint/hadolint:latest-debian /bin/hadolint /usr/local/bin
 COPY --from=quay.io/argoproj/argocd /usr/local/bin/argocd /usr/local/bin
-COPY --from=hairyhenderson/gomplate:stable /gomplate /bin/gomplate
+COPY --from=hairyhenderson/gomplate:stable /gomplate /usr/local/bin
+COPY --from=grafana/tanka:latest /usr/local/bin/jb /usr/local/bin
+COPY --from=grafana/tanka:latest /usr/local/bin/tk /usr/local/bin
 
 # - Install pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git .pyenv
