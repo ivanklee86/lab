@@ -313,7 +313,7 @@ argo-cd:
       - name: tanka
         command:
           - "/var/run/argocd/argocd-cmp-server"
-        image: cluelesshamster86/argocd_tanka_sidecar
+        image: cluelesshamster86/argocd_tanka_sidecar:main
         securityContext:
           runAsNonRoot: true
           runAsUser: 999
