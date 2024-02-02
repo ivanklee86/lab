@@ -51,7 +51,7 @@ resource "civo_firewall" "lab_k8s_firewall" {
     protocol   = "tcp"
     port_range = "3306"
     cidr       = ["0.0.0.0/0"]
-    action = "allow"
+    action     = "allow"
   }
 
   egress_rule {
