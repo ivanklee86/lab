@@ -6,6 +6,7 @@ from diagrams.digitalocean.compute import K8SCluster, K8SNodePool
 from diagrams.oci.monitoring import HealthCheck
 from diagrams.oci.network import Firewall, LoadBalancer
 from diagrams.onprem.monitoring import Grafana
+from diagrams.onprem.database import MySQL
 from diagrams.saas.cdn import Cloudflare
 
 diagram_filename = "infrastructure"
@@ -28,6 +29,9 @@ with Diagram(
             cluster = K8SCluster("lab [k8s cluster]")
             xsmall_nodes = K8SNodePool("Node Pool [xsmall]")
             small_nodes = K8SNodePool("Node Pool [small]")
+            medium_nodes = K8SNodePool("Node Pool [medium]")
+
+            mysql = MySQL("MySQL")
 
     with Cluster("Home Network"):
         unifi_gateway = Custom("Unifi Gateway", "../imgs/ubiquiti.png")
@@ -39,7 +43,7 @@ with Diagram(
         >> firewall
         >> load_balancer
         >> cluster
-        >> [xsmall_nodes, small_nodes]
+        >> [xsmall_nodes, small_nodes, medium_nodes]
     )
 
     cluster >> Edge(label="metrics and logs") >> grafana
