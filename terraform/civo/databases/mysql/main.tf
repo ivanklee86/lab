@@ -5,6 +5,6 @@ resource "civo_database" "database" {
   engine  = element(data.civo_database_version.mysql.versions, 0).engine
   version = element(data.civo_database_version.mysql.versions, 0).version
 
-  network_id         = data.terraform_remote_state.networking.outputs.network_id
-  firewall_id        = data.terraform_remote_state.networking.outputs.firewall_id
+  network_id  = data.terraform_remote_state.networking.outputs.network_id
+  firewall_id = data.terraform_remote_state.networking.outputs.firewall_id
 }
