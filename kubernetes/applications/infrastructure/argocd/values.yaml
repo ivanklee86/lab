@@ -32,6 +32,7 @@ argo-cd:
       policy.csv: |
         g, GithubActions, role:readonly
         g, HamsterHomelab:admin, role:admin
+        g, some-new-team:admin, role:admin
 
     ingress:
       enabled: true
