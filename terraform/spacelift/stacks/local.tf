@@ -28,5 +28,12 @@ locals {
       labels : ["civo"]
       terraform_external_state_access : false
     },
+    {
+      name : "civo/database/mysql"
+      description : "CIVO MySQL database"
+      project_root : "terraform/civo/database/mysql"
+      labels : ["civo"]
+      terraform_external_state_access : false
+    },
   ]
 }
