@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: lab-deployments-databases
+  namespace: infrastructure
+spec:
+  ignoreApplicationDifferences:
+    - jsonPointers:
+        - /spec/syncPolicy
+  generators:
+  - git:
+      repoURL: https://github.com/ivanklee86/lab.git
+      revision: main
+      directories:
+      - path: kubernetes/applications/databases/*
+  template:
+    metadata:
+      name: "{{path.basenameNormalized}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/ivanklee86/lab.git
+        targetRevision: HEAD
+        path: "{{path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: databases
