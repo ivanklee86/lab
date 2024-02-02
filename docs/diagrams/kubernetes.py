@@ -17,6 +17,7 @@ with Diagram("Kubernetes", filename=diagram_filename, outformat=["png"], show=Fa
     grafana_cloud = Grafana("Grafana Cloud")
     lab_repo = Github("lab [Repo]")
     cloudflare = Cloudflare("Cloudflare")
+    ghost_mysql = MySQL("MySQL [Ghost]")
 
     with Cluster("Kubernetes"):
         with Cluster("infrastructure [namespace]"):
@@ -33,7 +34,6 @@ with Diagram("Kubernetes", filename=diagram_filename, outformat=["png"], show=Fa
 
         with Cluster("websites[namespace]"):
             ghost = Custom("ghost", "../imgs/ghost.png")
-            ghost_mysql = MySQL("MySQL [Ghost]")
             whoami = Deployment("whoami")
             flame = Deployment("flame")
 

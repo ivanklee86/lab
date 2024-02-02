@@ -11,14 +11,14 @@ addopts= """
 """
 log_file_level="INFO"
 
-[tool.ruff]
+[tool.ruff.lint]
 # Enable Pyflakes `E` and `F` codes by default.
 select = ["E", "F", "PL", "YTT", "I"]
 ignore = ["E501", "PLR2004"]
 
 fixable = ["I"]
 
-[tool.ruff.pylint]
+[tool.ruff.lint.pylint]
 max-args = 10
 
 [tool.isort]
