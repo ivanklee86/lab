@@ -5,8 +5,8 @@ from diagrams.custom import Custom
 from diagrams.digitalocean.compute import K8SCluster, K8SNodePool
 from diagrams.oci.monitoring import HealthCheck
 from diagrams.oci.network import Firewall, LoadBalancer
-from diagrams.onprem.monitoring import Grafana
 from diagrams.onprem.database import MySQL
+from diagrams.onprem.monitoring import Grafana
 from diagrams.saas.cdn import Cloudflare
 
 diagram_filename = "infrastructure"
