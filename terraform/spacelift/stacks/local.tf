@@ -35,5 +35,12 @@ locals {
       labels : ["civo"]
       terraform_external_state_access : false
     },
+    {
+      name : "elephentsql/postgres"
+      description : "ElephantSQL postgres database"
+      project_root : "terraform/elephantsql"
+      labels : ["elephantsql"]
+      terraform_external_state_access : false
+    },
   ]
 }
