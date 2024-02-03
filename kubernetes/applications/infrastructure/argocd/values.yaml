@@ -330,6 +330,10 @@ argo-cd:
     volumes:
      - name: tanka-temp-dir
        emptyDir: {}
+     - configMap:
+         name: plugin-tanka
+       name: plugin-tanka
+
 
   # dex:
   #   env:
