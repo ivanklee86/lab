@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: plugin-tanka
+data:
+  plugin.yaml: |
+    apiVersion: argoproj.io/v1alpha1
+    kind: ConfigManagementPlugin
+    metadata:
+      name: tanka
+    spec:
+      version: v1.0
+      init:
+        command: [sh, -c, 'jb install']
+      generate:
+        command: [sh, -c, 'tk show ${ARGOCD_ENV_TK_ENV} --dangerous-allow-redirect ${ARGOCD_ENV_EXTRA_ARGS}']
+      discover:
+        fileName: jsonnetfile.json
+      parameters:
+        static:
+          - name: path
+            title: Environment path
+            tooltip: Folder containing tanka environment.
+            required: true
+            itemType: string
