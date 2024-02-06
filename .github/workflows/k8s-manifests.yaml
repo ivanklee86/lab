@@ -39,6 +39,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check if application exists
         id: application_check
+        shell: bash
         run: |
           app=$(argocd app list --grpc-web --server argocd.aoach.tech --auth-token $ARGOCD_TOKEN -o yaml | yq '.[].metadata.name | select(. == "${{matrix.folder}}")')
           if [[ "${{matrix.folder}}" == "$app" ]]; then
