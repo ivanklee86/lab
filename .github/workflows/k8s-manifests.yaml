@@ -37,24 +37,14 @@ jobs:
       matrix: ${{ fromJson(needs.changes.outputs.changed-folders) }}
     steps:
       - uses: actions/checkout@v4
-      - name: Check if application exists
-        id: application_check
-        run: |
-          if [[ $(basname ${{matrix.folder}}) == $(argocd app list --grpc-web --server $ARGOCD_URL --auth-token $ARGOCD_TOKEN $(basename ${{matrix.folder}}) ]]; then
-            echo "application_found=true" >> $GITHUB_OUTPUT
-          else
-            echo "application_found=false" >> $GITHUB_OUTPUT
-          fi
       - name: Get manifests
         run: |
           argocd app manifests --grpc-web --server $ARGOCD_URL --auth-token $ARGOCD_TOKEN $(basename ${{matrix.folder}}) --revision $GITHUB_SHA >> manifests.yaml
         env:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
-        if: ${{ steps.application_check.outputs.application_fund }} == "true"
       - name: Run Kubeconform.
         run: kubeconform -ignore-missing-schemas manifests.yaml
-        if: ${{ steps.application_check.outputs.application_fund }} == "true"
       - name: Get ArgoCD diff
         id: diff
         continue-on-error: true
@@ -67,16 +57,12 @@ jobs:
         env:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
-        if: ${{ steps.application_check.outputs.application_fund }} == "true"
       - name: Generate report
         run: gomplate -f /argocd_diff/diff.md.tmpl -o diff.md -d diff=k8s.diff?type=text/plain
         env:
           APPLICAITON_PATH: ${{matrix.folder}}
-        if: ${{ steps.application_check.outputs.application_fund }} == "true"
       - name: Post diff if exists
-        if: |
-          steps.diff.outputs.exitcode == 1 &&
-          ${{ steps.application_check.outputs.application_fund }} == "true"
+        if: steps.diff.outputs.exitcode == 1
         run: |
           cat diff.md | github-commenter \
             -token $GITHUB_TOKEN \
@@ -88,7 +74,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Fail on CLI failure
-        if: |
-          steps.diff.outputs.exitcode == 2 &&
-          ${{ steps.application_check.outputs.application_fund }} == "true"
+        if: steps.diff.outputs.exitcode == 2
         run: exit 1
