@@ -46,6 +46,9 @@ jobs:
           else
             echo "application_found=false" >> $GITHUB_OUTPUT
           fi
+        env:
+          ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
+          ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
       - name: Get manifests
         run: |
           argocd app manifests --grpc-web --server $ARGOCD_URL --auth-token $ARGOCD_TOKEN $(basename ${{matrix.folder}}) --revision $GITHUB_SHA >> manifests.yaml
