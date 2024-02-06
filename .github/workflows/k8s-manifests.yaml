@@ -40,7 +40,7 @@ jobs:
       - name: Check if application exists
         id: application_check
         run: |
-          app=$(argocd app list --grpc-web --server argocd.aoach.tech --auth-token $ARGOCD_TOKEN -o yaml | yq '.[].metadata.name | select(. == "argocd")')
+          app=$(argocd app list --grpc-web --server argocd.aoach.tech --auth-token $ARGOCD_TOKEN -o yaml | yq '.[].metadata.name | select(. == "${{matrix.folder}}")')
           if [[ "${{matrix.folder}}" == "$app" ]]; then
             echo "application_found=true" >> $GITHUB_OUTPUT
           else
