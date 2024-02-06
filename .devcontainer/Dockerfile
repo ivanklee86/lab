@@ -45,6 +45,12 @@ COPY --from=quay.io/argoproj/argocd /usr/local/bin/argocd /usr/local/bin
 COPY --from=hairyhenderson/gomplate:stable /gomplate /usr/local/bin
 COPY --from=grafana/tanka:latest /usr/local/bin/jb /usr/local/bin
 COPY --from=grafana/tanka:latest /usr/local/bin/tk /usr/local/bin
+COPY --from=mikefarah/yq:latest /usr/bin/yq /usr/local/bin
+
+# - Install Argo Rollouts
+RUN curl -LO https://github.com/argoproj/argo-rollouts/releases/latest/download/kubectl-argo-rollouts-linux-amd64 && \
+    chmod +x ./kubectl-argo-rollouts-linux-amd64 && \
+    mv ./kubectl-argo-rollouts-linux-amd64 /usr/local/bin/kubectl-argo-rollouts
 
 # - Install pyenv
 RUN git clone --depth=1 https://github.com/pyenv/pyenv.git .pyenv

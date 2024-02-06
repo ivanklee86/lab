@@ -23,7 +23,7 @@ jobs:
         name: Generate list of changed folders
         # Use ripgrep to extract application name from path aka kubernetes/applications/[group]/[application]/...
         run: |
-          TARGETS=$(git diff --name-only main -- kubernetes/applications | rg 'kubernetes/applications/[\w]*/([\w]*)/.*' -or '$1' | uniq | jq -cRn '[inputs]')
+          TARGETS=$(git diff --name-only main -- kubernetes/applications | rg 'kubernetes/applications/[\w]*/([\w-]*)/.*' -or '$1' | uniq | jq -cRn '[inputs]')
           echo "folders=$(jq -cn --argjson environments "$TARGETS" '{folder: $environments}')" >> "$GITHUB_OUTPUT"
 
   run-matrix:
@@ -37,14 +37,29 @@ jobs:
       matrix: ${{ fromJson(needs.changes.outputs.changed-folders) }}
     steps:
       - uses: actions/checkout@v4
+      - name: Check if application exists
+        id: application_check
+        shell: bash
+        run: |
+          app=$(argocd app list --grpc-web --server argocd.aoach.tech --auth-token $ARGOCD_TOKEN -o yaml | yq '.[].metadata.name | select(. == "${{matrix.folder}}")')
+          if [[ "${{matrix.folder}}" == "$app" ]]; then
+            echo "application_found=true" >> $GITHUB_OUTPUT
+          else
+            echo "application_found=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
+          ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
       - name: Get manifests
         run: |
           argocd app manifests --grpc-web --server $ARGOCD_URL --auth-token $ARGOCD_TOKEN $(basename ${{matrix.folder}}) --revision $GITHUB_SHA >> manifests.yaml
         env:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
+        if: steps.application_check.outputs.application_found == 'true'
       - name: Run Kubeconform.
         run: kubeconform -ignore-missing-schemas manifests.yaml
+        if: steps.application_check.outputs.application_found == 'true'
       - name: Get ArgoCD diff
         id: diff
         continue-on-error: true
@@ -57,12 +72,16 @@ jobs:
         env:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
+        if: steps.application_check.outputs.application_found == 'true'
       - name: Generate report
         run: gomplate -f /argocd_diff/diff.md.tmpl -o diff.md -d diff=k8s.diff?type=text/plain
         env:
           APPLICAITON_PATH: ${{matrix.folder}}
+        if: steps.application_check.outputs.application_found == 'true'
       - name: Post diff if exists
-        if: steps.diff.outputs.exitcode == 1
+        if: |
+          steps.diff.outputs.exitcode == 1 &&
+          steps.application_check.outputs.application_found == 'true'
         run: |
           cat diff.md | github-commenter \
             -token $GITHUB_TOKEN \
@@ -74,5 +93,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Fail on CLI failure
-        if: steps.diff.outputs.exitcode == 2
+        if: |
+          steps.diff.outputs.exitcode == 2 &&
+          steps.application_check.outputs.application_found == 'true'
         run: exit 1

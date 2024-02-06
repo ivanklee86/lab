@@ -55,10 +55,8 @@ argo-cd:
       - recipients:
         - slack:notifications
         triggers:
-        - on-deployed
         - on-health-degraded
         - on-sync-failed
-        - on-sync-status-unknown
 
     templates:
       template.app-deployed: |
