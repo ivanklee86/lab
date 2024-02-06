@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        file: ["dockerfiles/argocd_tools/Dockerfile", "dockerfiles/argocd_tanka_sidecar/Dockerfile"]
+        file: ["dockerfiles/argocd_tools/Dockerfile"]
     steps:
       - uses: actions/checkout@v4
       - uses: hadolint/hadolint-action@v3.1.0
