@@ -43,9 +43,9 @@ jobs:
         run: |
           app=$(argocd app list --grpc-web --server argocd.aoach.tech --auth-token $ARGOCD_TOKEN -o yaml | yq '.[].metadata.name | select(. == "${{matrix.folder}}")')
           if [[ "${{matrix.folder}}" == "$app" ]]; then
-            echo "application_found=false" >> $GITHUB_OUTPUT
-          else
             echo "application_found=true" >> $GITHUB_OUTPUT
+          else
+            echo "application_found=false" >> $GITHUB_OUTPUT
           fi
         env:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
@@ -56,10 +56,10 @@ jobs:
         env:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
-        if: ${{ steps.application_check.outputs.application_fund }} == "true"
+        if: ${{ steps.application_check.outputs.application_found }} == "true"
       - name: Run Kubeconform.
         run: kubeconform -ignore-missing-schemas manifests.yaml
-        if: ${{ steps.application_check.outputs.application_fund }} == "true"
+        if: ${{ steps.application_check.outputs.application_found }} == "true"
       - name: Get ArgoCD diff
         id: diff
         continue-on-error: true
@@ -72,16 +72,16 @@ jobs:
         env:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
           ARGOCD_TOKEN: ${{ secrets.ARGOCD_TOKEN }}
-        if: ${{ steps.application_check.outputs.application_fund }} == "true"
+        if: ${{ steps.application_check.outputs.application_found }} == "true"
       - name: Generate report
         run: gomplate -f /argocd_diff/diff.md.tmpl -o diff.md -d diff=k8s.diff?type=text/plain
         env:
           APPLICAITON_PATH: ${{matrix.folder}}
-        if: ${{ steps.application_check.outputs.application_fund }} == "true"
+        if: ${{ steps.application_check.outputs.application_found }} == "true"
       - name: Post diff if exists
         if: |
           steps.diff.outputs.exitcode == 1 &&
-          ${{ steps.application_check.outputs.application_fund }} == "true"
+          ${{ steps.application_check.outputs.application_found }} == "true"
         run: |
           cat diff.md | github-commenter \
             -token $GITHUB_TOKEN \
@@ -95,5 +95,5 @@ jobs:
       - name: Fail on CLI failure
         if: |
           steps.diff.outputs.exitcode == 2 &&
-          ${{ steps.application_check.outputs.application_fund }} == "true"
+          ${{ steps.application_check.outputs.application_found }} == "true"
         run: exit 1
