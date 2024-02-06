@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: lab-deployments-databases
+  name: lab-deployments-poc
   namespace: infrastructure
 spec:
   ignoreApplicationDifferences:
@@ -12,7 +12,7 @@ spec:
       repoURL: https://github.com/ivanklee86/lab.git
       revision: main
       directories:
-      - path: kubernetes/applications/databases/*
+      - path: kubernetes/applications/poc/*
   template:
     metadata:
       name: "{{path.basenameNormalized}}"
@@ -24,4 +24,4 @@ spec:
         path: "{{path}}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: databases
+        namespace: poc
