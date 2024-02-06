@@ -95,5 +95,5 @@ jobs:
       - name: Fail on CLI failure
         if: |
           steps.diff.outputs.exitcode == 2 &&
-          teps.application_check.outputs.application_found == true
+          steps.application_check.outputs.application_found == true
         run: exit 1
