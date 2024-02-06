@@ -43,9 +43,9 @@ jobs:
         run: |
           app=$(argocd app list --grpc-web --server argocd.aoach.tech --auth-token $ARGOCD_TOKEN -o yaml | yq '.[].metadata.name | select(. == "${{matrix.folder}}")')
           if [[ "${{matrix.folder}}" == "$app" ]]; then
-            echo "application_found=true" >> $GITHUB_OUTPUT
-          else
             echo "application_found=false" >> $GITHUB_OUTPUT
+          else
+            echo "application_found=true" >> $GITHUB_OUTPUT
           fi
         env:
           ARGOCD_URL: ${{ secrets.ARGOCD_URL }}
