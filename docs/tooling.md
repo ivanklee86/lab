@@ -5,6 +5,10 @@
 
 After losing a few local environments, I've decided to use an Ubuntu-based `.devcontainer` to automate my development environment.  It's a little chonky (hi pyenv!) but it's nice to automate all the things.
 
+## Task
+
+I use [task](https://taskfile.dev/) as an easier to use / more flexible task runner.
+
 ## Python
 
 I use [pyenv](https://github.com/pyenv/pyenv) to manage Python installations and [poetry](https://python-poetry.org/) for dependency management.  Dependencies are automatically installed as part of devcontainer bootstrapping.
