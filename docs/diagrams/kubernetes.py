@@ -25,6 +25,7 @@ with Diagram("Kubernetes", filename=diagram_filename, outformat=["png"], show=Fa
             nginx_deployment = Custom("ingress-nginx", "../imgs/nginx.png")
 
             argocd = ArgoCD("ArgoCD")
+            argo_rollouts = ArgoCD("Argo Rollouts")
 
             op_operator = Custom("1Password Operator", "../imgs/1password.png")
 
