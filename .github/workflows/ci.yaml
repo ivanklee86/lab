@@ -46,15 +46,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        file: ["dockerfiles/argocd_tools/Dockerfile"]
+        folder: ["dockerfiles/argocd_tools"]
     steps:
       - uses: actions/checkout@v4
       - uses: hadolint/hadolint-action@v3.1.0
         with:
-          dockerfile: ${{matrix.file}}
+          dockerfile: ${{matrix.folder}}/Dockerfile
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ${{ matrix.file }}
-          file: ${{ matrix.file }}/Dockerfile
+          context: ${{ matrix.folder }}
+          file: ${{ matrix.folder }}/Dockerfile
           push: false
