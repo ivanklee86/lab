@@ -38,8 +38,7 @@ argo-cd:
       ingressClassName: nginx
       annotations:
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-      hosts:
-        - argocd.aoach.tech
+      hostname: argocd.aoach.tech
 
     extensions:
       enabled: true
