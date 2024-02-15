@@ -14,7 +14,7 @@ RUN mkdir /argocd_diff
 WORKDIR /argocd_diff
 
 # Install tools
-COPY --from=quay.io/argoproj/argocd:v2.10.0  /usr/local/bin/argocd /usr/local/bin
+COPY --from=quay.io/argoproj/argocd:v2.10.1  /usr/local/bin/argocd /usr/local/bin
 COPY --from=cloudposse/github-commenter:0.19.0 /usr/bin/github-commenter /usr/local/bin
 COPY --from=hairyhenderson/gomplate:stable /gomplate /bin/gomplate
 COPY --from=go_builder /go/bin/kubeconform /usr/local/bin
