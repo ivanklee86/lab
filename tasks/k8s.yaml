@@ -19,4 +19,5 @@ tasks:
     desc: Update helm dependencies.
     dir: "{{.USER_WORKING_DIR}}"
     cmds:
+      - task: helm:update
       - helm template . >> manifests.yaml
