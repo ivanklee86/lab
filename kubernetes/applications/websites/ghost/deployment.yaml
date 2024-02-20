@@ -36,11 +36,12 @@ spec:
                     name: ghost-secrets
                 - secretRef:
                     name: ghost-mailgun-credentials
-              strategy: Recreate
               tty: true
               volumeMounts:
               - mountPath: /var/lib/ghost/content
                 name: content
+            strategy:
+              type: Recreate
             volumes:
             - name: content
               persistentVolumeClaim:
