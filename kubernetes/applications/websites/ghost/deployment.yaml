@@ -9,12 +9,12 @@ spec:
     selector:
         matchLabels:
             app: ghost
+    strategy:
+      type: Recreate
     template:
         metadata:
             labels:
                 app: ghost
-        strategy:
-          type: Recreate
         spec:
           containers:
             - name: ghost
