@@ -13,12 +13,12 @@ spec:
         metadata:
             labels:
                 app: ghost
+        strategy:
+          type: Recreate
         spec:
-            strategy:
-              type: Recreate
-            containers:
+          containers:
             - name: ghost
-              image: ghost:5.79.3
+              image: ghost:5.79.4
               imagePullPolicy: Always
               ports:
                 - containerPort: 2368
@@ -42,7 +42,7 @@ spec:
               volumeMounts:
               - mountPath: /var/lib/ghost/content
                 name: content
-            volumes:
-            - name: content
-              persistentVolumeClaim:
-                claimName: ghost-pvc
+          volumes:
+          - name: content
+            persistentVolumeClaim:
+              claimName: ghost-pvc
