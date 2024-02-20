@@ -16,7 +16,7 @@ spec:
         spec:
             containers:
             - name: ghost
-              image: ghost:5.76.1
+              image: ghost:5.79.3
               imagePullPolicy: Always
               ports:
                 - containerPort: 2368
@@ -36,6 +36,8 @@ spec:
                     name: ghost-secrets
                 - secretRef:
                     name: ghost-mailgun-credentials
+              strategy: Recreate
+              tty: true
               volumeMounts:
               - mountPath: /var/lib/ghost/content
                 name: content
