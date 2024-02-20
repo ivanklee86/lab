@@ -11,9 +11,15 @@ data:
     spec:
       version: v1.0
       init:
-        command: [sh, -c, 'jb install']
+        command: [sh, -c]
+        args:
+          - |
+            "jb install"
       generate:
-        command: [sh, -c, 'tk show ${ARGOCD_ENV_TK_ENV} --dangerous-allow-redirect ${ARGOCD_ENV_EXTRA_ARGS}']
+        command: [sh, -c]
+        args:
+          - |
+            tk show --dangerous-allow-redirect $PARAM_PATH
       discover:
         fileName: jsonnetfile.json
       parameters:

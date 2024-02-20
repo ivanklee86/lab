@@ -312,31 +312,31 @@ argo-cd:
           - app-sync-succeeded
           when: app.status.operationState.phase in ['Succeeded']
 
-  # repoServer:
-  #   extraContainers:
-  #     - name: tanka
-  #       command:
-  #         - "/var/run/argocd/argocd-cmp-server"
-  #       image: grafana/tanka:0.26.0
-  #       securityContext:
-  #         runAsNonRoot: true
-  #         runAsUser: 999
-  #       volumeMounts:
-  #         - mountPath: /var/run/argocd
-  #           name: var-files
-  #         - mountPath: /home/argocd/cmp-server/plugins
-  #           name: plugins
-  #         - mountPath: /home/argocd/cmp-server/config/plugin.yaml
-  #           subPath: plugin.yaml
-  #           name: plugin-tanka
-  #         - mountPath: /tmp
-  #           name: tanka-temp-dir
-  #   volumes:
-  #    - name: tanka-temp-dir
-  #      emptyDir: {}
-  #    - configMap:
-  #        name: plugin-tanka
-  #      name: plugin-tanka
+  repoServer:
+    extraContainers:
+      - name: tanka
+        command:
+          - "/var/run/argocd/argocd-cmp-server"
+        image: grafana/tanka:0.26.0
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 999
+        volumeMounts:
+          - mountPath: /var/run/argocd
+            name: var-files
+          - mountPath: /home/argocd/cmp-server/plugins
+            name: plugins
+          - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+            subPath: plugin.yaml
+            name: plugin-tanka
+          - mountPath: /tmp
+            name: tanka-temp-dir
+    volumes:
+     - name: tanka-temp-dir
+       emptyDir: {}
+     - configMap:
+         name: plugin-tanka
+       name: plugin-tanka
 
 
   # dex:
