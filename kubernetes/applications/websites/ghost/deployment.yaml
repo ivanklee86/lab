@@ -38,7 +38,6 @@ spec:
                     name: ghost-secrets
                 - secretRef:
                     name: ghost-mailgun-credentials
-              tty: true
               volumeMounts:
               - mountPath: /var/lib/ghost/content
                 name: content
