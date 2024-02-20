@@ -14,6 +14,8 @@ spec:
             labels:
                 app: ghost
         spec:
+            strategy:
+              type: Recreate
             containers:
             - name: ghost
               image: ghost:5.79.3
@@ -40,8 +42,6 @@ spec:
               volumeMounts:
               - mountPath: /var/lib/ghost/content
                 name: content
-            strategy:
-              type: Recreate
             volumes:
             - name: content
               persistentVolumeClaim:
