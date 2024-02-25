@@ -2,6 +2,12 @@
 FROM rust:1-bookworm as rust-builder
 RUN cargo install tfswitcher
 
+# Build - jsonnet (https://github.com/google/go-jsonnet)
+FROM golang:1.20 as jsonnet-builder
+RUN go install github.com/google/go-jsonnet/cmd/jsonnet@latest
+RUN go install github.com/google/go-jsonnet/cmd/jsonnet-lint@latest
+RUN go install github.com/google/go-jsonnet/cmd/jsonnetfmt@latest
+
 # Runtime
 FROM mcr.microsoft.com/devcontainers/base:ubuntu
 
@@ -29,6 +35,11 @@ RUN sudo chown -R vscode /usr/local/bin
 COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
 ARG OPENTOFU_VERSION="1.6.1"
 RUN tfswitcher -o ${OPENTOFU_VERSION}
+
+# - Install jsonnet tools
+COPY --from=jsonnet-builder /go/bin/jsonnet /usr/local/bin
+COPY --from=jsonnet-builder /go/bin/jsonnet-lint /usr/local/bin
+COPY --from=jsonnet-builder /go/bin/jsonnetfmt /usr/local/bin
 
 # - Install tools with scripts
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d

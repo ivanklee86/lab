@@ -8,6 +8,7 @@ includes:
   k8s: ./tasks/k8s.yaml
   python: ./tasks/python.yaml
   tofu: ./tasks/tofu.yaml
+  jsonnet: ./tasks/jsonnet.yaml
 
 tasks:
   lint:

@@ -132,8 +132,14 @@ test_results
 *.scratchpad.*
 GENERATED.md
 
+# task
+.task
+
 # Helm
 charts
 manifest*.yaml
 .terraform
 .terraform.lock.hcl
+
+# Jsonnet
+vendor
