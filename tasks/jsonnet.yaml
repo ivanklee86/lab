@@ -1,7 +1,7 @@
 version: '3'
 
 vars:
-  JSONNET_FOLDER: "./jsonnet/lab"
+  JSONNET_FOLDER: "./jsonnet/manifests"
 
 tasks:
   internal:setup:
