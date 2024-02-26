@@ -10,5 +10,7 @@
         targetPort: 8080,
       },
     ],
+
+    secrets: [],  // { name: "a", path: "vaults/..." }
   },
 }

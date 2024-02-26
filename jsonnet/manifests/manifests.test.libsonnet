@@ -3,6 +3,13 @@ local manifests = import './manifests.libsonnet';
 local testUtils = import './testUtils.libsonnet';
 
 
+local TestGenerateSecrets() =
+  assert std.length(manifests.generateSecrets([
+    { name: 'a', path: 'path1' },
+    { name: '2', path: 'path2' },
+  ])) == 2;
+  true;
+
 local TestManifestsService() =
   assert manifests.generateService(
     name='test',
@@ -17,7 +24,7 @@ local TestManifestsService() =
     spec: {
       ports: [
         {
-          name: "http",
+          name: 'http',
           port: 80,
           protocol: 'TCP',
           targetPort: 8080,
@@ -32,4 +39,5 @@ local TestManifestsService() =
 
 {
   TestManifestsService: TestManifestsService(),
+  TestGenerateSecrets: TestGenerateSecrets(),
 }
