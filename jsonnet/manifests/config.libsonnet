@@ -1,5 +1,0 @@
-{
-  _config: {
-    name: 'default',
-  },
-}

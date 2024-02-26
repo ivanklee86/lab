@@ -1,7 +1,7 @@
 {
-    wrap(obj, wrapper, config):
-        if wrapper != null then
-            wrapper(obj, config)
-        else
-            obj,
+  wrap(obj, wrapper, configs):
+    if wrapper != null then
+      wrapper(obj, configs)
+    else
+      obj,
 }

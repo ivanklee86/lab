@@ -1,18 +1,18 @@
 local wrapper = import './wrapper.libsonnet';
 
 local object = {
-  a: 'b'
+  a: 'b',
 };
 
-local config = {
-  name: 'x'
+local configs = {
+  name: 'x',
 };
 
-local objectWrapper(obj, config) = obj + { publicName: config.name };
+local objectWrapper(obj, configs) = obj + { publicName: configs.name };
 
 local TestWrapper() =
-  assert wrapper.wrap(object, null, config) == object;
-  assert wrapper.wrap(object, objectWrapper, config) == object + { publicName: config.name };
+  assert wrapper.wrap(object, null, configs) == object;
+  assert wrapper.wrap(object, objectWrapper, configs) == object + { publicName: configs.name };
   true;
 
 {
