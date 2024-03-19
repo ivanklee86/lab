@@ -2,14 +2,21 @@
   _configs: {
     name: 'default',
 
-    ports: [
-      {
+    container: {
+      image: 'alpine',
+      tag: '3',
+      envVars: {}
+    },
+
+    ports: {
+      servicePort: {
         protocol: 'TCP',
         name: 'http',
         port: 80,
-        targetPort: 8080,
+        targetPort: "http",
       },
-    ],
+      containerPort: 8080
+    },
 
     secrets: [],  // { name: "a", path: "vaults/..." }
   },

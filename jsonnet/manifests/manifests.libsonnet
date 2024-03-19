@@ -1,21 +1,60 @@
+// Package
 local wrapper = import '.wrapper.libsonnet';
 local onePWSecrets = import 'onePWSecrets.libsonnet';
+local utils = import 'utils.libsonnet';
 
+// Kubernetes
 local k8s = import './k8s.libsonnet';
 local k = k8s.k;
+
+// - Resources
+local container = k.core.v1.container;
+local containerPort = k.core.v1.containerPort;
+local deployment = k.apps.v1.deployments;
+local envFromSource = k.core.v1.envFromSource;
 local service = k.core.v1.service;
 
 
 {
+  generateContainer(
+    name='default',
+    configs,
+  ):
+    container.new(
+      name,
+      "%s:%s" % [configs.container.image, configs.container.tag]
+    ) +
+    container.withImagePullPolicy("Always") +
+    containers.withEnv(utils.objToEnvVar(configs.container.envVars)) +
+    container.withEnvFrom([envFromSource.secretRef.withName(x.name) for x in config.secrets]) +
+    container.withPorts([
+      containerPort.newNamed(config.ports.containerPort, "http")
+    ]),
+
+  generateDeployment(
+    name='default',
+    containerWrapper=null,
+    configs={},
+  ):
+    deployment.name(
+      name=name,
+      replicas=1,
+      // containers=[
+      //   wrapper.wrap(
+      //     $.generateContainer(name=configs, configs),
+      //   )
+      // ]
+    ),
+
   generateSecrets(
     secrets=[],
   ):
     [
       onePWSecrets.new(x.name, x.path)
-      + onePWSecrets.metadata.withAnnotationsMixedIn( {
-          'argocd.argoproj.io/compare-options': 'IgnoreExtraneous',
-          'argocd.argoproj.io/sync-options': 'Prune=false'
-      } )
+      + onePWSecrets.metadata.withAnnotationsMixedIn({
+        'argocd.argoproj.io/compare-options': 'IgnoreExtraneous',
+        'argocd.argoproj.io/sync-options': 'Prune=false',
+      })
       for x in secrets
     ],
 
@@ -33,9 +72,26 @@ local service = k.core.v1.service;
     ),
 
 
-  new(configs, serviceWrapper=null):
+  new(configs, serviceWrapper=null, deploymentWrapper=null, containerWrapper=null):
     {
-      service: wrapper.wrap($.generateService(name=configs.name, ports=configs.ports, configs=configs), serviceWrapper, configs),
+      deployment: wrapper.wrap(
+        $.generateDeployment(
+          name=configs.name,
+          containerWrapper=containerWrapper,
+          configs=configs,
+        ),
+        deploymentWrapper,
+        configs
+      ),
+      service: wrapper.wrap(
+        $.generateService(
+          name=configs.name,
+          ports=configs.ports,
+          configs=configs
+        ),
+        serviceWrapper,
+        configs
+      ),
       secrets: $.generateSecrets(configs.secrets),
     },
 }
