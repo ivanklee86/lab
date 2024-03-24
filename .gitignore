@@ -137,3 +137,5 @@ charts
 manifest*.yaml
 .terraform
 .terraform.lock.hcl
+.task
+**/**/vendor
