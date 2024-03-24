@@ -19,5 +19,7 @@
     },
 
     secrets: [],  // { name: "a", path: "vaults/..." }
+
+    volumes: [], // {}
   },
 }
