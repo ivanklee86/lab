@@ -5,7 +5,7 @@
     container: {
       image: 'alpine',
       tag: '3',
-      envVars: {}
+      envVars: {},
     },
 
     ports: {
@@ -13,13 +13,13 @@
         protocol: 'TCP',
         name: 'http',
         port: 80,
-        targetPort: "http",
+        targetPort: 'http',
       },
-      containerPort: 8080
+      containerPort: 8080,
     },
 
     secrets: [],  // { name: "a", path: "vaults/..." }
 
-    volumes: [], // {}
+    volumes: [],  // {}
   },
 }

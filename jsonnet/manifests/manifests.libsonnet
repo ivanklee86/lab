@@ -22,14 +22,16 @@ local service = k.core.v1.service;
   ):
     container.new(
       name,
-      "%s:%s" % [configs.container.image, configs.container.tag]
+      '%s:%s' % [configs.container.image, configs.container.tag]
     ) +
-    container.withImagePullPolicy("Always") +
-    containers.withEnv(utils.objToEnvVar(configs.container.envVars)) +
-    container.withEnvFrom([envFromSource.secretRef.withName(x.name) for x in config.secrets]) +
+    container.withImagePullPolicy('Always') +
+    container.withEnv(utils.objToEnvVar(configs.container.envVars)) +
+    container.withEnvFrom([envFromSource.secretRef.withName(x.name) for x in configs.secrets]) +
     container.withPorts([
-      containerPort.newNamed(config.ports.containerPort, "http")
-    ]),
+      containerPort.newNamed(configs.ports.containerPort, 'http'),
+    ]) +
+    container.withVolumeMounts()
+    ,
 
   generateDeployment(
     name='default',

@@ -3,6 +3,22 @@ local manifests = import './manifests.libsonnet';
 local testUtils = import './testUtils.libsonnet';
 
 
+local TestgenerateContainer() =
+  assert testUtils.debug(manifests.generateContainer('default', configs._configs)) == {
+    env: [],
+    envFrom: [],
+    image: 'alpine:3',
+    imagePullPolicy: 'Always',
+    name: 'default',
+    ports: [
+      {
+        containerPort: 8080,
+        name: 'http',
+      },
+    ],
+  };
+  true;
+
 local TestGenerateSecrets() =
   assert std.length(manifests.generateSecrets([
     { name: 'a', path: 'path1' },
@@ -10,7 +26,7 @@ local TestGenerateSecrets() =
   ])) == 2;
   true;
 
-local TestManifestsService() =
+local TestGenerateService() =
   assert manifests.generateService(
     name='test',
     ports=configs._configs.ports,
@@ -24,10 +40,13 @@ local TestManifestsService() =
     spec: {
       ports: [
         {
-          name: 'http',
-          port: 80,
-          protocol: 'TCP',
-          targetPort: 8080,
+          containerPort: 8080,
+          servicePort: {
+            name: 'http',
+            port: 80,
+            protocol: 'TCP',
+            targetPort: 'http',
+          },
         },
       ],
       selector: {
@@ -38,6 +57,7 @@ local TestManifestsService() =
   true;
 
 {
-  TestManifestsService: TestManifestsService(),
+  TestgenerateContainer: TestgenerateContainer(),
   TestGenerateSecrets: TestGenerateSecrets(),
+  TestGenerateService: TestGenerateService(),
 }
