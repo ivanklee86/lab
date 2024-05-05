@@ -13,7 +13,8 @@ local containerPort = k.core.v1.containerPort;
 local deployment = k.apps.v1.deployments;
 local envFromSource = k.core.v1.envFromSource;
 local service = k.core.v1.service;
-
+local persistentVolumeClaim = k.core.v1.persistentVolumeClaim;
+local volumeMount = k.core.v1.volumeMount;
 
 {
   generateContainer(
@@ -29,9 +30,16 @@ local service = k.core.v1.service;
     container.withEnvFrom([envFromSource.secretRef.withName(x.name) for x in configs.secrets]) +
     container.withPorts([
       containerPort.newNamed(configs.ports.containerPort, 'http'),
-    ]) +
-    container.withVolumeMounts()
-    ,
+    ])
+    +
+    container.withVolumeMounts(
+      [
+        volumeMount.withName(x.name) +
+        volumeMount.withMountPath(x.path)
+        for x in configs.volumes
+      ]
+    )
+  ,
 
   generateDeployment(
     name='default',
@@ -73,6 +81,15 @@ local service = k.core.v1.service;
       ports=ports
     ),
 
+  generatePersistentVolumeClaims(
+    volumes=[]
+  ):
+    [
+      persistentVolumeClaim.new(x.name) +
+      persistentVolumeClaim.spec.withAccessModes('ReadWriteOnce') +
+      persistentVolumeClaim.spec.resources.withRequests({ storage: x.size })
+      for x in volumes
+    ],
 
   new(configs, serviceWrapper=null, deploymentWrapper=null, containerWrapper=null):
     {
@@ -95,5 +112,6 @@ local service = k.core.v1.service;
         configs
       ),
       secrets: $.generateSecrets(configs.secrets),
+      pvcs: $.generatePersistentVolumeClaims(configs.volumes),
     },
 }

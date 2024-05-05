@@ -20,6 +20,6 @@
 
     secrets: [],  // { name: "a", path: "vaults/..." }
 
-    volumes: [],  // {}
+    volumes: [],  // { name: "a", path: "", size: "5g"}
   },
 }

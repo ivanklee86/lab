@@ -4,7 +4,10 @@ local testUtils = import './testUtils.libsonnet';
 
 
 local TestgenerateContainer() =
-  assert testUtils.debug(manifests.generateContainer('default', configs._configs)) == {
+  assert testUtils.debug(
+    manifests.generateContainer('default',
+                                configs._configs + { volumes: [{ name: '1', path: 'path1', size: '1Gi' }] })
+  ) == {
     env: [],
     envFrom: [],
     image: 'alpine:3',
@@ -14,6 +17,12 @@ local TestgenerateContainer() =
       {
         containerPort: 8080,
         name: 'http',
+      },
+    ],
+    volumeMounts: [
+      {
+        mountPath: 'path1',
+        name: '1',
       },
     ],
   };
@@ -56,8 +65,16 @@ local TestGenerateService() =
   };
   true;
 
+local TestGeneratePersistentVolumeClaims() =
+  assert std.length(manifests.generatePersistentVolumeClaims([
+    { name: 'a', path: 'path1', size: '1Gi' },
+    { name: '2', path: 'path2', size: '1Gi' },
+  ])) == 2;
+  true;
+
 {
   TestgenerateContainer: TestgenerateContainer(),
   TestGenerateSecrets: TestGenerateSecrets(),
   TestGenerateService: TestGenerateService(),
+  TestGeneratePersistentVolumeClaims: TestGeneratePersistentVolumeClaims(),
 }
