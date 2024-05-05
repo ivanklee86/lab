@@ -22,13 +22,6 @@ locals {
       terraform_external_state_access : true
     },
     {
-      name : "civo/kubernetes"
-      description : "CIVO k8s"
-      project_root : "terraform/civo/kubernetes"
-      labels : ["civo"]
-      terraform_external_state_access : false
-    },
-    {
       name : "civo/databases/mysql"
       description : "CIVO MySQL database"
       project_root : "terraform/civo/databases/mysql"

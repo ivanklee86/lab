@@ -27,7 +27,7 @@ RUN sudo chown -R vscode /usr/local/bin
 
 # - Install tfswitcher and OpenTofu
 COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
-ARG OPENTOFU_VERSION="1.6.1"
+ARG OPENTOFU_VERSION="1.7.0"
 RUN tfswitcher -o ${OPENTOFU_VERSION}
 
 # - Install tools with scripts
