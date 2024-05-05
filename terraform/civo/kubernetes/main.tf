@@ -14,12 +14,10 @@ resource "civo_kubernetes_node_pool" "small" {
   cluster_id = civo_kubernetes_cluster.lab.id
   node_count = 1
   size       = element(data.civo_size.kubernetes_sizes.sizes, 1).name // Small
-  region     = "NYC1"
 }
 
 resource "civo_kubernetes_node_pool" "medium" {
   cluster_id = civo_kubernetes_cluster.lab.id
   node_count = 1
   size       = element(data.civo_size.kubernetes_sizes.sizes, 2).name // Mediume
-  region     = "NYC1"
 }
