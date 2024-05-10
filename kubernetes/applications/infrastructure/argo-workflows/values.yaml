@@ -8,11 +8,11 @@ argo-workflows:
       issuer: https://argocd.aoach.tech/api/dex
       sessionExpiry: 240h
       clientId:
-        name: argocd-secret
-        key: dex.github.clientID
+        name: argo-workflows-sso
+        key: client-id
       clientSecret:
-        name: argocd-secret
-        key: dex.github.clientSecret
+        name: argo-workflows-sso
+        key: client-secret
       redirectUrl: https://argoworkflows.aoach.tech/oauth2/callback
       rbac:
         enabled: false
@@ -24,3 +24,12 @@ argo-workflows:
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       hosts:
         - argoworkflows.aoach.tech
+
+    artifactRepository:
+      archiveLogs: true
+      s3:
+        acessKeySecret:
+          name: argoworkflow3-s3
+        secretKeySecret: argoworkflow3-s3
+        insecure: false
+        bucket: aoach-argo-workflows
