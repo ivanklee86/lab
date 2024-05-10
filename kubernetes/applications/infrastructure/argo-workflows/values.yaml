@@ -4,6 +4,7 @@ argo-workflows:
       - --auth-mode=sso
 
     sso:
+      enabled: true
       issuer: https://argocd.aoach.tech/api/dex
       sessionExpiry: 240h
       clientId:
