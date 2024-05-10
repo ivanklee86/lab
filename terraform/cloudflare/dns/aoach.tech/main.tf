@@ -18,6 +18,13 @@ module "dns-website" {
       proxied = true
       ttl     = 1
     },
+    {
+      type    = "A"
+      name    = "argo-workflows"
+      value   = ""
+      proxied = true
+      ttl     = 1
+    },
   ]
   ttl = 1
 }
