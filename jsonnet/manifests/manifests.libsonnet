@@ -12,6 +12,9 @@ local container = k.core.v1.container;
 local containerPort = k.core.v1.containerPort;
 local deployment = k.apps.v1.deployments;
 local envFromSource = k.core.v1.envFromSource;
+local ingress = k.networking.v1.ingress;
+local ingressRule = k.networking.v1.ingressRule;
+local httpIngressPath = k.networking.v1.httpIngressPath;
 local service = k.core.v1.service;
 local persistentVolumeClaim = k.core.v1.persistentVolumeClaim;
 local volumeMount = k.core.v1.volumeMount;
@@ -56,6 +59,24 @@ local volumeMount = k.core.v1.volumeMount;
       // ]
     ),
 
+  generateIngress(name='default', configs):
+    if utils.getKey(configs, ['ingress', 'enabled'], false) then
+      ingress.new(name) +
+      ingress.metadata.withAnnotations({
+        'nginx.ingress.kubernetes.io/force-ssl-redirect': 'true',
+      }) +
+      ingress.metadata.withAnnotationsMixin(configs.ingress.annotations) +
+      ingress.spec.withIngressClassName('nginx') +
+      ingress.spec.withRules([
+        ingressRule.withHost(x) +
+        httpIngressPath.withPath('/') +
+        httpIngressPath.withPathType('Prefix') +
+        httpIngressPath.backend.service.withName(name) +
+        httpIngressPath.backend.service.port.withName(configs.ports.servicePort.name)
+        for x in configs.ingress.hosts
+      ])
+    else {},
+
   generateSecrets(
     secrets=[],
   ):
@@ -91,7 +112,7 @@ local volumeMount = k.core.v1.volumeMount;
       for x in volumes
     ],
 
-  new(configs, serviceWrapper=null, deploymentWrapper=null, containerWrapper=null):
+  new(configs, serviceWrapper=null, deploymentWrapper=null, containerWrapper=null, ingressWrapper=null):
     {
       deployment: wrapper.wrap(
         $.generateDeployment(
@@ -100,6 +121,14 @@ local volumeMount = k.core.v1.volumeMount;
           configs=configs,
         ),
         deploymentWrapper,
+        configs
+      ),
+      ingress: wrapper.warap(
+        $.generateIngress(
+          name=configs.name,
+          configs=configs
+        ),
+        ingressWrapper,
         configs
       ),
       service: wrapper.wrap(

@@ -4,9 +4,9 @@ local testUtils = import './testUtils.libsonnet';
 
 
 local TestgenerateContainer() =
-  assert testUtils.debug(
-    manifests.generateContainer('default',
-                                configs._configs + { volumes: [{ name: '1', path: 'path1', size: '1Gi' }] })
+  assert manifests.generateContainer(
+    'default',
+    configs._configs + { volumes: [{ name: '1', path: 'path1', size: '1Gi' }] }
   ) == {
     env: [],
     envFrom: [],
@@ -25,6 +25,53 @@ local TestgenerateContainer() =
         name: '1',
       },
     ],
+  };
+  true;
+
+local TestGenerateIngress() =
+  assert manifests.generateIngress(
+      'default',
+      configs._configs + { ingress+: { enabled: true, hosts: ['a.com', 'www.a.com'] } }
+    ) == {
+    apiVersion: 'networking.k8s.io/v1',
+    kind: 'Ingress',
+    metadata: {
+      annotations: {
+        'nginx.ingress.kubernetes.io/force-ssl-redirect': 'true',
+      },
+      name: 'default',
+    },
+    spec: {
+      ingressClassName: 'nginx',
+      rules: [
+        {
+          backend: {
+            service: {
+              name: 'default',
+              port: {
+                name: 'http',
+              },
+            },
+          },
+          host: 'a.com',
+          path: '/',
+          pathType: 'Prefix',
+        },
+        {
+          backend: {
+            service: {
+              name: 'default',
+              port: {
+                name: 'http',
+              },
+            },
+          },
+          host: 'www.a.com',
+          path: '/',
+          pathType: 'Prefix',
+        },
+      ],
+    },
   };
   true;
 
@@ -74,6 +121,7 @@ local TestGeneratePersistentVolumeClaims() =
 
 {
   TestgenerateContainer: TestgenerateContainer(),
+  TestGenerateIngress: TestGenerateIngress(),
   TestGenerateSecrets: TestGenerateSecrets(),
   TestGenerateService: TestGenerateService(),
   TestGeneratePersistentVolumeClaims: TestGeneratePersistentVolumeClaims(),

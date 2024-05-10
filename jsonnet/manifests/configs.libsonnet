@@ -8,6 +8,12 @@
       envVars: {},
     },
 
+    ingress: {
+      enabled: false,
+      annotations: {},
+      hosts: [],  // [a.com, www.a.com]
+    },
+
     ports: {
       servicePort: {
         protocol: 'TCP',
