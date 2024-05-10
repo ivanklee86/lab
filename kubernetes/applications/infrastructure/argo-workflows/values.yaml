@@ -13,7 +13,7 @@ argo-workflows:
       clientSecret:
         name: argocd-secret
         key: dex.github.clientSecret
-      redirectUrl: https://argo-workflows.aoach.tech/oauth2/callback
+      redirectUrl: https://argoworkflows.aoach.tech/oauth2/callback
       rbac:
         enabled: false
 
@@ -23,4 +23,4 @@ argo-workflows:
       annotations:
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       hosts:
-        - argo-workflows.aoach.tech
+        - argoworkflows.aoach.tech
