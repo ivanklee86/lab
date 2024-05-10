@@ -339,10 +339,10 @@ argo-cd:
        name: plugin-tanka
 
 
-  # dex:
-  #   env:
-  #     - name: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
-  #       valueFrom:
-  #         secretKeyRef:
-  #           name: argo-workflows-sso
-  #           key: client-secret
+  dex:
+    env:
+      - name: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: argo-workflows-sso
+            key: client-secret
