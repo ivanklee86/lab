@@ -16,14 +16,14 @@ tasks:
     desc: Format Python code.
     cmds:
       - poetry run black .
-      - poetry run ruff docs/diagrams --fix
+      - poetry run ruff check docs/diagrams --fix
 
   lint:
     desc: Run Python linters.
     cmds:
       - task: poetry:install
       - poetry run black .
-      - poetry run ruff docs/diagrams
+      - poetry run ruff check docs/diagrams
 
   pc:update:
     desc: Update precommit.
