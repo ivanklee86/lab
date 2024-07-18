@@ -1,7 +1,3 @@
-# Build - tfswitcher (https://github.com/ASleepyCat/tfswitcher)
-FROM rust:1-bookworm as rust-builder
-RUN cargo install tfswitcher
-
 # Runtime
 FROM mcr.microsoft.com/devcontainers/base:ubuntu
 
@@ -25,10 +21,10 @@ USER vscode
 
 RUN sudo chown -R vscode /usr/local/bin
 
-# - Install tfswitcher and OpenTofu
-COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
-ARG OPENTOFU_VERSION="1.7.0"
-RUN tfswitcher -o ${OPENTOFU_VERSION}
+# - Install tenv
+ARG TENV_VERSION="v2.6.1"
+RUN curl -O -L "https://github.com/tofuutils/tenv/releases/latest/download/tenv_${TENV_VERSION}_amd64.deb"
+RUN sudo dpkg -i "tenv_${TENV_VERSION}_amd64.deb"
 
 # - Install tools with scripts
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d

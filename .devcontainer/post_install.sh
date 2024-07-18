@@ -1,6 +1,9 @@
 #!/bin/bash
 set -ex
 
+# Install OpenTofu version
+tenv tofu install
+
 # Install basic Python packages
 pip install -U pip poetry
 
