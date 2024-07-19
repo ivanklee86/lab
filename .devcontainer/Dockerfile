@@ -22,9 +22,9 @@ USER vscode
 RUN sudo chown -R vscode /usr/local/bin
 
 # - Install tenv
-ARG TENV_VERSION="v2.6.1"
-RUN curl -O -L "https://github.com/tofuutils/tenv/releases/latest/download/tenv_${TENV_VERSION}_amd64.deb"
-RUN sudo dpkg -i "tenv_${TENV_VERSION}_amd64.deb"
+RUN TENV_URL=`curl -s https://api.github.com/repos/tofuutils/tenv/releases/latest | grep '"browser_download_url":' | grep 'amd64.deb' | grep -vE '(\.pem|\.sig|\.gpgsig)' | grep -o 'https://[^"]*'` && \
+    curl -O -L $TENV_URL && \
+    sudo dpkg -i "${TENV_URL##*/}"
 
 # - Install tools with scripts
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
