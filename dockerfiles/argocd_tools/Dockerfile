@@ -2,7 +2,7 @@ FROM golang:1.23 as go_builder
 
 RUN go install github.com/yannh/kubeconform/cmd/kubeconform@v0.4.13
 
-FROM ubuntu:noble-20240605
+FROM ubuntu:noble-20240801
 
 # Update ca-certs
 RUN apt-get update && apt-get install --no-install-recommends ca-certificates -y \
