@@ -1,0 +1,16 @@
+{
+  "dependencies": [
+    {
+      "source": {
+        "git": {
+          "remote": "https://github.com/ivanklee86/lab.git",
+          "subdir": "jsonnet"
+        }
+      },
+      "sum": "WX/D3GVaSd+65W2PNCN6sqmjG9ofSWZ8Emzo2NEBdEU=",
+      "version": "1e11b37e647b5c370ea330a358247cab4ba106d6"
+    }
+  ],
+  "legacyImports": false,
+  "version": 1
+}
