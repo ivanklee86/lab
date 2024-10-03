@@ -1,7 +1,7 @@
 // Package
-local wrapper = import '.wrapper.libsonnet';
 local onePWSecrets = import 'onePWSecrets.libsonnet';
 local utils = import 'utils.libsonnet';
+local wrapper = import 'wrapper.libsonnet';
 
 // Kubernetes
 local k8s = import './k8s.libsonnet';
@@ -10,7 +10,7 @@ local k = k8s.k;
 // - Resources
 local container = k.core.v1.container;
 local containerPort = k.core.v1.containerPort;
-local deployment = k.apps.v1.deployments;
+local deployment = k.apps.v1.deployment;
 local envFromSource = k.core.v1.envFromSource;
 local ingress = k.networking.v1.ingress;
 local ingressRule = k.networking.v1.ingressRule;
@@ -49,15 +49,21 @@ local volumeMount = k.core.v1.volumeMount;
     containerWrapper=null,
     configs={},
   ):
-    deployment.name(
+    deployment.new(
       name=name,
       replicas=1,
-      // containers=[
-      //   wrapper.wrap(
-      //     $.generateContainer(name=configs, configs),
-      //   )
-      // ]
-    ),
+      containers=[
+        wrapper.wrap(
+          $.generateContainer(name=configs, configs=configs),
+          containerWrapper,
+          configs
+        ),
+      ]
+    ) +
+    deployment.spec.selector.withMatchLabels({
+      app: name,
+    }) +
+    deployment.spec.withReplicas(configs.replicas),
 
   generateIngress(name='default', configs):
     if utils.getKey(configs, ['ingress', 'enabled'], false) then

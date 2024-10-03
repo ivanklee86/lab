@@ -8,6 +8,8 @@
       envVars: {},
     },
 
+    replicas: 1,
+
     ingress: {
       enabled: false,
       annotations: {},

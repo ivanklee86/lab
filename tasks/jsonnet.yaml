@@ -29,6 +29,8 @@ tasks:
       - for: sources
         cmd: jsonnet {{ .ITEM }}
       - defer: {task: "internal:cleanup" }
+    status:
+      - none
 
   lib:fmt:
     desc: Format jsonnet code

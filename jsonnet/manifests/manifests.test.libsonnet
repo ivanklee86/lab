@@ -30,9 +30,9 @@ local TestgenerateContainer() =
 
 local TestGenerateIngress() =
   assert manifests.generateIngress(
-      'default',
-      configs._configs + { ingress+: { enabled: true, hosts: ['a.com', 'www.a.com'] } }
-    ) == {
+    'default',
+    configs._configs + { ingress+: { enabled: true, hosts: ['a.com', 'www.a.com'] } }
+  ) == {
     apiVersion: 'networking.k8s.io/v1',
     kind: 'Ingress',
     metadata: {
@@ -119,10 +119,94 @@ local TestGeneratePersistentVolumeClaims() =
   ])) == 2;
   true;
 
+local TestDeployment() =
+  assert testUtils.debug(manifests.generateDeployment('foobar', null, configs._configs)) == {
+    apiVersion: 'apps/v1',
+    kind: 'Deployment',
+    metadata: {
+      name: 'foobar',
+    },
+    spec: {
+      replicas: 1,
+      selector: {
+        matchLabels: {
+          app: 'foobar',
+        },
+      },
+      template: {
+        metadata: {
+          labels: {
+            name: 'foobar',
+          },
+        },
+        spec: {
+          containers: [
+            {
+              env: [
+
+              ],
+              envFrom: [
+
+              ],
+              image: 'alpine:3',
+              imagePullPolicy: 'Always',
+              name: {
+                container: {
+                  envVars: {
+
+                  },
+                  image: 'alpine',
+                  tag: '3',
+                },
+                ingress: {
+                  annotations: {
+
+                  },
+                  enabled: false,
+                  hosts: [
+
+                  ],
+                },
+                name: 'default',
+                ports: {
+                  containerPort: 8080,
+                  servicePort: {
+                    name: 'http',
+                    port: 80,
+                    protocol: 'TCP',
+                    targetPort: 'http',
+                  },
+                },
+                replicas: 1,
+                secrets: [
+
+                ],
+                volumes: [
+
+                ],
+              },
+              ports: [
+                {
+                  containerPort: 8080,
+                  name: 'http',
+                },
+              ],
+              volumeMounts: [
+
+              ],
+            },
+          ],
+        },
+      },
+    },
+  };
+  true;
+
 {
   TestgenerateContainer: TestgenerateContainer(),
   TestGenerateIngress: TestGenerateIngress(),
   TestGenerateSecrets: TestGenerateSecrets(),
   TestGenerateService: TestGenerateService(),
   TestGeneratePersistentVolumeClaims: TestGeneratePersistentVolumeClaims(),
+  TestDeployment: TestDeployment(),
 }
