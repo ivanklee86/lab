@@ -140,6 +140,5 @@ charts
 manifest*.yaml
 .terraform
 .terraform.lock.hcl
-
-# Jsonnet
-vendor
+.task
+**/**/vendor

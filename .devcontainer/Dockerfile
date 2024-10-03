@@ -1,7 +1,3 @@
-# Build - tfswitcher (https://github.com/ASleepyCat/tfswitcher)
-FROM rust:1-bookworm as rust-builder
-RUN cargo install tfswitcher
-
 # Build - jsonnet (https://github.com/google/go-jsonnet)
 FROM golang:1.20 as jsonnet-builder
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet@latest
@@ -31,10 +27,10 @@ USER vscode
 
 RUN sudo chown -R vscode /usr/local/bin
 
-# - Install tfswitcher and OpenTofu
-COPY --from=rust-builder /usr/local/cargo/bin/tfswitcher /usr/local/bin
-ARG OPENTOFU_VERSION="1.6.1"
-RUN tfswitcher -o ${OPENTOFU_VERSION}
+# - Install tenv
+RUN TENV_URL=`curl -s https://api.github.com/repos/tofuutils/tenv/releases/latest | grep '"browser_download_url":' | grep 'amd64.deb' | grep -vE '(\.pem|\.sig|\.gpgsig)' | grep -o 'https://[^"]*'` && \
+    curl -O -L $TENV_URL && \
+    sudo dpkg -i "${TENV_URL##*/}"
 
 # - Install jsonnet tools
 COPY --from=jsonnet-builder /go/bin/jsonnet /usr/local/bin

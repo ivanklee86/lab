@@ -1,0 +1,26 @@
+argo-workflows:
+  server:
+    extraArgs:
+      - --auth-mode=sso
+
+    sso:
+      enabled: true
+      issuer: https://argocd.aoach.tech/api/dex
+      sessionExpiry: 240h
+      clientId:
+        name: argo-workflows-sso
+        key: client-id
+      clientSecret:
+        name: argo-workflows-sso
+        key: client-secret
+      redirectUrl: https://argoworkflows.aoach.tech/oauth2/callback
+      rbac:
+        enabled: false
+
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      hosts:
+        - argoworkflows.aoach.tech

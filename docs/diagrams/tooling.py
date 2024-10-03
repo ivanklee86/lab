@@ -22,7 +22,6 @@ with Diagram("Tooling", filename=diagram_filename, outformat=["png"], show=False
             python = Python("Python")
             op_cli = Custom("1Password CLI", "../imgs/1password.png")
 
-
     with Cluster("Github.com"):
         github = Github("Github")
         github_actions = Custom("Github Actions [CI]", "../imgs/github_actions.png")
