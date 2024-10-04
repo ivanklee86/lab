@@ -120,7 +120,7 @@ local TestGeneratePersistentVolumeClaims() =
   true;
 
 local TestDeployment() =
-  assert testUtils.debug(manifests.generateDeployment('foobar', null, configs._configs)) == {
+  assert manifests.generateDeployment('foobar', null, configs._configs) == {
     apiVersion: 'apps/v1',
     kind: 'Deployment',
     metadata: {
@@ -203,7 +203,7 @@ local TestDeployment() =
   true;
 
 local TestNew() =
-  assert manifests.new(configs._configs) != {};
+  assert testUtils.debug(manifests.new(configs._configs)) != {};
   true;
 
 {

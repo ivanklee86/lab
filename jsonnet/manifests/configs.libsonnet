@@ -1,5 +1,5 @@
 {
-  _configs: {
+  _configs:: {
     name: 'default',
 
     container: {
