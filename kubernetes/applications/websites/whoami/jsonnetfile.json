@@ -4,7 +4,7 @@
       "source": {
         "git": {
           "remote": "https://github.com/ivanklee86/lab.git",
-          "subdir": "jsonnet"
+          "subdir": "jsonnet/manifests"
         }
       },
       "version": "84_jsonnet_lib"
