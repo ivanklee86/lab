@@ -129,7 +129,7 @@ local volumeMount = k.core.v1.volumeMount;
         deploymentWrapper,
         configs
       ),
-      ingress: wrapper.warap(
+      ingress: wrapper.wrap(
         $.generateIngress(
           name=configs.name,
           configs=configs

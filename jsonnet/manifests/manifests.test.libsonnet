@@ -202,6 +202,10 @@ local TestDeployment() =
   };
   true;
 
+local TestNew() =
+  assert manifests.new(configs._configs) != {};
+  true;
+
 {
   TestgenerateContainer: TestgenerateContainer(),
   TestGenerateIngress: TestGenerateIngress(),
@@ -209,4 +213,5 @@ local TestDeployment() =
   TestGenerateService: TestGenerateService(),
   TestGeneratePersistentVolumeClaims: TestGeneratePersistentVolumeClaims(),
   TestDeployment: TestDeployment(),
+  TestNew: TestNew(),
 }
