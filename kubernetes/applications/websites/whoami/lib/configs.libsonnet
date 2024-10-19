@@ -5,7 +5,7 @@ configs + {
         name: "whoami",
 
         container+: {
-            image: "containous/whami",
+            image: "containous/whoami",
             tag: "latest"
         },
 
