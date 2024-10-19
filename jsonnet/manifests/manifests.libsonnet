@@ -115,6 +115,7 @@ local volumeMount = k.core.v1.volumeMount;
   ):
     [
       persistentVolumeClaim.new(x.name) +
+      persistentVolumeClaim.metadata.withLabels(x.labels) +
       persistentVolumeClaim.spec.withAccessModes('ReadWriteOnce') +
       persistentVolumeClaim.spec.resources.withRequests({ storage: x.size })
       for x in volumes
