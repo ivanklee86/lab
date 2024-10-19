@@ -54,7 +54,7 @@ local volumeMount = k.core.v1.volumeMount;
       replicas=1,
       containers=[
         wrapper.wrap(
-          $.generateContainer(name=configs, configs=configs),
+          $.generateContainer(name=name, configs=configs),
           containerWrapper,
           configs
         ),

@@ -119,7 +119,7 @@ local TestGeneratePersistentVolumeClaims() =
   ])) == 2;
   true;
 
-local TestDeployment() =
+local TestGenerateDeployment() =
   assert manifests.generateDeployment('foobar', null, configs._configs) == {
     apiVersion: 'apps/v1',
     kind: 'Deployment',
@@ -150,41 +150,7 @@ local TestDeployment() =
               ],
               image: 'alpine:3',
               imagePullPolicy: 'Always',
-              name: {
-                container: {
-                  envVars: {
-
-                  },
-                  image: 'alpine',
-                  tag: '3',
-                },
-                ingress: {
-                  annotations: {
-
-                  },
-                  enabled: false,
-                  hosts: [
-
-                  ],
-                },
-                name: 'default',
-                ports: {
-                  containerPort: 8080,
-                  servicePort: {
-                    name: 'http',
-                    port: 80,
-                    protocol: 'TCP',
-                    targetPort: 'http',
-                  },
-                },
-                replicas: 1,
-                secrets: [
-
-                ],
-                volumes: [
-
-                ],
-              },
+              name: 'foobar',
               ports: [
                 {
                   containerPort: 8080,
@@ -203,15 +169,15 @@ local TestDeployment() =
   true;
 
 local TestNew() =
-  assert testUtils.debug(manifests.new(configs._configs)) != {};
+  assert manifests.new(configs._configs) != {};
   true;
 
 {
-  TestgenerateContainer: TestgenerateContainer(),
+  TestGenerateContainer: TestgenerateContainer(),
   TestGenerateIngress: TestGenerateIngress(),
   TestGenerateSecrets: TestGenerateSecrets(),
   TestGenerateService: TestGenerateService(),
   TestGeneratePersistentVolumeClaims: TestGeneratePersistentVolumeClaims(),
-  TestDeployment: TestDeployment(),
+  TestGenerateDeployment: TestGenerateDeployment(),
   TestNew: TestNew(),
 }
