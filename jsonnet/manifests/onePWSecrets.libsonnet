@@ -1,7 +1,7 @@
 {
   new(name='default', path='vaults/...'): {
     apiVersion: 'onepassword.com/v1',
-    kund: 'OnePasswordItem',
+    kind: 'OnePasswordItem',
     metadata: {
       name: name,
     },
