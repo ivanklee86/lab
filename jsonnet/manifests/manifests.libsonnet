@@ -142,7 +142,7 @@ local volumeMount = k.core.v1.volumeMount;
       service: wrapper.wrap(
         $.generateService(
           name=configs.name,
-          ports=configs.ports,
+          ports=configs.ports.servicePort,
           configs=configs
         ),
         serviceWrapper,

@@ -29,10 +29,10 @@ local TestgenerateContainer() =
   true;
 
 local TestGenerateIngress() =
-  assert testUtils.debug(manifests.generateIngress(
+  assert manifests.generateIngress(
     'default',
     configs._configs + { ingress+: { enabled: true, hosts: ['a.com', 'www.a.com'] } }
-  )) == {
+  ) == {
     apiVersion: 'networking.k8s.io/v1',
     kind: 'Ingress',
     metadata: {
