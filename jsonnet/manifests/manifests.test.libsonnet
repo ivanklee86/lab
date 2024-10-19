@@ -142,7 +142,7 @@ local TestGenerateDeployment() =
       replicas: 1,
       selector: {
         matchLabels: {
-          app: 'foobar',
+          name: 'foobar',
         },
       },
       template: {

@@ -61,7 +61,7 @@ local volumeMount = k.core.v1.volumeMount;
       ]
     ) +
     deployment.spec.selector.withMatchLabels({
-      app: name,
+      name: name,
     }) +
     deployment.spec.withReplicas(configs.replicas),
 
