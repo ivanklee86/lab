@@ -29,10 +29,10 @@ local TestgenerateContainer() =
   true;
 
 local TestGenerateIngress() =
-  assert manifests.generateIngress(
+  assert testUtils.debug(manifests.generateIngress(
     'default',
     configs._configs + { ingress+: { enabled: true, hosts: ['a.com', 'www.a.com'] } }
-  ) == {
+  )) == {
     apiVersion: 'networking.k8s.io/v1',
     kind: 'Ingress',
     metadata: {
@@ -45,30 +45,42 @@ local TestGenerateIngress() =
       ingressClassName: 'nginx',
       rules: [
         {
-          backend: {
-            service: {
-              name: 'default',
-              port: {
-                name: 'http',
-              },
-            },
-          },
           host: 'a.com',
-          path: '/',
-          pathType: 'Prefix',
+          http: {
+            paths: [
+              {
+                backend: {
+                  service: {
+                    name: 'default',
+                    port: {
+                      name: 'http',
+                    },
+                  },
+                },
+                path: '/',
+                pathType: 'Prefix',
+              },
+            ],
+          },
         },
         {
-          backend: {
-            service: {
-              name: 'default',
-              port: {
-                name: 'http',
-              },
-            },
-          },
           host: 'www.a.com',
-          path: '/',
-          pathType: 'Prefix',
+          http: {
+            paths: [
+              {
+                backend: {
+                  service: {
+                    name: 'default',
+                    port: {
+                      name: 'http',
+                    },
+                  },
+                },
+                path: '/',
+                pathType: 'Prefix',
+              },
+            ],
+          },
         },
       ],
     },

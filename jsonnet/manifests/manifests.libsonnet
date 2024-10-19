@@ -75,10 +75,12 @@ local volumeMount = k.core.v1.volumeMount;
       ingress.spec.withIngressClassName('nginx') +
       ingress.spec.withRules([
         ingressRule.withHost(x) +
-        httpIngressPath.withPath('/') +
-        httpIngressPath.withPathType('Prefix') +
-        httpIngressPath.backend.service.withName(name) +
-        httpIngressPath.backend.service.port.withName(configs.ports.servicePort.name)
+        ingressRule.http.withPaths(
+          httpIngressPath.withPath('/') +
+          httpIngressPath.withPathType('Prefix') +
+          httpIngressPath.backend.service.withName(name) +
+          httpIngressPath.backend.service.port.withName(configs.ports.servicePort.name)
+        )
         for x in configs.ingress.hosts
       ])
     else {},
