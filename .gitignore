@@ -132,6 +132,9 @@ test_results
 *.scratchpad.*
 GENERATED.md
 
+# task
+.task
+
 # Helm
 charts
 manifest*.yaml

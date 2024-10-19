@@ -1,0 +1,26 @@
+{
+  "dependencies": [
+    {
+      "source": {
+        "git": {
+          "remote": "https://github.com/ivanklee86/lab.git",
+          "subdir": "jsonnet/manifests"
+        }
+      },
+      "sum": "4GE7YCNcGVNPgfgSHACj/KiA26rJFhc/UnZ/7xXVupw=",
+      "version": "3ee114dc7fb68410944b1489e3d65b598f354413"
+    },
+    {
+      "source": {
+        "git": {
+          "remote": "https://github.com/jsonnet-libs/k8s-libsonnet.git",
+          "subdir": "1.28"
+        }
+      },
+      "sum": "mmgrpDseCZXuJmOPWNcU9V3WccLXLwf9+GH1Mvo55nY=",
+      "version": "6ecbb7709baf27f44b2e48f3529741ae6754ae6a"
+    }
+  ],
+  "legacyImports": false,
+  "version": 1
+}

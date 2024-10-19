@@ -47,6 +47,7 @@
 			"extensions": [
 				"GitHub.remotehub",
 				"github.vscode-github-actions",
+				"Grafana.vscode-jsonnet",
 				"mikestead.dotenv",
 				"ms-azuretools.vscode-docker",
 				"ms-kubernetes-tools.vscode-kubernetes-tools",

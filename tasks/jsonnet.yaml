@@ -1,0 +1,45 @@
+version: '3'
+
+vars:
+  JSONNET_FOLDER: "./jsonnet/manifests"
+
+tasks:
+  internal:setup:
+    desc: "Set up (and clean up) tests"
+    dir: "{{ .JSONNET_FOLDER }}"
+    internal: true
+    cmds:
+      - jb install
+      - ln -s vendor/github.com/ github.com  # Create symlink for jsonnet dependency resolution.
+
+  internal:cleanup:
+    desc: "Cleans things up."
+    dir: "{{ .JSONNET_FOLDER }}"
+    internal: true
+    cmds:
+      - rm -rf github.com
+
+  lib:test:
+    desc: Run jsonnet tests
+    dir: "{{ .JSONNET_FOLDER }}"
+    sources:
+      - "*.test.libsonnet"
+    cmds:
+      - task: internal:setup
+      - for: sources
+        cmd: jsonnet {{ .ITEM }}
+      - defer: {task: "internal:cleanup" }
+    status:
+      - none
+
+  lib:fmt:
+    desc: Format jsonnet code
+    dir: "{{ .JSONNET_FOLDER }}"
+    cmds:
+      - jsonnetfmt --no-use-implicit-plus -i *.libsonnet
+
+  manifests:
+    desc: Generate manifests
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - tk show --dangerous-allow-redirect environments/default > manifests.yaml

@@ -1,3 +1,9 @@
+# Build - jsonnet (https://github.com/google/go-jsonnet)
+FROM golang:1.20 as jsonnet-builder
+RUN go install github.com/google/go-jsonnet/cmd/jsonnet@latest
+RUN go install github.com/google/go-jsonnet/cmd/jsonnet-lint@latest
+RUN go install github.com/google/go-jsonnet/cmd/jsonnetfmt@latest
+
 # Runtime
 FROM mcr.microsoft.com/devcontainers/base:ubuntu
 
@@ -25,6 +31,11 @@ RUN sudo chown -R vscode /usr/local/bin
 RUN TENV_URL=`curl -s https://api.github.com/repos/tofuutils/tenv/releases/latest | grep '"browser_download_url":' | grep 'amd64.deb' | grep -vE '(\.pem|\.sig|\.gpgsig)' | grep -o 'https://[^"]*'` && \
     curl -O -L $TENV_URL && \
     sudo dpkg -i "${TENV_URL##*/}"
+
+# - Install jsonnet tools
+COPY --from=jsonnet-builder /go/bin/jsonnet /usr/local/bin
+COPY --from=jsonnet-builder /go/bin/jsonnet-lint /usr/local/bin
+COPY --from=jsonnet-builder /go/bin/jsonnetfmt /usr/local/bin
 
 # - Install tools with scripts
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d
