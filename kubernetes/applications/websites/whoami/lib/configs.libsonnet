@@ -7,6 +7,15 @@ configs + {
         container+: {
             image: "containous/whami",
             tag: "latest"
+        },
+
+        ports+: {
+            containerPort: 80
+        },
+
+        ingress+: {
+            enabled: true,
+            hosts: ["whoami.aoach.tech"]
         }
     }
 }

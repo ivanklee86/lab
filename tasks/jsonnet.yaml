@@ -37,3 +37,9 @@ tasks:
     dir: "{{ .JSONNET_FOLDER }}"
     cmds:
       - jsonnetfmt --no-use-implicit-plus -i *.libsonnet
+
+  manifests:
+    desc: Generate manifests
+    dir: "{{.USER_WORKING_DIR}}"
+    cmds:
+      - tk show --dangerous-allow-redirect environments/default > manifests.yaml
