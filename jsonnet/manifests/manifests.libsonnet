@@ -105,7 +105,7 @@ local volumeMount = k.core.v1.volumeMount;
     service.new(
       name=name,
       selector={
-        app: name,
+        name: name,
       },
       ports=ports
     ),
