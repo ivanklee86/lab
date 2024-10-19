@@ -13,6 +13,8 @@ spec:
       revision: main
       directories:
       - path: kubernetes/applications/websites/*
+      - path: kubernetes/applications/websites/whoami
+        exclude: true
   template:
     metadata:
       name: "{{path.basenameNormalized}}"
