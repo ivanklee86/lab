@@ -7,7 +7,7 @@
           "subdir": "jsonnet/manifests"
         }
       },
-      "version": "84_jsonnet_lib"
+      "version": "jsonnet_v0.0.1"
     }
   ],
   "legacyImports": true,
