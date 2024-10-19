@@ -11,14 +11,8 @@ data:
     spec:
       version: v1.0
       init:
-        command: [sh, -c]
-        args:
-          - |
-            "jb install"
+        command: [sh, -c, 'jb install']
       generate:
-        command: [sh, -c]
-        args:
-          - |
-            tk show --dangerous-allow-redirect environments/default
+        command: [sh, -c, 'tk show --dangerous-allow-redirect environments/default']
       discover:
         fileName: jsonnetfile.json
