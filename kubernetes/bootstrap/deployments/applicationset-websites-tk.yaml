@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: lab-deployments-websites-plugin
+  namespace: infrastructure
+spec:
+  ignoreApplicationDifferences:
+    - jsonPointers:
+        - /spec/syncPolicy
+  generators:
+  - git:
+      repoURL: https://github.com/ivanklee86/lab.git
+      revision: main
+      directories:
+      - path: kubernetes/applications/websites/whoami
+  template:
+    metadata:
+      name: "{{path.basenameNormalized}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/ivanklee86/lab.git
+        targetRevision: HEAD
+        path: "{{path}}"
+        plugin:
+          name: tanka-v1.0
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: websites
