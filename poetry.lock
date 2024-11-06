@@ -206,13 +206,13 @@ files = [
 
 [[package]]
 name = "diagrams"
-version = "0.23.4"
+version = "0.24.0"
 description = "Diagram as Code"
 optional = false
-python-versions = ">=3.7,<4.0"
+python-versions = "<4.0,>=3.7"
 files = [
-    {file = "diagrams-0.23.4-py3-none-any.whl", hash = "sha256:1ba69d98fcf8d768dbddf07d2c77aba6cc95c2e6f90f37146c04c96bc6765450"},
-    {file = "diagrams-0.23.4.tar.gz", hash = "sha256:b7ada0b119b5189dd021b1dc1467fad3704737452bb18b1e06d05e4d1fa48ed7"},
+    {file = "diagrams-0.24.0-py3-none-any.whl", hash = "sha256:da20d7e326fd55631a86386ee484832fd00ddecf9ef0c07a42e299bf2a5cb6a2"},
+    {file = "diagrams-0.24.0.tar.gz", hash = "sha256:0ded0099c70aa847ceec341c8224aaf2a46fcd180402fa50638a77cf231b761f"},
 ]
 
 [package.dependencies]
@@ -1086,4 +1086,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "93315b7c4b46cc3c36dabbc74e22f0597d92df02a3ddf7e2dbe814175d65789a"
+content-hash = "7b6af8736036f582fc193be7542b6f302b1f42d8ca8e8a4b4438b82ddf2ed6f5"
