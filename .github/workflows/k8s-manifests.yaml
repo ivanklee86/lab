@@ -15,7 +15,7 @@ jobs:
       - name: Setup main branch locally without switching current branch
         run: git fetch origin main:main
       - name: 'Setup jq'
-        uses: dcarbone/install-jq-action@v2
+        uses: dcarbone/install-jq-action@v3
       # Credit to https://www.kenmuse.com/blog/dynamic-build-matrices-in-github-actions/
       - name: 'Setup ripgrep'
         run: sudo apt-get install -y ripgrep
