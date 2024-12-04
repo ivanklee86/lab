@@ -1,6 +1,6 @@
 dependencies:
 - name: k8s-monitoring
   repository: https://grafana.github.io/helm-charts
-  version: 1.6.11
-digest: sha256:837e6b0bcad9e49bea03d2362f7493fa3c5d373d100bd22f0b194f7a34cf7f6f
-generated: "2024-11-22T16:56:58.072215397Z"
+  version: 1.6.13
+digest: sha256:9d73e0ddc0904339e5758006b09d828128dbf17653f402452f41bcd426cbf0fc
+generated: "2024-12-04T13:45:24.002729883Z"
