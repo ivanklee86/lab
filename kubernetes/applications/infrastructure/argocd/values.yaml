@@ -317,7 +317,7 @@ argo-cd:
       - name: tanka
         command:
           - "/var/run/argocd/argocd-cmp-server"
-        image: grafana/tanka:0.31.1
+        image: grafana/tanka:0.31.2
         securityContext:
           runAsNonRoot: true
           runAsUser: 999
