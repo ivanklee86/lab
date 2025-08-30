@@ -33,6 +33,8 @@ spec:
                   value: mailgun
                 - name: mail__options__auth__user
                   value: postmaster@mail.ivanlee.me
+                - name: security__staffDeviceVerification
+                  value: "false"
               envFrom:
                 - secretRef:
                     name: ghost-secrets
