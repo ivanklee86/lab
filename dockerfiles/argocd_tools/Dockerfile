@@ -1,4 +1,4 @@
-FROM golang:1.24 as go_builder
+FROM golang:1.25 as go_builder
 
 RUN go install github.com/yannh/kubeconform/cmd/kubeconform@v0.4.13
 
