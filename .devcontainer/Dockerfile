@@ -1,5 +1,5 @@
 # Build - jsonnet (https://github.com/google/go-jsonnet)
-FROM golang:1.24 as jsonnet-builder
+FROM golang:1.25 as jsonnet-builder
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet@latest
 RUN go install github.com/google/go-jsonnet/cmd/jsonnet-lint@latest
 RUN go install github.com/google/go-jsonnet/cmd/jsonnetfmt@latest
